@@ -1,0 +1,154 @@
+body, html{
+	position: relative;
+}
+
+.toast{
+	position: fixed;
+	top:20px;
+	bottom: auto;
+	right: auto;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.admin-header {
+
+}
+
+.admin-nav {
+
+}
+
+.admin-content {
+
+}
+
+@media print {
+	.main-content{
+		margin-left: 0 !important;
+	}
+}
+
+
+.btn-file {
+	border: 1px solid #d2ddec;
+	border-left: none;
+}
+.form-group.is-invalid .file-caption,
+.form-group.is-invalid .btn-file{
+	border-color: #e63757;
+}
+.form-group.is-valid .file-caption,
+.form-group.is-valid .btn-file{
+	border-color: #00d97e;
+}
+
+.custom-form {
+	overflow: scroll;
+	max-height: 300px
+}
+
+/*summernote*/
+
+.note-editor.note-frame {
+    border-color: #d3dded!important;
+    border-radius: .5rem!important;
+    margin-bottom: 0!important;
+}
+textarea.is-invalid + .note-editor.note-frame {
+	border-color: #e63757!important;
+}
+textarea.is-valid + .note-editor.note-frame {
+	border-color: #00d97e!important;
+}
+.note-toolbar{
+    border-top-left-radius: .5rem!important;
+    border-top-right-radius: .5rem!important;
+    min-height: auto!important;
+    padding: 0 3px 3px!important;
+    display: block!important;
+    background: #f8f9fa!important;
+}
+.note-btn{
+	background: #f8f9fa!important;
+    border: 1px solid #f8f9fa!important;
+}
+.note-btn:hover{
+	background: #e2e6ea!important;
+    border: 1px solid #dae0e5!important;
+}
+.note-statusbar{
+    border-bottom-left-radius: .5rem!important;
+    border-bottom-right-radius: .5rem!important;
+    background: #f8f9fa!important;
+}
+
+.navbar-brand{
+	position: relative;
+}
+.navbar-brand .navbar-brand-img.cor,
+.navbar-brand:hover .navbar-brand-img.preta{
+	opacity: 1;
+}
+.navbar-brand .navbar-brand-img.preta,
+.navbar-brand:hover .navbar-brand-img.cor{
+	opacity: 0;
+}
+
+.navbar-brand .navbar-brand-img{
+	transition: opacity .2s ease-out;
+}
+.navbar-brand:hover .navbar-brand-img{
+	transition: opacity .7s ease-in;
+}
+.navbar-brand-img.preta{
+	position: absolute;
+	left: 10px;
+	width: 90%;
+}
+
+
+.sa-warning{
+	animation: none;
+	border-color: #F6840F!important;
+}
+.sa-warning .sa-body,
+.sa-warning .sa-dot{
+	animation: none;
+	background-color: #F6840F!important;
+}
+
+
+.nav-link.active{
+	color: #1F0741!important;
+	transition: color .2s ease;
+}
+.nav-link.active i{
+	transition: color .2s ease;
+	color: rgba(31, 7, 65, 0.45)!important;
+}
+.nav-link:hover i{
+	color: #1F0741!important;
+}
+
+.modal-footer{
+	padding: .75rem;
+}
+
+select.is-invalid ~ button,
+select.is-invalid ~ button:focus,
+select.is-invalid ~ button:hover {
+	outline: none;
+    border-color: #e63757!important;
+}
+.bootstrap-select>.dropdown-toggle{
+	outline: none!important;
+    border-radius: .375rem;
+	color: #12263f;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d2ddec;
+}
+.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+    color: #b1c2d9;
+    background: #fff;
+}
