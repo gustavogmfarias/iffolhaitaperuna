@@ -101,6 +101,7 @@ public class AutorController {
 			validator.onErrorRedirectTo(this).novo();
 
 		}
+		
 		validator.onErrorRedirectTo(this).editar(autor);
 
 		try {
