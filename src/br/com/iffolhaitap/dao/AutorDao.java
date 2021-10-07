@@ -8,13 +8,13 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.iffolhaitap.model.Usuario;
+import br.com.iffolhaitap.model.Autor;
 
 @RequestScoped
-public class UsuarioDao extends HibernateDao<Usuario> {
+public class AutorDao extends HibernateDao<Autor> {
 
 	@SuppressWarnings("unchecked")
-	public List<Usuario> lista(String busca) {
+	public List<Autor> lista(String busca) {
 		if (busca == null) {
 			busca = "";
 		}
@@ -26,7 +26,7 @@ public class UsuarioDao extends HibernateDao<Usuario> {
 		
 		}
 
-	public boolean existeUsuarioPorEmail(String email) {
+	public boolean existeAutorPorEmail(String email) {
 
 		Criteria criteria = session.createCriteria(classePersistida);
 		criteria.add(Restrictions.eq("email", email));
@@ -34,13 +34,13 @@ public class UsuarioDao extends HibernateDao<Usuario> {
 		return criteria.list().size()>0;
 	}
 
-	public Usuario procuraPorEmail(String email) {
+	public Autor procuraPorEmail(String email) {
 
 
 		Criteria criteria = session.createCriteria(classePersistida);
 		criteria.add(Restrictions.eq("email", email));
 		
-		return (Usuario) criteria.uniqueResult();
+		return (Autor) criteria.uniqueResult();
 		
 	}
 

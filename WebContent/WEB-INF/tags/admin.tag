@@ -58,7 +58,7 @@
 
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a href="${sessao.urlPadrao}adm" class="nav-link ">
+						<a href="${sessao.urlPadrao}adm/inicio" class="nav-link ">
 							<i class="fad fa-home fa-fw mr-2"></i> Dashboard
 						</a>
 					</li>
@@ -93,7 +93,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="${sessao.urlPadrao}adm/logout" class="nav-link ">
+						<a href="${sessao.urlPadrao}adm/sair" class="nav-link ">
 							<i class="fad fa-sign-out fa-fw mr-2"></i> Sair
 						</a>
 					</li>

@@ -1,0 +1,12 @@
+br.com.iffolhaitap.model.Artigo
+br.com.iffolhaitap.model.Autor
+br.com.iffolhaitap.model.Contato
+br.com.iffolhaitap.model.Curso
+br.com.iffolhaitap.model.Entidade
+br.com.iffolhaitap.model.GeneroTexto
+br.com.iffolhaitap.model.Newsletter
+br.com.iffolhaitap.model.Noticia
+br.com.iffolhaitap.model.Perfil
+br.com.iffolhaitap.model.Tag
+br.com.iffolhaitap.model.Turma
+br.com.iffolhaitap.model.Usuario

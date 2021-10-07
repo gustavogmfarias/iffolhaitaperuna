@@ -1,32 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="../base.css">
-<meta charset="ISO-8859-1">
-<title>Novo Usuario</title>
-</head>
-<body>
-
-
-	<form action="<c:url value='/usuario/adiciona'/>" method="post" enctype="multipart/form-data"> 
-	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
+<template:admin>
+	<div class="header">
+		<div class="container-fluid">
+			<div class="header-body">
+				<div class="row align-items-end">
+					<div class="col">
+						<h6 class="header-pretitle">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}">Home</a></li>
+									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm/usuarios">Usuários</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Novo Usuário</li>
+								</ol>
+							</nav>
+						</h6>
+						<h1 class="header-title">
+							Novo usuário
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form class="m-3 validateForm load" action="${sessao.urlPadrao}usuarios" method="post" role="form"
+		enctype="multipart/form-data">
 		<%@include file="form.jsp"%>
-	
 	</form>
+	
+	${mensagem} <br>
 
-
-  <c:if test="${not empty errors}">
-            <div class="alert alert-danger">
-                <c:forEach var="error" items="${errors}">
-                    ${error.category} - ${error.message}<br />
-                </c:forEach>
-            </div>
-        </c:if>
-
-</body>
-</html>
+</template:admin>

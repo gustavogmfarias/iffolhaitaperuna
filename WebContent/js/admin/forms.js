@@ -145,7 +145,7 @@ function iniciarValidacao(form){
 		    errorPlacement: function(error, element) {
 		    	var group = element.closest(".form-group");
 		    	group.find('.invalid-feedback').remove();
-		    	//error.removeClass('is-invalid').addClass('invalid-feedback').appendTo(group);
+		    	error.removeClass('is-invalid').addClass('invalid-feedback').appendTo(group);
 			}
 		});
 

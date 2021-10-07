@@ -3,6 +3,8 @@ package br.com.iffolhaitap.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,12 +15,19 @@ public class Usuario extends Entidade {
 	private String nome;
 
 	@NotEmpty(message="{usuario.senha.vazio}")
+	@Size(min=6, max=15, message="{usuario.senha.min6max15}")
 	private String senha;
 
+	@Transient
+	private String senhaConfirmacao;
+	
+	@Transient
+	private String senhaAntiga;
+	
 	@NotEmpty(message="{usuario.email.vazio}")
 	private String email;
 
-	private String imagem;
+	private String imagem = "";
 
 	@Enumerated(EnumType.STRING)
 	private Perfil perfil;
@@ -76,4 +85,22 @@ public class Usuario extends Entidade {
 		this.perfil = perfil;
 	}
 
+	public String getSenhaConfirmacao() {
+		return senhaConfirmacao;
+	}
+
+	public void setSenhaConfirmacao(String senhaConfirmacao) {
+		this.senhaConfirmacao = senhaConfirmacao;
+	}
+
+	public String getSenhaAntiga() {
+		return senhaAntiga;
+	}
+
+	public void setSenhaAntiga(String senhaAntiga) {
+		this.senhaAntiga = senhaAntiga;
+	}
+
+	
+	
 }

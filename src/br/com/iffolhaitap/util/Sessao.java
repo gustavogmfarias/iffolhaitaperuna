@@ -5,12 +5,15 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import br.com.iffolhaitap.model.Usuario;
+
 @Named("sessao")
 @SessionScoped
 public class Sessao implements Serializable{
 
 	private static final long serialVersionUID = -2716020570285741943L;
-
+	
+	private Usuario usuario;
 	private String url;
 	private String titulo;
 
@@ -54,4 +57,14 @@ public class Sessao implements Serializable{
 		this.urlPadrao = urlPadrao;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	
+	
 }

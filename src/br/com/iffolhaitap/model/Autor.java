@@ -25,7 +25,7 @@ public class Autor extends Entidade {
 	@ManyToMany
     private List<Artigo> artigos;
     
-    
+	private String imagem = "";
 
 	public Autor(String nome, String email, String telefone, List<Noticia> noticias, List<Artigo> artigos) {
 		super();
@@ -82,6 +82,18 @@ public class Autor extends Entidade {
 
 	public void setArtigos(List<Artigo> artigos) {
 		this.artigos = artigos;
+	}
+
+
+
+	public String getImagem() {
+		return imagem;
+	}
+
+
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
     
 
