@@ -48,12 +48,11 @@ public class AutorController {
 	public void adiciona(@Valid Autor autor, UploadedFile imagemAutor) throws IOException {
 
 		if (imagemAutor != null) {
-			File fotoSalva = new File(sessao.getUrlPadrao() + "img/imagens-autor", imagemAutor.getFileName());
+			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-autor",
+					imagemAutor.getFileName());
 			imagemAutor.writeTo(fotoSalva);
 			autor.setImagem(imagemAutor.getFileName());
 		}
-
-		validator.onErrorUsePageOf(this).novo();
 
 		if (autorDao.existeAutorPorEmail(autor.getEmail())) {
 
@@ -61,6 +60,8 @@ public class AutorController {
 			validator.onErrorRedirectTo(this).novo();
 
 		}
+
+		validator.onErrorUsePageOf(this).novo();
 
 		try {
 
@@ -73,7 +74,7 @@ public class AutorController {
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
 			validator.onErrorRedirectTo(this).novo();
 		}
-		result.include("mensagem", "Autor adicionado com sucesso");
+		result.include("message", "Autor adicionado com sucesso");
 
 		result.redirectTo(this).lista("");
 
@@ -88,20 +89,19 @@ public class AutorController {
 	public void atualizar(@Valid Autor autor, UploadedFile imagemAutor) throws IOException {
 
 		if (imagemAutor != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-Autor",
-			imagemAutor.getFileName());
+			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-autor",
+					imagemAutor.getFileName());
 			imagemAutor.writeTo(fotoSalva);
 			autor.setImagem(imagemAutor.getFileName());
 		}
 
+		if (autorDao.existeAutorPorEmail(autor.getEmail()) && !autor.getEmail().equals(autor.getNovoEmail())) {
 
-		if (autorDao.existeAutorPorEmail(autor.getEmail())) {
-
-			validator.add(new SimpleMessage("error", "Já existe usuário cadastrado com esse e-mail"));
-			validator.onErrorRedirectTo(this).novo();
+			validator.add(new SimpleMessage("error", "Já existe autor cadastrado com esse e-mail"));
+			validator.onErrorRedirectTo(this).editar(autor);
 
 		}
-		
+
 		validator.onErrorRedirectTo(this).editar(autor);
 
 		try {

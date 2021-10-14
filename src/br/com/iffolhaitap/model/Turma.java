@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -14,7 +15,7 @@ public class Turma extends Entidade {
 	@NotEmpty
 	private String nome;
 
-	@ManyToOne
+	@ManyToOne @NotNull
 	private Curso curso;
 	
 	@ManyToMany

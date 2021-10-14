@@ -13,13 +13,13 @@
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}">Home</a></li>
-									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm/usuarios">Usuarios</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Editar Usuario</li>
+									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm/usuarios">Usuários</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Editar Usuário</li>
 								</ol>
 							</nav>
 						</h6>
 						<h1 class="header-title">
-							Editar usuario ${usuario.nome}
+							Editar usuário ${usuario.nome}
 						</h1>
 					</div>
 				</div>

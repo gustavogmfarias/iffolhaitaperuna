@@ -12,17 +12,17 @@
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Usuários</li>
+									<li class="breadcrumb-item active" aria-current="page">Autores</li>
 								</ol>
 							</nav>
 						</h6>
 						<h1 class="header-title">
-							Usuários
+							Autores
 						</h1>
 					</div>
 					<div class="col-auto">
-						<a href="${sessao.urlPadrao}adm/usuarios/novo" class="btn btn-primary">
-							<i class="fas fa-plus"></i> Novo Usuário
+						<a href="${sessao.urlPadrao}adm/autores/novo" class="btn btn-primary">
+							<i class="fas fa-plus"></i> Novo Autor
 						</a>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 			<div class="col-12">
 				<form class="form-inline" id="unidadeForm">
 					<div class="col p-0">
-					<label class="sr-only" for="usuarioNome">Nome</label>
+					<label class="sr-only" for="autorNome">Nome</label>
 					<input type="text" name="busca" value="${busca}" class="form-control mb-2 mr-sm-2 form-control-sm" id="nome"
 						placeholder="Ex.: fabiana">
 
@@ -47,32 +47,36 @@
 			</div>
 			<div class="col-12">
 				<div class="table-responsive">
-					<table class="table table-nowrap" id="usuarioTable">
+					<table class="table table-nowrap" id="autorTable">
 						<thead>
 			<tr>
 				<th>Nome</th>
 				<th>Email</th>
-				<th>Perfil</th>
+				<th>Telefone</th>
+				<th></th>
+				<th></th>
 				<th>Imagem</th>
 				
 			</tr>
 
 		</thead>
 		<tbody>
-			<c:forEach items="${usuarioList}" var="usuario">
+			<c:forEach items="${autorList}" var="autor">
 
 				<tr>
-					<td>${usuario.nome}</td>
-					<td>${usuario.email}</td>
-					<td>${usuario.perfil}</td>
-					<td><img alt="${usuario.imagem}"
+					<td>${autor.nome}</td>
+					<td>${autor.email}</td>
+					<td>${autor.telefone}</td>
+					<td></td>
+					<td></td>
+					<td><img alt="${autor.imagem}"
 						class="img-fluid img-thumbnail" style="max-width: 80px;"
-						src="<c:url value='/img/imagens-usuario/${usuario.imagem}'/>">
+						src="<c:url value='/img/imagens-autor/${autor.imagem}'/>">
 					</td>
 					<td><a
-						href="${sessao.urlPadrao}adm/usuarios/${usuario.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
+						href="${sessao.urlPadrao}adm/autores/${autor.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
 					</td>
-					<td><a href="${sessao.urlPadrao}adm/usuarios/${usuario.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
+					<td><a href="${sessao.urlPadrao}adm/autores/${autor.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
 				</tr>
 
 			</c:forEach>

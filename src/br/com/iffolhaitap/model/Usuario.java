@@ -24,6 +24,9 @@ public class Usuario extends Entidade {
 	@Transient
 	private String senhaAntiga;
 	
+	@Transient
+	private String novoEmail;
+	
 	@NotEmpty(message="{usuario.email.vazio}")
 	private String email;
 
@@ -99,6 +102,14 @@ public class Usuario extends Entidade {
 
 	public void setSenhaAntiga(String senhaAntiga) {
 		this.senhaAntiga = senhaAntiga;
+	}
+
+	public String getNovoEmail() {
+		return novoEmail;
+	}
+
+	public void setNovoEmail(String novoEmail) {
+		this.novoEmail = novoEmail;
 	}
 
 	

@@ -49,7 +49,7 @@ public class UsuarioController {
 	public void adiciona(@Valid Usuario usuario, UploadedFile imagemUsuario) throws IOException {
 
 		if (imagemUsuario != null) {
-			File fotoSalva = new File(sessao.getUrlPadrao() + "img/imagens-usuario", imagemUsuario.getFileName());
+			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-usuario", imagemUsuario.getFileName());
 			imagemUsuario.writeTo(fotoSalva);
 			usuario.setImagem(imagemUsuario.getFileName());
 		}
@@ -94,7 +94,7 @@ public class UsuarioController {
 	public void atualizar(@Valid Usuario usuario, UploadedFile imagemUsuario) throws IOException {
 
 		if (imagemUsuario != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-Usuario",
+			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-usuario",
 					imagemUsuario.getFileName());
 			imagemUsuario.writeTo(fotoSalva);
 			usuario.setImagem(imagemUsuario.getFileName());
@@ -102,9 +102,19 @@ public class UsuarioController {
 		
 		if (usuario.getPerfil() == null) {
 			validator.add(new SimpleMessage("error", "Por favor, escolha um tipo de perfil para o usuário"));
-			validator.onErrorRedirectTo(this).novo();
+			validator.onErrorRedirectTo(this).editar(usuario);
 		}
 
+		
+		if (usuarioDao.existeUsuarioPorEmail(usuario.getEmail()) && !usuario.getEmail().equals(usuario.getNovoEmail())) {
+
+			validator.add(new SimpleMessage("error", "Já existe usuário cadastrado com esse e-mail"));
+			validator.onErrorRedirectTo(this).novo();
+
+		}
+		
+		
+		
 		validator.onErrorRedirectTo(this).editar(usuario);
 
 		try {

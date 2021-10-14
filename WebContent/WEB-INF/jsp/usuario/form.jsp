@@ -5,6 +5,8 @@
 			value="${usuario.id}">
     <input type="hidden" class="form-control" name="usuario.imagem"
 			value="${usuario.imagem}">
+	<input type="hidden" class="form-control" name="usuario.novoEmail"
+			value="${usuario.email}">
   </c:if>
   
   <div class="form-group ">
@@ -30,7 +32,7 @@
  <div class="form-group ">
     <label for="usuarioPerfil" class="control-label">Perfil:</label>
 	<select class="form-control required" name="usuario.perfil" >
-    	<option value=""></option>
+		<option value="">Selecione um Perfil</option>
    		<option value="ADMINISTRADOR" <c:if test="${usuario.perfil=='ADMINISTRADOR'}">selected="selected"</c:if>>Administrador</option> 
     	<option value="EDITOR" <c:if test="${usuario.perfil=='EDITOR'}">selected="selected"</c:if>>Editor</option>
   </select>

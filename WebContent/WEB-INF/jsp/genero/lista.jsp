@@ -12,17 +12,17 @@
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Usuários</li>
+									<li class="breadcrumb-item active" aria-current="page">Gêneros de Texto</li>
 								</ol>
 							</nav>
 						</h6>
 						<h1 class="header-title">
-							Usuários
+							Gêneros de Texto
 						</h1>
 					</div>
 					<div class="col-auto">
-						<a href="${sessao.urlPadrao}adm/usuarios/novo" class="btn btn-primary">
-							<i class="fas fa-plus"></i> Novo Usuário
+						<a href="${sessao.urlPadrao}adm/generosdetexto/novo" class="btn btn-primary">
+							<i class="fas fa-plus"></i> Novo Gênero de Texto
 						</a>
 					</div>
 				</div>
@@ -33,11 +33,11 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-12">
-				<form class="form-inline" id="unidadeForm">
+				<form class="form-inline" id="generoTextoForm">
 					<div class="col p-0">
-					<label class="sr-only" for="usuarioNome">Nome</label>
-					<input type="text" name="busca" value="${busca}" class="form-control mb-2 mr-sm-2 form-control-sm" id="nome"
-						placeholder="Ex.: fabiana">
+					<label class="sr-only" for="generoTextoGenero">Gênero de Texto</label>
+					<input type="text" name="busca" value="${busca}" class="form-control mb-2 mr-sm-2 form-control-sm" id="generoTextoGenero"
+						placeholder="Ex.: narrativa">
 
 					<button type="submit" class="btn btn-outline-primary mb-2 btn-sm"><i class="fad fa-search"></i>
 						Pesquisar</button>
@@ -47,32 +47,24 @@
 			</div>
 			<div class="col-12">
 				<div class="table-responsive">
-					<table class="table table-nowrap" id="usuarioTable">
+					<table class="table table-nowrap" id="autorTable">
 						<thead>
 			<tr>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Perfil</th>
-				<th>Imagem</th>
-				
+				<th>Gênero de Texto</th>
 			</tr>
 
 		</thead>
 		<tbody>
-			<c:forEach items="${usuarioList}" var="usuario">
+			<c:forEach items="${generoTextoList}" var="generoTexto">
 
 				<tr>
-					<td>${usuario.nome}</td>
-					<td>${usuario.email}</td>
-					<td>${usuario.perfil}</td>
-					<td><img alt="${usuario.imagem}"
-						class="img-fluid img-thumbnail" style="max-width: 80px;"
-						src="<c:url value='/img/imagens-usuario/${usuario.imagem}'/>">
-					</td>
+					<td>${generoTexto.genero}</td>
+					<td></td>
+					<td></td>
 					<td><a
-						href="${sessao.urlPadrao}adm/usuarios/${usuario.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
+						href="${sessao.urlPadrao}adm/generosdetexto/${generoTexto.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
 					</td>
-					<td><a href="${sessao.urlPadrao}adm/usuarios/${usuario.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
+					<td><a href="${sessao.urlPadrao}adm/generosdetexto/${generoTexto.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
 				</tr>
 
 			</c:forEach>

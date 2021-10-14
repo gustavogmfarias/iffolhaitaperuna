@@ -4,62 +4,69 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity(name="ARTIGO")
-public class Artigo extends Entidade{
+@Entity(name = "ARTIGO")
+public class Artigo extends Entidade {
 
-
-    @NotEmpty 
+	@NotEmpty
 	private String titulo;
-    
-    @NotEmpty 
-	private String  conteudo;
-    
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+
+	@NotEmpty
+	@Lob
+	private String conteudo;
+
+	@OneToOne
+	private Usuario publicadoPor;
+
+	@OneToOne
+	private Usuario editadorPor;
+
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDePublicacao;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataEdicao;
-    
-    @ManyToMany
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataEdicao;
+
+	@ManyToMany
 	private List<Autor> autores;
 
 	@ManyToMany
 	private List<Tag> tags;
-	
-	@ManyToMany
-	private List<Turma> turmas;
 
 	@ManyToMany
-	private List<Curso> cursos;
+	private List<Turma> turmas;
 
 	@ManyToOne
 	private GeneroTexto genero;
 
-	public Artigo(String titulo, String conteudo, Date dataDePublicacao, Date dataEdicao, List<Autor> autores,
-			List<Tag> tags, List<Turma> turmas, List<Curso> cursos, GeneroTexto genero) {
+	public Artigo(String titulo, String conteudo, Usuario publicadoPor, Usuario editadorPor, Date dataDePublicacao,
+			Date dataEdicao, List<Autor> autores, List<Tag> tags, List<Turma> turmas, GeneroTexto genero) {
 		super();
 		this.titulo = titulo;
 		this.conteudo = conteudo;
+		this.publicadoPor = publicadoPor;
+		this.editadorPor = editadorPor;
 		this.dataDePublicacao = dataDePublicacao;
 		this.dataEdicao = dataEdicao;
 		this.autores = autores;
 		this.tags = tags;
 		this.turmas = turmas;
-		this.cursos = cursos;
 		this.genero = genero;
 	}
 
 	public Artigo() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getTitulo() {
@@ -118,14 +125,6 @@ public class Artigo extends Entidade{
 		this.turmas = turmas;
 	}
 
-	public List<Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
-	}
-
 	public GeneroTexto getGenero() {
 		return genero;
 	}
@@ -133,9 +132,21 @@ public class Artigo extends Entidade{
 	public void setGenero(GeneroTexto genero) {
 		this.genero = genero;
 	}
-	
-	
-	
-	
-	
+
+	public Usuario getPublicadoPor() {
+		return publicadoPor;
+	}
+
+	public void setPublicadoPor(Usuario publicadoPor) {
+		this.publicadoPor = publicadoPor;
+	}
+
+	public Usuario getEditadorPor() {
+		return editadorPor;
+	}
+
+	public void setEditadorPor(Usuario editadorPor) {
+		this.editadorPor = editadorPor;
+	}
+
 }

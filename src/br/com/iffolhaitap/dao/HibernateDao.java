@@ -2,7 +2,9 @@ package br.com.iffolhaitap.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import br.com.iffolhaitap.util.HibernateUtil;
@@ -51,6 +53,14 @@ public class HibernateDao<T>{
 	public T get(Long id) {
 		return(T) session.get(classePersistida, id);
 		
+	}
+	
+	public List<T> buscaTodos(){
+		
+		Criteria criteria = session.createCriteria(classePersistida);
+		
+		return criteria.list();
+
 	}
 	
 }

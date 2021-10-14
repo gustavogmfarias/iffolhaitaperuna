@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -25,7 +26,10 @@ public class Autor extends Entidade {
 	@ManyToMany
     private List<Artigo> artigos;
     
-	private String imagem = "";
+	@Transient
+	private String novoEmail;
+	
+	private String imagem;
 
 	public Autor(String nome, String email, String telefone, List<Noticia> noticias, List<Artigo> artigos) {
 		super();
@@ -35,14 +39,10 @@ public class Autor extends Entidade {
 		this.noticias = noticias;
 		this.artigos = artigos;
 	}
-
-	
 	
 	public Autor() {
 		super();
 	}
-
-
 
 	public String getNome() {
 		return nome;
@@ -95,7 +95,14 @@ public class Autor extends Entidade {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
-    
+
+	public String getNovoEmail() {
+		return novoEmail;
+	}
+
+	public void setNovoEmail(String novoEmail) {
+		this.novoEmail = novoEmail;
+	}  
 
 
 }

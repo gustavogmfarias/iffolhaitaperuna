@@ -67,7 +67,26 @@
 							<i class="fad fa-user-crown fa-fw mr-2"></i> Usu&aacute;rios
 						</a>
 					</li>
-
+					<li class="nav-item">
+						<a href="${sessao.urlPadrao}adm/autores" class="nav-link ">
+							<i class="fad fa-user-crown fa-fw mr-2"></i> Autores
+						</a>
+					</li>
+						<li class="nav-item">
+						<a href="${sessao.urlPadrao}adm/turmas" class="nav-link ">
+							<i class="fad fa-user-crown fa-fw mr-2"></i> Turmas
+						</a>
+					</li>
+						<li class="nav-item">
+						<a href="${sessao.urlPadrao}adm/cursos" class="nav-link ">
+							<i class="fad fa-user-crown fa-fw mr-2"></i> Cursos
+						</a>
+					</li>
+							<li class="nav-item">
+						<a href="${sessao.urlPadrao}adm/generosdetexto" class="nav-link ">
+							<i class="fad fa-user-crown fa-fw mr-2"></i> Gêneros de Texto
+						</a>
+					</li>
 				</ul>
 				<hr class="navbar-divider my-3">
 
