@@ -2,6 +2,7 @@ package br.com.iffolhaitap.interceptor;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -18,18 +19,20 @@ public class UsuarioInterceptor implements Interceptor {
 	
 	@Inject private Sessao sessao;
 	@Inject private Result result;
+	@Inject private HttpServletRequest request;
 	
 	@Override
 	public void intercept(InterceptorStack stack, ControllerMethod method, Object controllerInstance)
 			throws InterceptionException {
-	
+		String urlDeContinuacao = request.getRequestURL().toString();
+		
 		if(sessao.getUsuario() == null ) {
-			
+			sessao.setUrlContinuacao(urlDeContinuacao);
 			result.include("error", "Você precisa efetuar o login");
 			result.redirectTo(LoginController.class).login();
 			return;
-			
 		}
+		sessao.limparUrlDeContinuacao();
 		stack.next(method, controllerInstance);
 	}
 

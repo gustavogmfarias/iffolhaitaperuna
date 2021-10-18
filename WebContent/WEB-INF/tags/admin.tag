@@ -69,7 +69,7 @@
 					</li>
 					<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/autores" class="nav-link ">
-							<i class="fad fa-user-crown fa-fw mr-2"></i> Autores
+							<i class="fad fa-user-edit mr-2"></i> Autores
 						</a>
 					</li>
 						<li class="nav-item">
@@ -85,6 +85,11 @@
 							<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/generosdetexto" class="nav-link ">
 							<i class="fad fa-user-crown fa-fw mr-2"></i> Gêneros de Texto
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="${sessao.urlPadrao}adm/noticias" class="nav-link ">
+							<i class="fad fa-user-crown fa-fw mr-2"></i> Noticias
 						</a>
 					</li>
 				</ul>

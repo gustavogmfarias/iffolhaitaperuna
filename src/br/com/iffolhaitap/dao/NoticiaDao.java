@@ -14,7 +14,7 @@ import br.com.iffolhaitap.model.Noticia;
 public class NoticiaDao extends HibernateDao<Noticia> {
 
 	@SuppressWarnings("unchecked")
-	public List<Noticia> lista(String busca) {
+	public List<Noticia> lista(String busca, Boolean ehDestaque) {
 		if (busca == null) {
 			busca = "";
 		}
@@ -22,6 +22,10 @@ public class NoticiaDao extends HibernateDao<Noticia> {
 		Criteria criteria = session.createCriteria(classePersistida);
 		criteria.add(Restrictions.ilike("titulo", busca, MatchMode.ANYWHERE));
 		
+		if(ehDestaque!=null) {
+			criteria.add(Restrictions.eq("ehDestaque", ehDestaque));
+			
+		}
 		return criteria.list();
 		
 		}

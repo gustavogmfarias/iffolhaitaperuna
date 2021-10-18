@@ -19,7 +19,6 @@ public class Noticia extends Entidade {
 	@NotEmpty
 	private String titulo;
 
-	@NotEmpty
 	private String subtitulo;
 
 	@NotEmpty
@@ -33,7 +32,7 @@ public class Noticia extends Entidade {
 	private Usuario publicadoPor;
 
 	@OneToOne
-	private Usuario editadorPor;
+	private Usuario editadoPor;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDePublicacao;
@@ -52,23 +51,30 @@ public class Noticia extends Entidade {
 
 	@ManyToMany
 	private List<Curso> cursos;
+	
+	private boolean ehDestaque;
+	
+	private int ordemDestaque;
 
 	public Noticia(String titulo, String subtitulo, String conteudo, List<NoticiaImagem> imagens, Usuario publicadoPor,
-			Usuario editadorPor, Date dataDePublicacao, Date dataEdicao, List<Autor> autores, List<Tag> tags,
-			List<Turma> turmas, List<Curso> cursos) {
+			Usuario editadoPor, Date dataDePublicacao, Date dataEdicao, List<Autor> autores, List<Tag> tags,
+			List<Turma> turmas, List<Curso> cursos, boolean ehDestaque, int ordemDestaque) {
 		super();
 		this.titulo = titulo;
 		this.subtitulo = subtitulo;
 		this.conteudo = conteudo;
 		this.imagens = imagens;
 		this.publicadoPor = publicadoPor;
-		this.editadorPor = editadorPor;
+		this.editadoPor = editadoPor;
 		this.dataDePublicacao = dataDePublicacao;
 		this.dataEdicao = dataEdicao;
 		this.autores = autores;
 		this.tags = tags;
 		this.turmas = turmas;
 		this.cursos = cursos;
+		this.ehDestaque = ehDestaque;
+		this.ordemDestaque = ordemDestaque;
+
 	}
 
 	public Noticia() {
@@ -164,12 +170,79 @@ public class Noticia extends Entidade {
 		this.publicadoPor = publicadoPor;
 	}
 
-	public Usuario getEditadorPor() {
-		return editadorPor;
+	public Usuario getEditadoPor() {
+		return editadoPor;
 	}
 
-	public void setEditadorPor(Usuario editadorPor) {
-		this.editadorPor = editadorPor;
+	public void setEditadoPor(Usuario editadoPor) {
+		this.editadoPor = editadoPor;
 	}
 
+	public boolean isEhDestaque() {
+		return ehDestaque;
+	}
+
+	public void setEhDestaque(boolean ehDestaque) {
+		this.ehDestaque = ehDestaque;
+	}
+
+	public int getOrdemDestaque() {
+		return ordemDestaque;
+	}
+
+	public void setOrdemDestaque(int ordemDestaque) {
+		this.ordemDestaque = ordemDestaque;
+	}
+
+	public String getNomeDosAutores() {
+		
+		if(getAutores() == null ) {
+			
+			return "";
+		} 
+		
+		String nomeDosAutores = "";
+		
+		for(Autor autor : getAutores()) {
+			
+			nomeDosAutores += autor.getNome() + "<br/>"; 
+			
+		} 
+		return nomeDosAutores;
+	}
+	
+public String getNomeDasTurmas() {
+		
+		if(getTurmas() == null ) {
+			
+			return "";
+		} 
+		
+		String nomeDasTurmas = "";
+		
+		for(Turma turma : getTurmas()) {
+			
+			nomeDasTurmas += turma.getNome() + "<br/>"; 
+			
+		} 
+		return nomeDasTurmas;
+	}
+
+
+public String getNomeDosCursos() {
+	
+	if(getCursos() == null ) {
+		
+		return "";
+	} 
+	
+	String nomeDosCursos = "";
+	
+	for(Curso curso : getCursos()) {
+		
+		nomeDosCursos += curso.getNome() + "<br/>"; 
+		
+	} 
+	return nomeDosCursos;
+}
 }

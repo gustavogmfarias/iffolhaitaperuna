@@ -45,8 +45,12 @@ public class LoginController {
 
 		sessao.setUsuario(usuarioBanco);
 		result.include("message", "Usuário logado com sucesso");
-		result.redirectTo(IndexController.class).inicio();
-
+		
+		if (sessao.temUrlContinuacao()) {
+			result.redirectTo(sessao.getUrlContinuacao());
+		} else {
+			result.redirectTo(IndexController.class).inicio();
+		}
 	}
 
 	@Get("/adm/sair")

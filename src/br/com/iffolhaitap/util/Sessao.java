@@ -18,6 +18,7 @@ public class Sessao implements Serializable{
 	private String titulo;
 
 	private String urlPadrao;
+	private String urlContinuacao;
 
 
 	public Sessao() {
@@ -63,6 +64,22 @@ public class Sessao implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getUrlContinuacao() {
+		return urlContinuacao;
+	}
+
+	public void setUrlContinuacao(String urlContinuacao) {
+		this.urlContinuacao = urlContinuacao;
+	}
+
+	public void limparUrlDeContinuacao() {
+		setUrlContinuacao(null);		
+	}
+
+	public boolean temUrlContinuacao() {
+		return this.urlContinuacao != null && !this.urlContinuacao.isEmpty();
 	}
 
 	

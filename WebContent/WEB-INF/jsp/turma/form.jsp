@@ -16,15 +16,9 @@
     	
 		<option value="">Selecione um curso</option>
     	<c:forEach items="${cursoList}" var="curso">
-
 	   		<option value="${curso.id}" <c:if test="${curso.id == turma.curso.id}">selected="selected"</c:if>>${curso.nome}</option> 
-	
-
-			</c:forEach>
-    	
-    	
-    	
-  </select>
+		</c:forEach>
+  	</select>
   </div>
 
 
