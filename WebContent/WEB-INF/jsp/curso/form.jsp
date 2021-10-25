@@ -3,6 +3,8 @@
   <c:if test="${not empty curso.id}">
     <input type="hidden" class="form-control" name="curso.id"
 			value="${curso.id}">
+			 <input type="hidden" class="form-control" name="nomeAnterior"
+			value="${curso.nome}">
   </c:if>
   
   <div class="form-group ">

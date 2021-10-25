@@ -10,6 +10,7 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
+import br.com.iffolhaitap.service.LoginService;
 import br.com.iffolhaitap.util.Sessao;
 
 @Controller
@@ -23,6 +24,8 @@ public class LoginController {
 	private Validator validator;
 	@Inject
 	private Sessao sessao;
+	@Inject
+	private LoginService loginService;
 
 	@Get("/adm/login")
 	public void login() {
@@ -31,21 +34,16 @@ public class LoginController {
 
 	@Post("/adm/logar")
 	public void logar(Usuario usuario) {
-		Usuario usuarioBanco = usuarioDao.procuraPorEmail(usuario.getEmail());
 
-		if (usuarioBanco == null) {
-			validator.add(new SimpleMessage("error", "Usuário não encontrado"));
+		try {
+			loginService.logar(usuario);
+		} catch (Exception e) {
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).login();
 		}
-
-		if (!usuarioBanco.getSenha().equals(usuario.getSenha())) {
-			validator.add(new SimpleMessage("error", "Senha inválida"));
-			validator.onErrorRedirectTo(this).login();
-		}
-
-		sessao.setUsuario(usuarioBanco);
-		result.include("message", "Usuário logado com sucesso");
 		
+		result.include("message", "Usuário logado com sucesso");
+
 		if (sessao.temUrlContinuacao()) {
 			result.redirectTo(sessao.getUrlContinuacao());
 		} else {

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -18,11 +19,14 @@ public class Turma extends Entidade {
 	@ManyToOne @NotNull
 	private Curso curso;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "turmas")
 	private List<Noticia> noticias;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "turmas")
 	private List<Artigo> artigos;
+	
+	@Transient
+	private String nomeAnterior;
 
 	public Turma(String nome, Curso curso, List<Noticia> noticias, List<Artigo> artigos) {
 		super();
@@ -66,6 +70,14 @@ public class Turma extends Entidade {
 
 	public void setArtigos(List<Artigo> artigos) {
 		this.artigos = artigos;
+	}
+
+	public String getNomeAnterior() {
+		return nomeAnterior;
+	}
+
+	public void setNomeAnterior(String nomeAnterior) {
+		this.nomeAnterior = nomeAnterior;
 	}
 	
 	

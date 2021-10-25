@@ -1,5 +1,6 @@
 package br.com.iffolhaitap.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -51,14 +53,19 @@ public class Noticia extends Entidade {
 
 	@ManyToMany
 	private List<Curso> cursos;
-	
+
 	private boolean ehDestaque;
+
+	private boolean ehAtiva;
 	
 	private int ordemDestaque;
 
+	@Transient
+	private String tagsEmTexto;
+
 	public Noticia(String titulo, String subtitulo, String conteudo, List<NoticiaImagem> imagens, Usuario publicadoPor,
 			Usuario editadoPor, Date dataDePublicacao, Date dataEdicao, List<Autor> autores, List<Tag> tags,
-			List<Turma> turmas, List<Curso> cursos, boolean ehDestaque, int ordemDestaque) {
+			List<Turma> turmas, List<Curso> cursos, boolean ehDestaque, int ordemDestaque, boolean ehAtiva) {
 		super();
 		this.titulo = titulo;
 		this.subtitulo = subtitulo;
@@ -74,6 +81,8 @@ public class Noticia extends Entidade {
 		this.cursos = cursos;
 		this.ehDestaque = ehDestaque;
 		this.ordemDestaque = ordemDestaque;
+		this.ehAtiva = ehAtiva;
+
 
 	}
 
@@ -139,6 +148,9 @@ public class Noticia extends Entidade {
 	}
 
 	public List<Tag> getTags() {
+		if(tags == null) {
+			 this.tags = new ArrayList<Tag>();
+		}
 		return tags;
 	}
 
@@ -195,54 +207,87 @@ public class Noticia extends Entidade {
 	}
 
 	public String getNomeDosAutores() {
-		
-		if(getAutores() == null ) {
-			
+
+		if (getAutores() == null) {
+
 			return "";
-		} 
-		
+		}
+
 		String nomeDosAutores = "";
-		
-		for(Autor autor : getAutores()) {
-			
-			nomeDosAutores += autor.getNome() + "<br/>"; 
-			
-		} 
+
+		for (Autor autor : getAutores()) {
+
+			nomeDosAutores += autor.getNome() + "<br/>";
+
+		}
 		return nomeDosAutores;
 	}
-	
-public String getNomeDasTurmas() {
-		
-		if(getTurmas() == null ) {
-			
+
+	public String getNomeDasTurmas() {
+
+		if (getTurmas() == null) {
+
 			return "";
-		} 
-		
+		}
+
 		String nomeDasTurmas = "";
-		
-		for(Turma turma : getTurmas()) {
-			
-			nomeDasTurmas += turma.getNome() + "<br/>"; 
-			
-		} 
+
+		for (Turma turma : getTurmas()) {
+
+			nomeDasTurmas += turma.getNome() + "<br/>";
+
+		}
 		return nomeDasTurmas;
 	}
 
+	public String getNomeDosCursos() {
 
-public String getNomeDosCursos() {
+		if (getCursos() == null) {
+
+			return "";
+		}
+
+		String nomeDosCursos = "";
+
+		for (Curso curso : getCursos()) {
+
+			nomeDosCursos += curso.getNome() + "<br/>";
+
+		}
+		return nomeDosCursos;
+	}
+
+	public String getTagsEmTexto() {
+		return tagsEmTexto;
+	}
+
+	public void setTagsEmTexto(String tagsEmTexto) {
+		this.tagsEmTexto = tagsEmTexto;
+	}
+
+	public String getTagsParaExibicao() {
+
+		if (getTags() == null) {
+
+			return "";
+		}
+
+		String tagsDaNoticia = "";
+
+		for (Tag tag : getTags()) {
+
+			tagsDaNoticia += tag.getNome() + ",";
+
+		}
+		return tagsDaNoticia;
+	}
+
+	public boolean isEhAtiva() {
+		return ehAtiva;
+	}
+
+	public void setEhAtiva(boolean ehAtiva) {
+		this.ehAtiva = ehAtiva;
+	}
 	
-	if(getCursos() == null ) {
-		
-		return "";
-	} 
-	
-	String nomeDosCursos = "";
-	
-	for(Curso curso : getCursos()) {
-		
-		nomeDosCursos += curso.getNome() + "<br/>"; 
-		
-	} 
-	return nomeDosCursos;
-}
 }

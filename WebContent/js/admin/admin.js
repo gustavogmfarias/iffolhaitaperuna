@@ -24,6 +24,13 @@
 		}
 	})
 
+		$(document).on('change', '#ehDestaque', function(){
+			 if($(this).is(":checked")==true) {
+				$(".ordem-destaque").fadeIn();
+				
+			} else {$(".ordem-destaque").fadeOut();}
+	});
+
 	$(document).on('click', '.button-remove', function(){
 		var $this = $(this);
 		var url = $this.attr("data-url");

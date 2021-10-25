@@ -16,6 +16,7 @@ import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.dao.TurmaDao;
 import br.com.iffolhaitap.model.Curso;
 import br.com.iffolhaitap.model.Turma;
+import br.com.iffolhaitap.service.TurmaService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
@@ -32,6 +33,7 @@ public class TurmaController {
 	private Sessao sessao;
 	@Inject
 	private CursoDao cursoDao;
+	@Inject private TurmaService turmaService;
 
 	@Get("/adm/turmas")
 	public void lista(String busca) {
@@ -51,21 +53,16 @@ public class TurmaController {
 	@Post("/adm/turmas")
 	public void adiciona(@Valid Turma turma) throws IOException {
 
-		if (turmaDao.existeTurmaPorNome(turma.getNome())) {
-			validator.add(new SimpleMessage("error", "Já existe uma turma cadastrada com esse nome"));
-			validator.onErrorRedirectTo(this).novo();
-		}
-
 		validator.onErrorUsePageOf(this).novo();
 
 		try {
 			HibernateUtil.beginTransaction();
-			turmaDao.adiciona(turma);
+			turmaService.adiciona(turma);
 			HibernateUtil.commit();
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).novo();
 		}
 		result.include("message", "Turma adicionado com sucesso");
@@ -79,25 +76,17 @@ public class TurmaController {
 		List<Curso> cursoList = cursoDao.buscaTodos();
 		result.include("cursoList", cursoList);
 		result.include("turma", turmaDao.get(turma.getId()));
-
 	}
 
 	@Post("/adm/turmas/editar")
-	public void atualizar(@Valid Turma turma) throws IOException {
-
-		if (turmaDao.existeTurmaPorNome(turma.getNome())) {
-
-			validator.add(new SimpleMessage("error", "Já existe turma cadastrado com esse nome"));
-			validator.onErrorRedirectTo(this).novo();
-
-		}
+	public void atualizar(@Valid Turma turma, String nomeAnterior) throws IOException {
 
 		validator.onErrorRedirectTo(this).editar(turma);
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			turmaDao.atualizar(turma);
+			turmaService.atualizar(turma, nomeAnterior);
 			HibernateUtil.commit();
 			validator.onErrorRedirectTo(this).lista("");
 			;

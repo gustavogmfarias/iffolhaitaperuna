@@ -1,12 +1,10 @@
 package br.com.iffolhaitap.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
@@ -17,20 +15,19 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
+import br.com.iffolhaitap.service.UsuarioService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
 @Controller
 public class UsuarioController {
 
-	@Inject
-	private Result result;
-	@Inject
-	private UsuarioDao usuarioDao;
-	@Inject
-	private Validator validator;
-	@Inject
-	private Sessao sessao;
+	@Inject private Result result;
+	@Inject private UsuarioDao usuarioDao;
+	@Inject private Validator validator;
+	@Inject private Sessao sessao;
+	@Inject private UsuarioService usuarioService;
+	
 
 	@Get("/adm/usuarios")
 	public void lista(String busca) {
@@ -48,39 +45,17 @@ public class UsuarioController {
 	@Post("/adm/usuarios")
 	public void adiciona(@Valid Usuario usuario, UploadedFile imagemUsuario) throws IOException {
 
-		if (imagemUsuario != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-usuario", imagemUsuario.getFileName());
-			imagemUsuario.writeTo(fotoSalva);
-			usuario.setImagem(imagemUsuario.getFileName());
-		}
-
-		if (usuario.getPerfil() == null) {
-			validator.add(new SimpleMessage("error", "Por favor, escolha um tipo de perfil para o usuário"));
-			validator.onErrorRedirectTo(this).novo();
-		}
-
-		validator.onErrorUsePageOf(this).novo();
-
-		if (usuarioDao.existeUsuarioPorEmail(usuario.getEmail())) {
-
-			validator.add(new SimpleMessage("error", "Já existe usuário cadastrado com esse e-mail"));
-			validator.onErrorRedirectTo(this).novo();
-
-		}
-
 		try {
-
 			HibernateUtil.beginTransaction();
-			usuarioDao.adiciona(usuario);
+			usuarioService.adiciona(usuario, imagemUsuario);
 			HibernateUtil.commit();
-
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).novo();
 		}
+		
 		result.include("mensagem", "Usuario adicionado com sucesso");
-
 		result.redirectTo(this).lista("");
 
 	}
@@ -93,41 +68,15 @@ public class UsuarioController {
 	@Post("/adm/usuarios/editar")
 	public void atualizar(@Valid Usuario usuario, UploadedFile imagemUsuario) throws IOException {
 
-		if (imagemUsuario != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-usuario",
-					imagemUsuario.getFileName());
-			imagemUsuario.writeTo(fotoSalva);
-			usuario.setImagem(imagemUsuario.getFileName());
-		}
-		
-		if (usuario.getPerfil() == null) {
-			validator.add(new SimpleMessage("error", "Por favor, escolha um tipo de perfil para o usuário"));
-			validator.onErrorRedirectTo(this).editar(usuario);
-		}
-
-		
-		if (usuarioDao.existeUsuarioPorEmail(usuario.getEmail()) && !usuario.getEmail().equals(usuario.getNovoEmail())) {
-
-			validator.add(new SimpleMessage("error", "Já existe usuário cadastrado com esse e-mail"));
-			validator.onErrorRedirectTo(this).novo();
-
-		}
-		
-		
-		
-		validator.onErrorRedirectTo(this).editar(usuario);
-
 		try {
 
 			HibernateUtil.beginTransaction();
-			usuarioDao.atualizar(usuario);
+			usuarioService.atualizar(usuario, imagemUsuario);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("");
-			;
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).editar(usuario);
 		}
 

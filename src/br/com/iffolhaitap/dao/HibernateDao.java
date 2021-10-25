@@ -9,17 +9,16 @@ import org.hibernate.Session;
 
 import br.com.iffolhaitap.util.HibernateUtil;
 
-public class HibernateDao<T>{
+public class HibernateDao<T> {
 
 	protected Session session;
 	protected Class<T> classePersistida;
-	
-	
+
 	public HibernateDao() {
-	this.session = HibernateUtil.currentSession();
-	this.classePersistida = getGenericParameterizedTypeArgument();
+		this.session = HibernateUtil.currentSession();
+		this.classePersistida = getGenericParameterizedTypeArgument();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private Class<T> getGenericParameterizedTypeArgument() {
 		Type genericSuperclass = this.getClass().getGenericSuperclass();
@@ -34,13 +33,18 @@ public class HibernateDao<T>{
 
 		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
 	}
-	
+
 	public void adiciona(T t) {
 		this.session.save(t);
 	}
 
 	public void atualizar(T t) {
 		this.session.merge(t);
+	}
+
+	public T merge(T t) {
+		return (T) this.session.merge(t);
+
 	}
 
 	public void remove(T t) {
@@ -51,16 +55,16 @@ public class HibernateDao<T>{
 
 	@SuppressWarnings("unchecked")
 	public T get(Long id) {
-		return(T) session.get(classePersistida, id);
-		
+		return (T) session.get(classePersistida, id);
+
 	}
-	
-	public List<T> buscaTodos(){
-		
+
+	public List<T> buscaTodos() {
+
 		Criteria criteria = session.createCriteria(classePersistida);
-		
+
 		return criteria.list();
 
 	}
-	
+
 }

@@ -18,10 +18,10 @@ public class Curso extends Entidade {
 	@OneToMany(mappedBy = "curso")
 	private List<Turma> turmas;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "cursos")
 	private List<Noticia> noticias;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "cursos")
 	private List<Noticia> artigos;
 
 	public Curso(String nome, List<Turma> turmas, List<Noticia> noticias, List<Noticia> artigos) {

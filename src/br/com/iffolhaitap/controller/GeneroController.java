@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.GeneroTextoDao;
 import br.com.iffolhaitap.model.GeneroTexto;
+import br.com.iffolhaitap.service.GeneroService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
@@ -28,6 +29,8 @@ public class GeneroController {
 	private Validator validator;
 	@Inject
 	private Sessao sessao;
+	@Inject
+	private GeneroService generoService;
 
 	@Get("/adm/generosdetexto")
 	public void lista(String busca) {
@@ -45,21 +48,14 @@ public class GeneroController {
 	@Post("/adm/generosdetexto")
 	public void adiciona(@Valid GeneroTexto generoTexto) throws IOException {
 
-		if (generoTextoDao.existeGeneroTextoPorNome(generoTexto.getGenero())) {
-			validator.add(new SimpleMessage("error", "Já existe um Gênero de Texto cadastrado com esse genero"));
-			validator.onErrorRedirectTo(this).novo();
-		}
-		
-		validator.onErrorUsePageOf(this).novo();
-
 		try {
 			HibernateUtil.beginTransaction();
-			generoTextoDao.adiciona(generoTexto);
+			generoService.adiciona(generoTexto);
 			HibernateUtil.commit();
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).novo();
 		}
 		result.include("message", "Genero de Texto adicionado com sucesso");

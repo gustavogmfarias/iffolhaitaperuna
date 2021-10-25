@@ -33,11 +33,7 @@
   </build>
   
   	<dependencies>
-<dependency>
-  	<groupId>br.com.caelum.vraptor</groupId>
-  	<artifactId>vraptor-paginator</artifactId>
-  	<version>4.0.0</version>
-  </dependency>
+
 
 		<dependency>
 			<groupId>br.com.caelum</groupId>

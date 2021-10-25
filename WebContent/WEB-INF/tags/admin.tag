@@ -24,6 +24,7 @@
 		<link href="${sessao.urlPadrao}css/plugins/flatpickr/flatpickr.min.css" rel="stylesheet">
 		<link href="${sessao.urlPadrao}css/plugins/select/bootstrap-select.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css">
+		<link href="${sessao.urlPadrao}js/plugins/inputtag/tagsinput.css" rel="stylesheet">
 
 		<link href="${sessao.urlPadrao}css/admin/admin.css" rel="stylesheet">
 		<script>
@@ -177,6 +178,7 @@
 		<script src="${sessao.urlPadrao}js/plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="${sessao.urlPadrao}js/plugins/toastr/toastr.min.js"></script>
 		<script src="${sessao.urlPadrao}js/plugins/flatpickr/flatpickr.min.js"></script>
+		<script src="${sessao.urlPadrao}js/plugins/inputtag/tagsinput.js"></script>
 		<script src="${sessao.urlPadrao}js/Ajax.js"></script>
 		<script src="${sessao.urlPadrao}js/Modal.js"></script>
 

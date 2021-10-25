@@ -2,7 +2,9 @@
 <div class="card-body card-padding">
   <c:if test="${not empty turma.id}">
     <input type="hidden" class="form-control" name="turma.id"
-			value="${turma.id}">
+			value="${turma.id}"> 
+			  <input type="hidden" class="form-control" name="nomeAnterior"
+			value="${turma.nome}">
   </c:if>
   
   <div class="form-group ">
@@ -12,7 +14,7 @@
   
  <div class="form-group ">
     <label for="turmaCurso" class="control-label">Curso:</label>
-	<select class="form-control required" id="turmaCurso" name="turma.curso.id" >
+	<select data-live-search="true" class="form-control required custom-select" id="turmaCurso" name="turma.curso.id" >
     	
 		<option value="">Selecione um curso</option>
     	<c:forEach items="${cursoList}" var="curso">

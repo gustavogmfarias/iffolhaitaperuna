@@ -16,11 +16,14 @@ import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.dao.NoticiaDao;
+import br.com.iffolhaitap.dao.TagDao;
 import br.com.iffolhaitap.dao.TurmaDao;
 import br.com.iffolhaitap.model.Autor;
 import br.com.iffolhaitap.model.Curso;
 import br.com.iffolhaitap.model.Noticia;
+import br.com.iffolhaitap.model.Tag;
 import br.com.iffolhaitap.model.Turma;
+import br.com.iffolhaitap.service.NoticiaService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
@@ -35,14 +38,17 @@ public class NoticiaController {
 	private Validator validator;
 	@Inject
 	private Sessao sessao;
-
 	@Inject
 	private AutorDao autorDao;
 	@Inject
 	private TurmaDao turmaDao;
 	@Inject
 	private CursoDao cursoDao;
-	
+	@Inject
+	private TagDao tagDao;
+	@Inject
+	private NoticiaService noticiaService;
+
 	@Get("/adm/noticias")
 	public void lista(String busca, Boolean ehDestaque) {
 		List<Noticia> noticias = noticiaDao.lista(busca, ehDestaque);
@@ -67,18 +73,16 @@ public class NoticiaController {
 
 		validator.onErrorUsePageOf(this).novo();
 
-		noticia.setPublicadoPor(sessao.getUsuario());
-		noticia.setDataDePublicacao(new Date());
-
 		try {
 
 			HibernateUtil.beginTransaction();
-			noticiaDao.adiciona(noticia);
+			noticia = noticiaService.adicionar(noticia);
 			HibernateUtil.commit();
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			e.printStackTrace();
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).novo();
 		}
 		result.include("mensagem", "Noticia adicionado com sucesso");
@@ -104,26 +108,17 @@ public class NoticiaController {
 	@Post("/adm/noticias/editar")
 	public void atualizar(@Valid Noticia noticia) throws IOException {
 
-		Noticia noticiaDoBancoDeDados = noticiaDao.get(noticia.getId());
-
 		validator.onErrorRedirectTo(this).editar(noticia);
-
-		noticia.setDataDePublicacao(noticiaDoBancoDeDados.getDataDePublicacao());
-		noticia.setPublicadoPor(noticiaDoBancoDeDados.getPublicadoPor());
-		noticia.setEditadoPor(sessao.getUsuario());
-		noticia.setDataEdicao(new Date());
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			noticiaDao.atualizar(noticia);
+			noticia = noticiaService.atualizar(noticia);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("", null);
-			;
-
+		
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).editar(noticia);
 		}
 

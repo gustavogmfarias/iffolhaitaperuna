@@ -54,10 +54,11 @@
 					<table class="table table-nowrap" id="noticiaTable">
 						<thead>
 			<tr>
+				<th>Ativa</th>
+				<th>Destaque</th>	
+				<th>Ordem</th>
 				<th>Título</th>
 				<th>Publicado por</th>
-				<th>Destaque</th>
-				<th>Ordem Destaque</th>
 				<th>Data de Publicação</th>
 				<th>Editado por</th>
 				<th>Data de Edição</th>
@@ -72,18 +73,19 @@
 			<c:forEach items="${noticiaList}" var="noticia">
 
 				<tr>
+					<td><c:if test="${noticia.ehAtiva == true}">Sim</c:if><c:if test="${noticia.ehAtiva == false}">Não</c:if></td>	
+					<td><c:if test="${noticia.ehDestaque == true}">Sim</c:if><c:if test="${noticia.ehDestaque == false}">Não</c:if></td>
+					<td>${noticia.ordemDestaque}</td>
 					<td>${noticia.titulo}</td>
 					<td>${noticia.publicadoPor.nome}</td>
-					<td><c:if test="${noticia.ehDestaque == true}">Sim</c:if></td>
-					<td>${noticia.ordemDestaque}</td>
 					<td>${noticia.dataDePublicacao}</td>
 					<td>${noticia.editadoPor.nome}</td>
 					<td>${noticia.dataEdicao}</td>
 					<td>${noticia.getNomeDosAutores()}</td>
 					<td>${noticia.getNomeDasTurmas()}</td>
 					<td>${noticia.getNomeDosCursos()}</td>
-					<td><a
-						href="${sessao.urlPadrao}adm/noticias/${noticia.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
+					<td><a href="javascript:void(0)"
+						data-message="Você tem certeza que deseja apagar?" data-url="${sessao.urlPadrao}adm/noticias/${noticia.id}/apagar" class="btn btn-small btn-outline-warning button-remove"><i class="fa-fw far fa-trash"></i></a>
 					</td>
 					<td><a href="${sessao.urlPadrao}adm/noticias/${noticia.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
 				</tr>

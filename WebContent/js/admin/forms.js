@@ -20,7 +20,9 @@ function iniciarFuncoesForm(){
 
 function iniciarSelect(){
 	if(DEBUG) console.log('select inputinit');
-    $('.custom-select').selectpicker();
+    $('.custom-select').selectpicker(
+	{liveSearchStyle:
+	'startsWith'});
 }
 
 
@@ -103,7 +105,7 @@ function iniciarTextarea(){
 				['tres', ['fontsize']],
 				['quatro', ['bold', 'italic', 'underline']],
 				['cinco', ['paragraph', 'ol', 'ul']],
-				['seis', ['clear', 'codeview']],
+				['seis', ['clear', 'codeview','picture']],
 			],
 		});
 	}catch(e){

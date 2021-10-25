@@ -13,10 +13,10 @@ public class Tag extends Entidade{
 	@NotEmpty
 	private String nome;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "tags")
 	private List<Noticia> noticias;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "tags")
 	private List<Artigo> artigos;
 
 	public Tag(String nome, List<Noticia> noticias, List<Artigo> artigos) {

@@ -16,6 +16,7 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.model.Autor;
+import br.com.iffolhaitap.service.AutorService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
@@ -30,6 +31,8 @@ public class AutorController {
 	private Validator validator;
 	@Inject
 	private Sessao sessao;
+	@Inject
+	private AutorService autorService;
 
 	@Get("/adm/autores")
 	public void lista(String busca) {
@@ -47,31 +50,15 @@ public class AutorController {
 	@Post("/adm/autores")
 	public void adiciona(@Valid Autor autor, UploadedFile imagemAutor) throws IOException {
 
-		if (imagemAutor != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-autor",
-					imagemAutor.getFileName());
-			imagemAutor.writeTo(fotoSalva);
-			autor.setImagem(imagemAutor.getFileName());
-		}
-
-		if (autorDao.existeAutorPorEmail(autor.getEmail())) {
-
-			validator.add(new SimpleMessage("error", "Já existe usuário cadastrado com esse e-mail"));
-			validator.onErrorRedirectTo(this).novo();
-
-		}
-
-		validator.onErrorUsePageOf(this).novo();
-
 		try {
 
 			HibernateUtil.beginTransaction();
-			autorDao.adiciona(autor);
+			autorService.adiciona(autor, imagemAutor);
 			HibernateUtil.commit();
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).novo();
 		}
 		result.include("message", "Autor adicionado com sucesso");
@@ -88,33 +75,17 @@ public class AutorController {
 	@Post("/adm/autores/editar")
 	public void atualizar(@Valid Autor autor, UploadedFile imagemAutor) throws IOException {
 
-		if (imagemAutor != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-autor",
-					imagemAutor.getFileName());
-			imagemAutor.writeTo(fotoSalva);
-			autor.setImagem(imagemAutor.getFileName());
-		}
-
-		if (autorDao.existeAutorPorEmail(autor.getEmail()) && !autor.getEmail().equals(autor.getNovoEmail())) {
-
-			validator.add(new SimpleMessage("error", "Já existe autor cadastrado com esse e-mail"));
-			validator.onErrorRedirectTo(this).editar(autor);
-
-		}
-
-		validator.onErrorRedirectTo(this).editar(autor);
-
 		try {
 
 			HibernateUtil.beginTransaction();
-			autorDao.atualizar(autor);
+			autorService.atualizar(autor, imagemAutor);
 			HibernateUtil.commit();
 			validator.onErrorRedirectTo(this).lista("");
 			;
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).editar(autor);
 		}
 

@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.iffolhaitap.model.Noticia;
@@ -26,6 +27,7 @@ public class NoticiaDao extends HibernateDao<Noticia> {
 			criteria.add(Restrictions.eq("ehDestaque", ehDestaque));
 			
 		}
+		criteria.addOrder(Order.desc("id"));
 		return criteria.list();
 		
 		}

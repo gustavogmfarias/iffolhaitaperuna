@@ -20,10 +20,10 @@ public class Autor extends Entidade {
     @NotEmpty
     private String telefone;
     
-	@ManyToMany
+	@ManyToMany(mappedBy = "autores")
     private List<Noticia> noticias;
   
-	@ManyToMany
+	@ManyToMany(mappedBy = "autores")
     private List<Artigo> artigos;
     
 	@Transient

@@ -6,7 +6,7 @@ import br.com.caelum.vraptor.Get;
 @Controller
 public class IndexController {
 	
-	@Get("/adm/inicio")
+	@Get("/adm")
 	public void inicio() {
 		
 		

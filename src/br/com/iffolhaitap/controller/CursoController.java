@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.model.Curso;
+import br.com.iffolhaitap.service.CursoService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
@@ -28,6 +29,8 @@ public class CursoController {
 	private Validator validator;
 	@Inject
 	private Sessao sessao;
+	@Inject
+	private CursoService cursoService;
 
 	@Get("/adm/cursos")
 	public void lista(String busca) {
@@ -45,21 +48,15 @@ public class CursoController {
 	@Post("/adm/cursos")
 	public void adiciona(@Valid Curso curso) throws IOException {
 
-		if (cursoDao.existeCursoPorNome(curso.getNome())) {
-			validator.add(new SimpleMessage("error", "Já existe um curso cadastrado com esse nome"));
-			validator.onErrorRedirectTo(this).novo();
-		}
-		
-		validator.onErrorUsePageOf(this).novo();
 
 		try {
 			HibernateUtil.beginTransaction();
-			cursoDao.adiciona(curso);
+			cursoService.adiciona(curso);
 			HibernateUtil.commit();
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).novo();
 		}
 		result.include("message", "Curso adicionado com sucesso");
@@ -74,29 +71,20 @@ public class CursoController {
 	}
 
 	@Post("/adm/cursos/editar")
-	public void atualizar(@Valid Curso curso) throws IOException {
+	public void atualizar(@Valid Curso curso, String nomeAnterior) throws IOException {
 
-
-		if (cursoDao.existeCursoPorNome(curso.getNome())) {
-
-			validator.add(new SimpleMessage("error", "Já existe curso cadastrado com esse nome"));
-			validator.onErrorRedirectTo(this).novo();
-
-		}
-		
-		validator.onErrorRedirectTo(this).editar(curso);
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			cursoDao.atualizar(curso);
+			cursoService.atualizar(curso, nomeAnterior);
 			HibernateUtil.commit();
 			validator.onErrorRedirectTo(this).lista("");
 			;
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).editar(curso);
 		}
 

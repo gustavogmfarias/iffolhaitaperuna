@@ -61,8 +61,8 @@
 					<td>${generoTexto.genero}</td>
 					<td></td>
 					<td></td>
-					<td><a
-						href="${sessao.urlPadrao}adm/generosdetexto/${generoTexto.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
+					<td><a href="javascript:void(0)"
+						data-message="Você tem certeza que deseja apagar?" data-url="${sessao.urlPadrao}adm/generosdetexto/${generoTexto.id}/apagar" class="btn btn-small btn-outline-warning button-remove"><i class="fa-fw far fa-trash"></i></a>
 					</td>
 					<td><a href="${sessao.urlPadrao}adm/generosdetexto/${generoTexto.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
 				</tr>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <template:admin>
 	<div class="header">
@@ -63,10 +64,10 @@
 				<tr>
 					<td>${turma.nome}</td>
 					<td>${turma.curso.nome}</td>
-					<td>${turma.noticias}</td>
-					<td>${turma.artigos}</td>
-					<td><a
-						href="${sessao.urlPadrao}adm/turmas/${turma.id}/apagar" class="btn btn-small btn-outline-warning"><i class="fa-fw far fa-trash"></i></a>
+					<td>${fn:length(turma.noticias)}</td>
+					<td>${fn:length(turma.artigos)}</td>
+					<td><a href="javascript:void(0)"
+						data-message="Você tem certeza que deseja apagar?" data-url="${sessao.urlPadrao}adm/turmas/${turma.id}/apagar" class="btn btn-small btn-outline-warning button-remove"><i class="fa-fw far fa-trash"></i></a>
 					</td>
 					<td><a href="${sessao.urlPadrao}adm/turmas/${turma.id}/editar" class="btn btn-small btn-outline-secondary"><i class="fa-fw far fa-pencil-alt"></i></a></td>
 				</tr>
