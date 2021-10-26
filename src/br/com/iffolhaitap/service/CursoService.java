@@ -10,6 +10,7 @@ import br.com.iffolhaitap.model.Curso;
 public class CursoService {
 	@Inject
 	private CursoDao cursoDao;
+	@Inject private LogService logService;
 
 	public void adiciona(Curso curso) throws Exception {
 
@@ -18,6 +19,7 @@ public class CursoService {
 			throw new Exception("Já existe um curso cadastrado com esse nome");
 		}
 		cursoDao.adiciona(curso);
+		logService.criarLog("CURSO-ADICIONAR", curso.toString());
 
 	}
 
@@ -29,7 +31,17 @@ public class CursoService {
 		}
 
 		cursoDao.atualizar(curso);
+		logService.criarLog("CURSO-ATUALIZAR", curso.toString());
 
 	}
 
+	public void remove(Curso curso) {
+		
+		curso = cursoDao.get(curso.getId());
+		cursoDao.remove(curso);
+		logService.criarLog("CURSO-REMOVER", curso.toString());
+
+
+		
+	}
 }

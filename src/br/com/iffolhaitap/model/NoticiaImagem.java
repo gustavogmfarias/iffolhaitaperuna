@@ -1,5 +1,7 @@
 package br.com.iffolhaitap.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -58,7 +60,29 @@ public class NoticiaImagem extends Entidade {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(alt, descricao, nome, noticia);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NoticiaImagem other = (NoticiaImagem) obj;
+		return Objects.equals(alt, other.alt) && Objects.equals(descricao, other.descricao)
+				&& Objects.equals(nome, other.nome) && Objects.equals(noticia, other.noticia);
+	}
+
+
 	
 	
 }

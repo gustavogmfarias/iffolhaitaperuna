@@ -1,6 +1,7 @@
 package br.com.iffolhaitap.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -54,6 +55,32 @@ public class Tag extends Entidade{
 		this.artigos = artigos;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(artigos, nome, noticias);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tag other = (Tag) obj;
+		return Objects.equals(artigos, other.artigos) && Objects.equals(nome, other.nome)
+				&& Objects.equals(noticias, other.noticias);
+	}
+
+	@Override
+	public String toString() {
+		return "Tag [nome=" + nome + "]";
+	}
+
+
 	
 }

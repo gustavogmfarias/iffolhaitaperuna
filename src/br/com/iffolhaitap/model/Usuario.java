@@ -1,5 +1,7 @@
 package br.com.iffolhaitap.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -111,6 +113,40 @@ public class Usuario extends Entidade {
 	public void setNovoEmail(String novoEmail) {
 		this.novoEmail = novoEmail;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ Objects.hash(email, imagem, nome, novoEmail, perfil, senha, senhaAntiga, senhaConfirmacao);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(email, other.email) && Objects.equals(imagem, other.imagem)
+				&& Objects.equals(nome, other.nome) && Objects.equals(novoEmail, other.novoEmail)
+				&& perfil == other.perfil && Objects.equals(senha, other.senha)
+				&& Objects.equals(senhaAntiga, other.senhaAntiga)
+				&& Objects.equals(senhaConfirmacao, other.senhaConfirmacao);
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nome=" + nome + ", email=" + email + ", perfil=" + perfil + "]";
+	}
+
+
+
+
 
 	
 	

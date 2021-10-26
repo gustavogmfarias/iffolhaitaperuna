@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.iffolhaitap.util.HibernateUtil;
 
 @RequestScoped
-@Intercepts(before= {AlimentaDadosSessaoInterceptor.class})
+@Intercepts(before = { AlimentaDadosSessaoInterceptor.class })
 public class HibernateInterceptor implements Interceptor {
 
 	protected Logger logger = Logger.getLogger(HibernateInterceptor.class);

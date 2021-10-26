@@ -13,7 +13,9 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.UsuarioDao;
+import br.com.iffolhaitap.model.Perfil;
 import br.com.iffolhaitap.model.Usuario;
 import br.com.iffolhaitap.service.UsuarioService;
 import br.com.iffolhaitap.util.HibernateUtil;
@@ -28,7 +30,7 @@ public class UsuarioController {
 	@Inject private Sessao sessao;
 	@Inject private UsuarioService usuarioService;
 	
-
+	@Privado(Perfil.ADMINISTRADOR)
 	@Get("/adm/usuarios")
 	public void lista(String busca) {
 		List<Usuario> usuarios = usuarioDao.lista(busca);
@@ -36,12 +38,13 @@ public class UsuarioController {
 		result.include("busca", busca);
 
 	}
-
+	
+	@Privado
 	@Get("/adm/usuarios/novo")
 	public void novo() {
 
 	}
-
+	@Privado
 	@Post("/adm/usuarios")
 	public void adiciona(@Valid Usuario usuario, UploadedFile imagemUsuario) throws IOException {
 
@@ -59,12 +62,12 @@ public class UsuarioController {
 		result.redirectTo(this).lista("");
 
 	}
-
+	@Privado
 	@Get("/adm/usuarios/{usuario.id}/editar")
 	public void editar(Usuario usuario) {
 		result.include("usuario", usuarioDao.get(usuario.getId()));
 	}
-
+	@Privado
 	@Post("/adm/usuarios/editar")
 	public void atualizar(@Valid Usuario usuario, UploadedFile imagemUsuario) throws IOException {
 
@@ -85,14 +88,14 @@ public class UsuarioController {
 		result.redirectTo(this).lista("");
 
 	}
-
+	@Privado
 	@Get("/adm/usuarios/{usuario.id}/apagar")
 	public void remove(Usuario usuario) {
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			usuarioDao.remove(usuario);
+			usuarioService.remove(usuario);
 			HibernateUtil.commit();
 			result.include("mensagem", "Usuario removido com sucesso");
 			result.redirectTo(this).lista("");
@@ -103,13 +106,13 @@ public class UsuarioController {
 		}
 
 	}
-
+	@Privado
 	@Get("/adm/alterarminhasenha")
 	public void mudarMinhaSenha() {
 		Usuario usuarioBd = usuarioDao.get(sessao.getUsuario().getId());
 		result.include("usuario", usuarioBd);
 	}
-
+	@Privado
 	@Post("/adm/alterarminhasenha")
 	public void minhaSenha(Usuario usuario) {
 

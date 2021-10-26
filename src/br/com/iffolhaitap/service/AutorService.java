@@ -6,7 +6,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
-import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.model.Autor;
 
@@ -14,6 +13,7 @@ import br.com.iffolhaitap.model.Autor;
 public class AutorService {
 
 	@Inject AutorDao autorDao;
+	@Inject LogService logService;
 
 	public void adiciona(Autor autor, UploadedFile imagemAutor) throws Exception {
 		
@@ -33,6 +33,7 @@ public class AutorService {
 		
 		
 		autorDao.adiciona(autor);
+		logService.criarLog("AUTOR-ADICIONAR", autor.toString());
 		
 	}
 
@@ -52,9 +53,19 @@ public class AutorService {
 		}
 		
 		autorDao.atualizar(autor);
+		logService.criarLog("AUTOR-ATUALIZAR", autor.toString());
 	
 	}
 	
+	public void remove(Autor autor) {
+		
+		autor = autorDao.get(autor.getId());
+		autorDao.remove(autor);
+		logService.criarLog("AUTOR-REMOVER", autor.toString());
+
+
+		
+	}
 	
 	
 }

@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.model.Curso;
 import br.com.iffolhaitap.service.CursoService;
@@ -32,6 +33,7 @@ public class CursoController {
 	@Inject
 	private CursoService cursoService;
 
+	@Privado
 	@Get("/adm/cursos")
 	public void lista(String busca) {
 		List<Curso> cursos = cursoDao.lista(busca);
@@ -40,14 +42,15 @@ public class CursoController {
 
 	}
 
+	@Privado
 	@Get("/adm/cursos/novo")
 	public void novo() {
 
 	}
 
+	@Privado
 	@Post("/adm/cursos")
 	public void adiciona(@Valid Curso curso) throws IOException {
-
 
 		try {
 			HibernateUtil.beginTransaction();
@@ -65,14 +68,15 @@ public class CursoController {
 
 	}
 
+	@Privado
 	@Get("/adm/cursos/{curso.id}/editar")
 	public void editar(Curso curso) {
 		result.include("curso", cursoDao.get(curso.getId()));
 	}
 
+	@Privado
 	@Post("/adm/cursos/editar")
 	public void atualizar(@Valid Curso curso, String nomeAnterior) throws IOException {
-
 
 		try {
 
@@ -94,13 +98,14 @@ public class CursoController {
 
 	}
 
+	@Privado
 	@Get("/adm/cursos/{curso.id}/apagar")
 	public void remove(Curso curso) {
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			cursoDao.remove(curso);
+			cursoService.remove(curso);
 			HibernateUtil.commit();
 			result.include("mensagem", "Curso removido com sucesso");
 			result.redirectTo(this).lista("");

@@ -10,6 +10,7 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
+import br.com.iffolhaitap.service.LogService;
 import br.com.iffolhaitap.service.LoginService;
 import br.com.iffolhaitap.util.Sessao;
 
@@ -26,6 +27,8 @@ public class LoginController {
 	private Sessao sessao;
 	@Inject
 	private LoginService loginService;
+	@Inject
+	private LogService logService;
 
 	@Get("/adm/login")
 	public void login() {
@@ -54,7 +57,10 @@ public class LoginController {
 	@Get("/adm/sair")
 	public void sair() {
 
+		Usuario usuario = new Usuario();
+		usuario = sessao.getUsuario();
 		sessao.setUsuario(null);
+		logService.criarLog("USUARIO-DESLOGADO", usuario.toString());
 		result.redirectTo(this).login();
 
 	}

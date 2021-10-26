@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.model.Autor;
 import br.com.iffolhaitap.service.AutorService;
@@ -34,6 +35,7 @@ public class AutorController {
 	@Inject
 	private AutorService autorService;
 
+	@Privado
 	@Get("/adm/autores")
 	public void lista(String busca) {
 		List<Autor> autores = autorDao.lista(busca);
@@ -42,11 +44,13 @@ public class AutorController {
 
 	}
 
+	@Privado
 	@Get("/adm/autores/novo")
 	public void novo() {
 
 	}
 
+	@Privado
 	@Post("/adm/autores")
 	public void adiciona(@Valid Autor autor, UploadedFile imagemAutor) throws IOException {
 
@@ -67,11 +71,13 @@ public class AutorController {
 
 	}
 
+	@Privado
 	@Get("/adm/autores/{autor.id}/editar")
 	public void editar(Autor autor) {
 		result.include("autor", autorDao.get(autor.getId()));
 	}
 
+	@Privado
 	@Post("/adm/autores/editar")
 	public void atualizar(@Valid Autor autor, UploadedFile imagemAutor) throws IOException {
 
@@ -95,13 +101,14 @@ public class AutorController {
 
 	}
 
+	@Privado
 	@Get("/adm/autores/{autor.id}/apagar")
 	public void remove(Autor autor) {
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			autorDao.remove(autor);
+			autorService.remove(autor);
 			HibernateUtil.commit();
 			result.include("mensagem", "Autor removido com sucesso");
 			result.redirectTo(this).lista("");

@@ -65,6 +65,7 @@
 				<th>Autores</th>
 				<th>Turmas</th>
 				<th>Cursos</th>
+				<th>Imagem Principal</th>
 				
 			</tr>
 
@@ -84,6 +85,10 @@
 					<td>${noticia.getNomeDosAutores()}</td>
 					<td>${noticia.getNomeDasTurmas()}</td>
 					<td>${noticia.getNomeDosCursos()}</td>
+					<td><img alt="${noticia.imagemPrincipal}"
+						class="img-fluid img-thumbnail" style="max-width: 80px;"
+						src="${sessao.urlPadrao}img/imagens-noticia/${noticia.imagemPrincipal}">
+					</td>
 					<td><a href="javascript:void(0)"
 						data-message="Você tem certeza que deseja apagar?" data-url="${sessao.urlPadrao}adm/noticias/${noticia.id}/apagar" class="btn btn-small btn-outline-warning button-remove"><i class="fa-fw far fa-trash"></i></a>
 					</td>

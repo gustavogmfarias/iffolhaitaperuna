@@ -2,6 +2,7 @@ package br.com.iffolhaitap.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -149,4 +150,41 @@ public class Artigo extends Entidade {
 		this.editadorPor = editadorPor;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(autores, conteudo, dataDePublicacao, dataEdicao, editadorPor, genero,
+				publicadoPor, tags, titulo, turmas);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Artigo other = (Artigo) obj;
+		return Objects.equals(autores, other.autores) && Objects.equals(conteudo, other.conteudo)
+				&& Objects.equals(dataDePublicacao, other.dataDePublicacao)
+				&& Objects.equals(dataEdicao, other.dataEdicao) && Objects.equals(editadorPor, other.editadorPor)
+				&& Objects.equals(genero, other.genero) && Objects.equals(publicadoPor, other.publicadoPor)
+				&& Objects.equals(tags, other.tags) && Objects.equals(titulo, other.titulo)
+				&& Objects.equals(turmas, other.turmas);
+	}
+
+	@Override
+	public String toString() {
+		return "Artigo [titulo=" + titulo + ", conteudo=" + conteudo + ", publicadoPor=" + publicadoPor
+				+ ", editadorPor=" + editadorPor + ", dataDePublicacao=" + dataDePublicacao + ", dataEdicao="
+				+ dataEdicao + ", genero=" + genero + "]";
+	}
+
+
+	
+	
+	
 }

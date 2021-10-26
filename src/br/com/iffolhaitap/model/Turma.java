@@ -1,6 +1,7 @@
 package br.com.iffolhaitap.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -79,7 +80,35 @@ public class Turma extends Entidade {
 	public void setNomeAnterior(String nomeAnterior) {
 		this.nomeAnterior = nomeAnterior;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(artigos, curso, nome, nomeAnterior, noticias);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Turma other = (Turma) obj;
+		return Objects.equals(artigos, other.artigos) && Objects.equals(curso, other.curso)
+				&& Objects.equals(nome, other.nome) && Objects.equals(nomeAnterior, other.nomeAnterior)
+				&& Objects.equals(noticias, other.noticias);
+	}
+
+	@Override
+	public String toString() {
+		return "Turma [nome=" + nome + "]";
+	}
+
+
 	
 	
 }

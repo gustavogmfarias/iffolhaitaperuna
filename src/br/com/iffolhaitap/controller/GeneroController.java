@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.GeneroTextoDao;
 import br.com.iffolhaitap.model.GeneroTexto;
 import br.com.iffolhaitap.service.GeneroService;
@@ -32,6 +33,7 @@ public class GeneroController {
 	@Inject
 	private GeneroService generoService;
 
+	@Privado
 	@Get("/adm/generosdetexto")
 	public void lista(String busca) {
 		List<GeneroTexto> generosdeTexto = generoTextoDao.lista(busca);
@@ -40,11 +42,13 @@ public class GeneroController {
 
 	}
 
+	@Privado
 	@Get("/adm/generosdetexto/novo")
 	public void novo() {
 
 	}
 
+	@Privado
 	@Post("/adm/generosdetexto")
 	public void adiciona(@Valid GeneroTexto generoTexto) throws IOException {
 
@@ -64,14 +68,15 @@ public class GeneroController {
 
 	}
 
+	@Privado
 	@Get("/adm/generosdetexto/{generoTexto.id}/editar")
 	public void editar(GeneroTexto generoTexto) {
 		result.include("generoTexto", generoTextoDao.get(generoTexto.getId()));
 	}
 
+	@Privado
 	@Post("/adm/generosdetexto/editar")
 	public void atualizar(@Valid GeneroTexto generoTexto) throws IOException {
-
 
 		if (generoTextoDao.existeGeneroTextoPorNome(generoTexto.getGenero())) {
 
@@ -79,7 +84,7 @@ public class GeneroController {
 			validator.onErrorRedirectTo(this).novo();
 
 		}
-		
+
 		validator.onErrorRedirectTo(this).editar(generoTexto);
 
 		try {
@@ -102,13 +107,14 @@ public class GeneroController {
 
 	}
 
+	@Privado
 	@Get("/adm/generosdetexto/{generoTexto.id}/apagar")
 	public void remove(GeneroTexto generoTexto) {
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			generoTextoDao.remove(generoTexto);
+			generoService.remove(generoTexto);
 			HibernateUtil.commit();
 			result.include("mensagem", "Genero de Texto removido com sucesso");
 			result.redirectTo(this).lista("");

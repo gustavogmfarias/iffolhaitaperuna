@@ -1,6 +1,7 @@
 package br.com.iffolhaitap.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -67,7 +68,34 @@ public class Curso extends Entidade {
 	public void setArtigos(List<Noticia> artigos) {
 		this.artigos = artigos;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(artigos, nome, noticias, turmas);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Curso other = (Curso) obj;
+		return Objects.equals(artigos, other.artigos) && Objects.equals(nome, other.nome)
+				&& Objects.equals(noticias, other.noticias) && Objects.equals(turmas, other.turmas);
+	}
+
+	@Override
+	public String toString() {
+		return "Curso [nome=" + nome + "]";
+	}
+
+
 	
 	
 }

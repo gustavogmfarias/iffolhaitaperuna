@@ -13,6 +13,7 @@ import br.com.iffolhaitap.model.Usuario;
 public class UsuarioService {
 
 	@Inject UsuarioDao usuarioDao;
+	@Inject LogService logService;
 	
 	public void adiciona(Usuario usuario, UploadedFile imagemUsuario) throws Exception {
 		
@@ -31,6 +32,7 @@ public class UsuarioService {
 		}
 
 		usuarioDao.adiciona(usuario);
+		logService.criarLog("USUARIO-ADICIONA", usuario.toString());
 		
 	}
 
@@ -57,9 +59,22 @@ public class UsuarioService {
 		}
 		
 		usuarioDao.atualizar(usuario);
+		logService.criarLog("USUARIO-ATUALIZAR", usuario.toString());
+
+	}
+
+
+	public void remove(Usuario usuario) {
+		
+		usuario = usuarioDao.get(usuario.getId());
+		usuarioDao.remove(usuario);
+		logService.criarLog("USUARIO-REMOVER", usuario.toString());
+
+
 		
 	}
-	
+
+
 	
 
 }

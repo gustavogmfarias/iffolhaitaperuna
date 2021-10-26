@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.dao.TurmaDao;
 import br.com.iffolhaitap.model.Curso;
@@ -35,6 +36,7 @@ public class TurmaController {
 	private CursoDao cursoDao;
 	@Inject private TurmaService turmaService;
 
+	@Privado
 	@Get("/adm/turmas")
 	public void lista(String busca) {
 		List<Turma> turmas = turmaDao.lista(busca);
@@ -43,6 +45,7 @@ public class TurmaController {
 
 	}
 
+	@Privado
 	@Get("/adm/turmas/novo")
 	public void novo() {
 		List<Curso> cursoList = cursoDao.buscaTodos();
@@ -50,6 +53,7 @@ public class TurmaController {
 		result.include("cursoList", cursoList);
 	}
 
+	@Privado
 	@Post("/adm/turmas")
 	public void adiciona(@Valid Turma turma) throws IOException {
 
@@ -71,6 +75,7 @@ public class TurmaController {
 
 	}
 
+	@Privado
 	@Get("/adm/turmas/{turma.id}/editar")
 	public void editar(Turma turma) {
 		List<Curso> cursoList = cursoDao.buscaTodos();
@@ -78,6 +83,7 @@ public class TurmaController {
 		result.include("turma", turmaDao.get(turma.getId()));
 	}
 
+	@Privado
 	@Post("/adm/turmas/editar")
 	public void atualizar(@Valid Turma turma, String nomeAnterior) throws IOException {
 
@@ -103,6 +109,7 @@ public class TurmaController {
 
 	}
 
+	@Privado
 	@Get("/adm/turmas/{turma.id}/apagar")
 	public void remove(Turma turma) {
 

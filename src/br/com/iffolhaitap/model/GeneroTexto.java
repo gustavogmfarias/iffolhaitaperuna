@@ -1,6 +1,7 @@
 package br.com.iffolhaitap.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -41,6 +42,31 @@ public class GeneroTexto extends Entidade {
 
 	public void setArtigos(List<Artigo> artigos) {
 		this.artigos = artigos;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(artigos, genero);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GeneroTexto other = (GeneroTexto) obj;
+		return Objects.equals(artigos, other.artigos) && Objects.equals(genero, other.genero);
+	}
+
+	@Override
+	public String toString() {
+		return "GeneroTexto [genero=" + genero +"]";
 	}
 
     

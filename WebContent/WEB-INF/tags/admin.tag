@@ -23,6 +23,7 @@
 		<link href="${sessao.urlPadrao}css/plugins/toastr/toastr.min.css" rel="stylesheet">
 		<link href="${sessao.urlPadrao}css/plugins/flatpickr/flatpickr.min.css" rel="stylesheet">
 		<link href="${sessao.urlPadrao}css/plugins/select/bootstrap-select.min.css" rel="stylesheet">
+		<link href="${sessao.urlPadrao}css/plugins/fileinput/fileinput.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css">
 		<link href="${sessao.urlPadrao}js/plugins/inputtag/tagsinput.css" rel="stylesheet">
 
@@ -39,7 +40,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<a class="navbar-brand" href="${sessao.urlPadrao}/adm">
+				<a class="navbar-brand" href="${sessao.urlPadrao}adm">
 					<img src="${sessao.urlPadrao}img/logo-com-texto.png" class="navbar-brand-img mx-auto" alt="Internato">
 					<div class="clearfix"></div>
 				</a>
@@ -59,15 +60,17 @@
 
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a href="${sessao.urlPadrao}adm/inicio" class="nav-link ">
+						<a href="${sessao.urlPadrao}adm" class="nav-link ">
 							<i class="fad fa-home fa-fw mr-2"></i> Dashboard
 						</a>
 					</li>
-					<li class="nav-item">
+					
+					<c:if test="${sessao.usuario.perfil=='ADMINISTRADOR'}">
+					<li class="nav-item"> 
 						<a href="${sessao.urlPadrao}adm/usuarios" class="nav-link ">
 							<i class="fad fa-user-crown fa-fw mr-2"></i> Usu&aacute;rios
 						</a>
-					</li>
+					</li></c:if>
 					<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/autores" class="nav-link ">
 							<i class="fad fa-user-edit mr-2"></i> Autores
@@ -75,22 +78,28 @@
 					</li>
 						<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/turmas" class="nav-link ">
-							<i class="fad fa-user-crown fa-fw mr-2"></i> Turmas
+							<i class="fad fa-bell-school fa-fw mr-2"></i> Turmas
 						</a>
 					</li>
 						<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/cursos" class="nav-link ">
-							<i class="fad fa-user-crown fa-fw mr-2"></i> Cursos
+							<i class="fas fa-graduation-cap fa-fw mr-2"></i> Cursos
 						</a>
 					</li>
 							<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/generosdetexto" class="nav-link ">
-							<i class="fad fa-user-crown fa-fw mr-2"></i> Gêneros de Texto
+							<i class="fas fa-align-left fa-fw mr-2"></i> Gêneros de Texto
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="${sessao.urlPadrao}adm/noticias" class="nav-link ">
-							<i class="fad fa-user-crown fa-fw mr-2"></i> Noticias
+							<i class="fas fa-newspaper fa-fw mr-2"></i> Noticias
+						</a>
+					</li>
+					
+										<li class="nav-item">
+						<a href="${sessao.urlPadrao}adm/log" class="nav-link ">
+							<i class="fas fa-cabinet-filing fa-fw mr-2"></i> Log
 						</a>
 					</li>
 				</ul>
@@ -179,6 +188,9 @@
 		<script src="${sessao.urlPadrao}js/plugins/toastr/toastr.min.js"></script>
 		<script src="${sessao.urlPadrao}js/plugins/flatpickr/flatpickr.min.js"></script>
 		<script src="${sessao.urlPadrao}js/plugins/inputtag/tagsinput.js"></script>
+		<script src="${sessao.urlPadrao}js/plugins/fileinput/fileinput.js"></script>
+		<script src="${sessao.urlPadrao}js/plugins/fileinput/themes/fa/theme.min.js"></script>
+		<script src="${sessao.urlPadrao}js/plugins/fileinput/locales/pt-BR.js"></script>
 		<script src="${sessao.urlPadrao}js/Ajax.js"></script>
 		<script src="${sessao.urlPadrao}js/Modal.js"></script>
 

@@ -4,6 +4,8 @@
   <c:if test="${not empty noticia.id}">
     <input type="hidden" class="form-control" name="noticia.id"
 			value="${noticia.id}">
+	<input type="hidden" class="form-control" name="usuario.imagem"
+			value="${noticia.imagemPrincipal}">
   </c:if>
   <div class="form-group ">
     <label for="noticiaTitulo" class="control-label">Título:</label>
@@ -17,6 +19,16 @@
     <label for="noticiaConteudo" class="control-label textarea init">Conteúdo:</label>
     <textarea class="form-control required custom-html" id="noticiaConteudo" name="noticia.conteudo">${noticia.conteudo}</textarea>
   </div>
+  
+   <div class="form-group ">
+    <label for="imagemNoticia" class="control-label">Imagem Principal:</label>
+    <input class="form-control file-imagem" id="imagemNoticia" type="file" name="imagemNoticia"
+    
+    data-initialPreview='[{"urlCompleta":"${sessao.urlPadrao}img/imagens-noticia/${noticia.imagemPrincipal}"}]'
+    
+    >
+  </div>
+  
   <div class="form-group ">
     <label for="autoresNoticia"  class="control-label">Autores:</label>
     <select multiple data-live-search="true" class="form-control required custom-select" id="autoresNoticia" name="noticia.autores[].id" >

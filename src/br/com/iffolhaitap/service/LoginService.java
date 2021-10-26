@@ -13,6 +13,7 @@ public class LoginService {
 
 	@Inject private UsuarioDao usuarioDao;
 	@Inject private Sessao sessao;
+	@Inject private LogService logService;
 
 	public void logar(Usuario usuario) throws Exception {
 
@@ -27,7 +28,8 @@ public class LoginService {
 		}
 
 		sessao.setUsuario(usuarioBanco);
-		
+		logService.criarLog("USUARIO-LOGADO", usuarioBanco.toString());
+
 		
 	}
 	

@@ -15,6 +15,59 @@ function iniciarFuncoesForm(){
 	iniciarInputTime();
 	iniciarSelect();
 	iniciarInputDateTime();
+	
+	iniciarInputFile();
+	
+	
+}
+
+function iniciarInputFile(){
+	
+	$(".file-imagem").each(function(){
+		console.log('entrou');
+		
+		var elemento = $(this);
+		
+		var opcoes = {
+					language:'pt-BR',
+					theme: 'fa',
+					dropZoneEnabled: false,
+					showUpload:false,
+					showCancel:false,
+					initialPreviewShowDelete:false,
+					browseClass:'btn btn-default'
+				};
+				
+			var initial = $(this).attr('data-initialPreview');
+
+				if(initial != undefined && initial != null && initial != 'null'){
+					var json = JSON.parse(initial.replace(/'/g,'"'));
+
+
+					var preview = [];
+					var config = [];
+					$.each(json, function(i, arquivo){
+						if(arquivo != '' && (arquivo.urlCompleta.includes('.') || arquivo.nome != '')){
+							var urlCompleta = arquivo.urlCompleta;
+
+							preview.push('<img src="'+urlCompleta+'" class="file-preview-image kv-preview-data" style="width:auto;height:160px;" alt="'+arquivo.nome+'" title="'+arquivo.nome+'" />');
+							config.push({
+								caption: arquivo.nome,
+								size: arquivo.tamanho
+							});
+						}
+					});
+					opcoes.initialPreview = preview;
+					opcoes.initialPreviewConfig = config;
+				}
+		elemento.fileinput(opcoes);
+		
+		
+	});
+	
+	
+	
+	
 }
 
 
@@ -105,7 +158,7 @@ function iniciarTextarea(){
 				['tres', ['fontsize']],
 				['quatro', ['bold', 'italic', 'underline']],
 				['cinco', ['paragraph', 'ol', 'ul']],
-				['seis', ['clear', 'codeview','picture']],
+				['seis', ['clear', 'codeview','picture', 'link']],
 			],
 		});
 	}catch(e){

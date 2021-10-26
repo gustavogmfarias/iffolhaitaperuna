@@ -1,6 +1,7 @@
 package br.com.iffolhaitap.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -102,7 +103,36 @@ public class Autor extends Entidade {
 
 	public void setNovoEmail(String novoEmail) {
 		this.novoEmail = novoEmail;
-	}  
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(artigos, email, imagem, nome, noticias, novoEmail, telefone);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Autor other = (Autor) obj;
+		return Objects.equals(artigos, other.artigos) && Objects.equals(email, other.email)
+				&& Objects.equals(imagem, other.imagem) && Objects.equals(nome, other.nome)
+				&& Objects.equals(noticias, other.noticias) && Objects.equals(novoEmail, other.novoEmail)
+				&& Objects.equals(telefone, other.telefone);
+	}
+
+	@Override
+	public String toString() {
+		return "Autor [nome=" + nome + ", email=" + email + ", telefone=" + telefone + "]";
+	}
+
 
 
 }

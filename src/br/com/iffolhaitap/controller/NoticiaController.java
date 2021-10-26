@@ -11,8 +11,10 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.dao.NoticiaDao;
@@ -49,6 +51,7 @@ public class NoticiaController {
 	@Inject
 	private NoticiaService noticiaService;
 
+	@Privado
 	@Get("/adm/noticias")
 	public void lista(String busca, Boolean ehDestaque) {
 		List<Noticia> noticias = noticiaDao.lista(busca, ehDestaque);
@@ -57,6 +60,7 @@ public class NoticiaController {
 
 	}
 
+	@Privado
 	@Get("/adm/noticias/novo")
 	public void novo() {
 
@@ -68,15 +72,16 @@ public class NoticiaController {
 		result.include("cursosList", cursosList);
 	}
 
+	@Privado
 	@Post("/adm/noticias")
-	public void adiciona(@Valid Noticia noticia) throws IOException {
+	public void adiciona(@Valid Noticia noticia, UploadedFile imagemNoticia) throws IOException {
 
 		validator.onErrorUsePageOf(this).novo();
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			noticia = noticiaService.adicionar(noticia);
+			noticia = noticiaService.adicionar(noticia, imagemNoticia);
 			HibernateUtil.commit();
 
 		} catch (Exception e) {
@@ -91,6 +96,7 @@ public class NoticiaController {
 
 	}
 
+	@Privado
 	@Get("/adm/noticias/{noticia.id}/editar")
 	public void editar(Noticia noticia) {
 
@@ -105,17 +111,18 @@ public class NoticiaController {
 		result.include("cursosList", cursosList);
 	}
 
+	@Privado
 	@Post("/adm/noticias/editar")
-	public void atualizar(@Valid Noticia noticia) throws IOException {
+	public void atualizar(@Valid Noticia noticia, UploadedFile imagemNoticia) throws IOException {
 
 		validator.onErrorRedirectTo(this).editar(noticia);
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			noticia = noticiaService.atualizar(noticia);
+			noticia = noticiaService.atualizar(noticia, imagemNoticia);
 			HibernateUtil.commit();
-		
+
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", e.getMessage()));
@@ -128,13 +135,14 @@ public class NoticiaController {
 
 	}
 
+	@Privado
 	@Get("/adm/noticias/{noticia.id}/apagar")
 	public void remove(Noticia noticia) {
 
 		try {
 
 			HibernateUtil.beginTransaction();
-			noticiaDao.remove(noticia);
+			noticiaService.remove(noticia);
 			HibernateUtil.commit();
 			result.include("mensagem", "Noticia removido com sucesso");
 			result.redirectTo(this).lista("", null);
