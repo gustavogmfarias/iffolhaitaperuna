@@ -3,9 +3,9 @@ package br.com.iffolhaitap.service;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
+import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
 @RequestScoped
@@ -28,7 +28,7 @@ public class LoginService {
 		}
 
 		sessao.setUsuario(usuarioBanco);
-		logService.criarLog("USUARIO-LOGADO", usuarioBanco.toString());
+
 
 		
 	}

@@ -1,6 +1,14 @@
 "use strict";
 
+
+
 (function() {
+	
+	$(document).on('change','.button-paginate', function(){
+			var link = $(this).children('option:selected').attr('data-link');
+			document.location.href = link;
+		});
+	
 	$('nav.navbar .nav-link').each(function(i, link){
 		var dashboardHref = urlPadrao+'adm';
 		var linkHref = $(link).attr('href');

@@ -3,13 +3,6 @@ package br.com.iffolhaitap.paginacao;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Builder @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Paginacao<T> {
 
 	private List<T> objetosDaPaginaAtual;
@@ -23,8 +16,11 @@ public class Paginacao<T> {
 		this.paginaAtual = paginaAtual;
 		this.quantidadeDePaginas = paginas;
 
-		for(int i = 0 ; i < paginas ; i++) {
-			itens.add(ItemPaginacao.builder().numeroDaPagina(i + 1).paginaAtual(paginaAtual).build());
+		for (int i = 0; i < paginas; i++) {
+			ItemPaginacao itemPaginacao = new ItemPaginacao();
+			itemPaginacao.setNumeroDaPagina(i + 1);
+			itemPaginacao.setPaginaAtual(paginaAtual);
+			itens.add(itemPaginacao);
 		}
 	}
 
@@ -36,7 +32,58 @@ public class Paginacao<T> {
 		return paginaAtual > 1;
 	}
 
+	public Paginacao(List<T> objetosDaPaginaAtual, List<ItemPaginacao> itens, Integer paginaAtual,
+			Integer quantidadeDePaginas, Integer totalDeItens) {
+		super();
+		this.objetosDaPaginaAtual = objetosDaPaginaAtual;
+		this.itens = itens;
+		this.paginaAtual = paginaAtual;
+		this.quantidadeDePaginas = quantidadeDePaginas;
+		this.totalDeItens = totalDeItens;
+	}
 
+	public Paginacao() {
+		super();
+	}
 
+	public List<T> getObjetosDaPaginaAtual() {
+		return objetosDaPaginaAtual;
+	}
+
+	public void setObjetosDaPaginaAtual(List<T> objetosDaPaginaAtual) {
+		this.objetosDaPaginaAtual = objetosDaPaginaAtual;
+	}
+
+	public List<ItemPaginacao> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemPaginacao> itens) {
+		this.itens = itens;
+	}
+
+	public Integer getPaginaAtual() {
+		return paginaAtual;
+	}
+
+	public void setPaginaAtual(Integer paginaAtual) {
+		this.paginaAtual = paginaAtual;
+	}
+
+	public Integer getQuantidadeDePaginas() {
+		return quantidadeDePaginas;
+	}
+
+	public void setQuantidadeDePaginas(Integer quantidadeDePaginas) {
+		this.quantidadeDePaginas = quantidadeDePaginas;
+	}
+
+	public Integer getTotalDeItens() {
+		return totalDeItens;
+	}
+
+	public void setTotalDeItens(Integer totalDeItens) {
+		this.totalDeItens = totalDeItens;
+	}
 
 }

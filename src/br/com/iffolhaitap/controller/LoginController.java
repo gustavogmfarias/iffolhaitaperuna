@@ -12,6 +12,7 @@ import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
 import br.com.iffolhaitap.service.LogService;
 import br.com.iffolhaitap.service.LoginService;
+import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
 @Controller
@@ -44,8 +45,17 @@ public class LoginController {
 			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).login();
 		}
-		
+
 		result.include("message", "Usuário logado com sucesso");
+
+		try {
+			HibernateUtil.beginTransaction();
+			logService.criarLog("USUARIO-LOGADO", usuario.toString());
+			HibernateUtil.commit();
+
+		} catch (Exception e) {
+			HibernateUtil.rollback();
+		}
 
 		if (sessao.temUrlContinuacao()) {
 			result.redirectTo(sessao.getUrlContinuacao());
@@ -60,7 +70,14 @@ public class LoginController {
 		Usuario usuario = new Usuario();
 		usuario = sessao.getUsuario();
 		sessao.setUsuario(null);
-		logService.criarLog("USUARIO-DESLOGADO", usuario.toString());
+		try {
+			HibernateUtil.beginTransaction();
+			logService.criarLog("USUARIO-DELOGADO", usuario.toString());
+			HibernateUtil.commit();
+
+		} catch (Exception e) {
+			HibernateUtil.rollback();
+		}
 		result.redirectTo(this).login();
 
 	}

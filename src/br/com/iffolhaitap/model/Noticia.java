@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.jsoup.Jsoup;
 
 @Entity(name = "NOTICIA")
 public class Noticia extends Entidade {
@@ -28,9 +29,12 @@ public class Noticia extends Entidade {
 	@Lob
 	private String conteudo;
 
+	@Lob
+	private String conteudoResumido;
+
 	@OneToMany(mappedBy = "noticia")
 	private List<NoticiaImagem> imagens;
-	
+
 	private String imagemPrincipal;
 
 	@OneToOne
@@ -60,7 +64,7 @@ public class Noticia extends Entidade {
 	private boolean ehDestaque;
 
 	private boolean ehAtiva;
-	
+
 	private int ordemDestaque;
 
 	@Transient
@@ -124,6 +128,23 @@ public class Noticia extends Entidade {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+
+
+	public String getConteudoResumido() {
+
+		String conteudoSemHtml = Jsoup.parse(conteudo).text();
+		if(conteudoSemHtml.length()<300) {
+			return conteudoSemHtml;
+		} else {
+			return conteudoSemHtml.substring(0, 299);
+		}
+
+	}
+
+	public void setConteudoResumido(String conteudoResumido) {
+		this.conteudoResumido = conteudoResumido;
 	}
 
 	public Date getDataDePublicacao() {
@@ -338,8 +359,8 @@ public class Noticia extends Entidade {
 				+ ", dataEdicao=" + dataEdicao + "]";
 	}
 
-	
-	
-	
-	
+
+
+
+
 }

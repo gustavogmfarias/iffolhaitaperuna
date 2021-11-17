@@ -59,7 +59,7 @@
 
 		</thead>
 		<tbody>
-			<c:forEach items="${usuarioList}" var="usuario">
+			<c:forEach items="${paginacao.objetosDaPaginaAtual}" var="usuario">
 
 				<tr>
 					<td>${usuario.nome}</td>
@@ -79,6 +79,35 @@
 
 		</tbody>
 					</table>
+					<nav aria-label="Navegação de página exemplo"
+						style="background: none;">
+						<div class="justify-content-start">Total de itens:
+							${paginacao.totalDeItens}</div>
+
+						<ul class="pagination justify-content-end">
+							<li
+								class="page-item <c:if test="${paginacao.temAnterior() == false}">disabled</c:if>">
+								<a class="page-link"
+								href="${sessao.urlPadrao}adm/usuarios?paginaAtual=${paginacao.paginaAtual - 1}&busca=${busca}"
+								tabindex="-1">Anterior</a>
+							</li>
+							<li class="page-item"><select
+								class="page-link button-paginate">
+									<c:forEach items="${paginacao.itens}" var="item">
+										<option
+											<c:if test="${item.ehPaginaAtual() == true}">selected</c:if>
+											value="${item.numeroDaPagina}"
+											data-link="${sessao.urlPadrao}adm/usuarios?paginaAtual=${item.numeroDaPagina}&busca=${busca}">${item.numeroDaPagina}
+											de ${paginacao.quantidadeDePaginas}</option>
+									</c:forEach>
+							</select></li>
+							<li
+								class="page-item <c:if test="${paginacao.temProxima() == false}">disabled</c:if>">
+								<a class="page-link"
+								href="${sessao.urlPadrao}adm/usuarios?paginaAtual=${paginacao.paginaAtual + 1}&busca=${busca}">Próximo</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>

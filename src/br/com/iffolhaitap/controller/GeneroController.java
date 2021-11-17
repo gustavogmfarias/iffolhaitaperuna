@@ -15,6 +15,7 @@ import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.GeneroTextoDao;
 import br.com.iffolhaitap.model.GeneroTexto;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.GeneroService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
@@ -35,9 +36,9 @@ public class GeneroController {
 
 	@Privado
 	@Get("/adm/generosdetexto")
-	public void lista(String busca) {
-		List<GeneroTexto> generosdeTexto = generoTextoDao.lista(busca);
-		result.include("generoTextoList", generosdeTexto);
+	public void lista(String busca, Integer paginaAtual) {
+		Paginacao<GeneroTexto> paginacao = generoTextoDao.lista(busca, paginaAtual);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
 	}
@@ -64,7 +65,7 @@ public class GeneroController {
 		}
 		result.include("message", "Genero de Texto adicionado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("", 1);
 
 	}
 
@@ -92,7 +93,7 @@ public class GeneroController {
 			HibernateUtil.beginTransaction();
 			generoTextoDao.atualizar(generoTexto);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 			;
 
 		} catch (Exception e) {
@@ -103,7 +104,7 @@ public class GeneroController {
 
 		result.include("mensagem", "Genero de Texto atualizado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -117,11 +118,11 @@ public class GeneroController {
 			generoService.remove(generoTexto);
 			HibernateUtil.commit();
 			result.include("mensagem", "Genero de Texto removido com sucesso");
-			result.redirectTo(this).lista("");
+			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 		}
 
 	}

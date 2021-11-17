@@ -1,7 +1,6 @@
 package br.com.iffolhaitap.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -17,6 +16,7 @@ import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Perfil;
 import br.com.iffolhaitap.model.Usuario;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.UsuarioService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
@@ -32,9 +32,9 @@ public class UsuarioController {
 	
 	@Privado(Perfil.ADMINISTRADOR)
 	@Get("/adm/usuarios")
-	public void lista(String busca) {
-		List<Usuario> usuarios = usuarioDao.lista(busca);
-		result.include("usuarioList", usuarios);
+	public void lista(String busca, Integer paginaAtual) {
+		Paginacao<Usuario> paginacao = usuarioDao.lista(busca, paginaAtual);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
 	}
@@ -59,7 +59,7 @@ public class UsuarioController {
 		}
 		
 		result.include("mensagem", "Usuario adicionado com sucesso");
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 	@Privado
@@ -85,7 +85,7 @@ public class UsuarioController {
 
 		result.include("mensagem", "Usuario atualizado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 	@Privado
@@ -98,11 +98,11 @@ public class UsuarioController {
 			usuarioService.remove(usuario);
 			HibernateUtil.commit();
 			result.include("mensagem", "Usuario removido com sucesso");
-			result.redirectTo(this).lista("");
+			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 		}
 
 	}

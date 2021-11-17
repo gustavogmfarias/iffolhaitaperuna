@@ -21,14 +21,14 @@ public class NoticiaService {
 	private NoticiaDao noticiaDao;
 	@Inject private TagService tagService;
 	@Inject private LogService logService;
-	
+
 	public Noticia adicionar(Noticia noticia, UploadedFile imagemNoticia) throws Exception {
-		
+
 		if (imagemNoticia != null) {
 			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
 			imagemNoticia.writeTo(fotoSalva);
 			noticia.setImagemPrincipal(imagemNoticia.getFileName()); }
-		
+
 		String tagsEmTexto = noticia.getTagsEmTexto();
 		noticia.setPublicadoPor(sessao.getUsuario());
 		noticia.setDataDePublicacao(new Date());
@@ -46,7 +46,7 @@ public class NoticiaService {
 			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
 			imagemNoticia.writeTo(fotoSalva);
 			noticia.setImagemPrincipal(imagemNoticia.getFileName()); }
-		
+
 		Noticia noticiaDoBancoDeDados = noticiaDao.get(noticia.getId());
 		noticia.setDataDePublicacao(noticiaDoBancoDeDados.getDataDePublicacao());
 		noticia.setPublicadoPor(noticiaDoBancoDeDados.getPublicadoPor());
@@ -62,13 +62,13 @@ public class NoticiaService {
 	}
 
 	public void remove(Noticia noticia) {
-		
+
 		noticia = noticiaDao.get(noticia.getId());
 		noticiaDao.remove(noticia);
 		logService.criarLog("NOTICIA-REMOVER", noticia.toString());
 
 	}
-	
-	
+
+
 
 }

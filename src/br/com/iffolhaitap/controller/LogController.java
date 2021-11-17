@@ -1,7 +1,5 @@
 package br.com.iffolhaitap.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Controller;
@@ -11,6 +9,7 @@ import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.LogDao;
 import br.com.iffolhaitap.model.Log;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.util.Sessao;
 
 @Controller
@@ -27,9 +26,9 @@ public class LogController {
 
 	@Privado
 	@Get("/adm/log")
-	public void lista(String busca) {
-		List<Log> logs = logDao.lista(busca);
-		result.include("logList", logs);
+	public void lista(String busca, Integer paginaAtual) {
+		Paginacao<Log> paginacao = logDao.lista(busca, paginaAtual);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
 	}

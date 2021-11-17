@@ -17,6 +17,7 @@ import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.dao.TurmaDao;
 import br.com.iffolhaitap.model.Curso;
 import br.com.iffolhaitap.model.Turma;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.TurmaService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
@@ -38,9 +39,9 @@ public class TurmaController {
 
 	@Privado
 	@Get("/adm/turmas")
-	public void lista(String busca) {
-		List<Turma> turmas = turmaDao.lista(busca);
-		result.include("turmaList", turmas);
+	public void lista(String busca, Integer paginaAtual) {
+		Paginacao<Turma> paginacao = turmaDao.lista(busca, paginaAtual);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
 	}
@@ -71,7 +72,7 @@ public class TurmaController {
 		}
 		result.include("message", "Turma adicionado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -94,7 +95,7 @@ public class TurmaController {
 			HibernateUtil.beginTransaction();
 			turmaService.atualizar(turma, nomeAnterior);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 			;
 
 		} catch (Exception e) {
@@ -105,7 +106,7 @@ public class TurmaController {
 
 		result.include("mensagem", "Turma atualizado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -116,14 +117,14 @@ public class TurmaController {
 		try {
 
 			HibernateUtil.beginTransaction();
-			turmaDao.remove(turma);
+			turmaService.remove(turma);
 			HibernateUtil.commit();
 			result.include("mensagem", "Turma removido com sucesso");
-			result.redirectTo(this).lista("");
+			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 		}
 
 	}

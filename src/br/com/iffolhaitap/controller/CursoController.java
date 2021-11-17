@@ -1,7 +1,6 @@
 package br.com.iffolhaitap.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -15,6 +14,7 @@ import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.CursoDao;
 import br.com.iffolhaitap.model.Curso;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.CursoService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
@@ -35,9 +35,9 @@ public class CursoController {
 
 	@Privado
 	@Get("/adm/cursos")
-	public void lista(String busca) {
-		List<Curso> cursos = cursoDao.lista(busca);
-		result.include("cursoList", cursos);
+	public void lista(String busca, Integer paginaAtual) {
+		Paginacao<Curso> paginacao = cursoDao.lista(busca, paginaAtual);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
 	}
@@ -64,7 +64,7 @@ public class CursoController {
 		}
 		result.include("message", "Curso adicionado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -83,7 +83,7 @@ public class CursoController {
 			HibernateUtil.beginTransaction();
 			cursoService.atualizar(curso, nomeAnterior);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 			;
 
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class CursoController {
 
 		result.include("mensagem", "Curso atualizado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -108,11 +108,11 @@ public class CursoController {
 			cursoService.remove(curso);
 			HibernateUtil.commit();
 			result.include("mensagem", "Curso removido com sucesso");
-			result.redirectTo(this).lista("");
+			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 		}
 
 	}

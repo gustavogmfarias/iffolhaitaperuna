@@ -1,10 +1,5 @@
 package br.com.iffolhaitap.paginacao;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-@Builder @Getter @Setter
 public class ItemPaginacao {
 	private Integer numeroDaPagina;
 	private Integer paginaAtual;
@@ -12,4 +7,33 @@ public class ItemPaginacao {
 	public boolean ehPaginaAtual() {
 		return numeroDaPagina.equals(paginaAtual);
 	}
+
+	public ItemPaginacao(Integer numeroDaPagina, Integer paginaAtual) {
+		super();
+		this.numeroDaPagina = numeroDaPagina;
+		this.paginaAtual = paginaAtual;
+	}
+
+	public ItemPaginacao() {
+		super();
+	}
+
+	public Integer getNumeroDaPagina() {
+		return numeroDaPagina;
+	}
+
+	public void setNumeroDaPagina(Integer numeroDaPagina) {
+		this.numeroDaPagina = numeroDaPagina;
+	}
+
+	public Integer getPaginaAtual() {
+		return paginaAtual;
+	}
+
+	public void setPaginaAtual(Integer paginaAtual) {
+		this.paginaAtual = paginaAtual;
+	}
+	
+	
+	
 }

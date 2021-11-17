@@ -1,38 +1,36 @@
 package br.com.iffolhaitap.dao;
 
-import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.iffolhaitap.model.Noticia;
+import br.com.iffolhaitap.paginacao.Paginacao;
 
 @RequestScoped
 public class NoticiaDao extends HibernateDao<Noticia> {
 
 	@SuppressWarnings("unchecked")
-	public List<Noticia> lista(String busca, Boolean ehDestaque) {
+	public Paginacao<Noticia> lista(String busca, Integer paginaAtual, Boolean ehDestaque) {
 		if (busca == null) {
 			busca = "";
 		}
 
-		Criteria criteria = session.createCriteria(classePersistida);
-		criteria.add(Restrictions.ilike("titulo", busca, MatchMode.ANYWHERE));
-		
-		if(ehDestaque!=null) {
-			criteria.add(Restrictions.eq("ehDestaque", ehDestaque));
-			
-		}
-		criteria.addOrder(Order.desc("id"));
-		return criteria.list();
-		
+		Conjunction conjuctionPaginacao = Restrictions.conjunction();
+		conjuctionPaginacao.add(Restrictions.ilike("titulo", busca, MatchMode.ANYWHERE));
+
+		if (ehDestaque != null && ehDestaque == true) {
+			conjuctionPaginacao.add(Restrictions.eq("ehDestaque", ehDestaque));
 		}
 
-	
-	
-	
+		Paginacao<Noticia> paginacao = paginar(conjuctionPaginacao, paginaAtual, Order.desc("id"));
+
+		return paginacao;
+
+	}
+
 }

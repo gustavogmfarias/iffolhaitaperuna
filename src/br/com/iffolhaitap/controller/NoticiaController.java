@@ -1,7 +1,6 @@
 package br.com.iffolhaitap.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +24,7 @@ import br.com.iffolhaitap.model.Curso;
 import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.model.Tag;
 import br.com.iffolhaitap.model.Turma;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.NoticiaService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
@@ -53,10 +53,11 @@ public class NoticiaController {
 
 	@Privado
 	@Get("/adm/noticias")
-	public void lista(String busca, Boolean ehDestaque) {
-		List<Noticia> noticias = noticiaDao.lista(busca, ehDestaque);
-		result.include("noticiaList", noticias);
+	public void lista(String busca, Integer paginaAtual, Boolean ehDestaque) {
+		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, ehDestaque);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
+		result.include("ehDestaque", ehDestaque);
 
 	}
 
@@ -92,7 +93,7 @@ public class NoticiaController {
 		}
 		result.include("mensagem", "Noticia adicionado com sucesso");
 
-		result.redirectTo(this).lista("", null);
+		result.redirectTo(this).lista("", 1, null);
 
 	}
 
@@ -131,7 +132,7 @@ public class NoticiaController {
 
 		result.include("mensagem", "Noticia atualizado com sucesso");
 
-		result.redirectTo(this).lista("", null);
+		result.redirectTo(this).lista("", 1, null);
 
 	}
 
@@ -145,12 +146,24 @@ public class NoticiaController {
 			noticiaService.remove(noticia);
 			HibernateUtil.commit();
 			result.include("mensagem", "Noticia removido com sucesso");
-			result.redirectTo(this).lista("", null);
+			result.redirectTo(this).lista("", 1,null);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("", null);
+			validator.onErrorRedirectTo(this).lista("", 1,null);
 		}
+
+	}
+
+	@Get("/noticias")
+	public void noticias(String busca, Integer paginaAtual)
+	{
+
+		List<Tag> tags = tagDao.buscaTodos();
+		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, null);
+		result.include("paginacao", paginacao);
+		result.include("busca", busca);
+		result.include("tags", tags);
 
 	}
 

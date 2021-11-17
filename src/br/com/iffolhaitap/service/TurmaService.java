@@ -11,6 +11,8 @@ public class TurmaService {
 
 	@Inject
 	private TurmaDao turmaDao;
+	
+	@Inject private LogService logService;
 
 	public void adiciona(Turma turma) throws Exception {
 
@@ -19,6 +21,8 @@ public class TurmaService {
 		}
 
 		turmaDao.adiciona(turma);
+		logService.criarLog("TURMA-ADICIONAR", turma.toString());
+
 
 	}
 
@@ -31,7 +35,13 @@ public class TurmaService {
 		}
 
 		turmaDao.atualizar(turma);
+		logService.criarLog("TURMA-ATUALIZAR", turma.toString());
 
+	}
+
+	public void remove(Turma turma) {
+		turmaDao.remove(turma);
+		logService.criarLog("TURMA-REMOVER", turma.toString());		
 	}
 
 }

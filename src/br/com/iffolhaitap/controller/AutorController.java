@@ -1,8 +1,6 @@
 package br.com.iffolhaitap.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -17,6 +15,7 @@ import br.com.caelum.vraptor.validator.Validator;
 import br.com.iffolhaitap.annotation.Privado;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.model.Autor;
+import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.AutorService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
@@ -37,9 +36,9 @@ public class AutorController {
 
 	@Privado
 	@Get("/adm/autores")
-	public void lista(String busca) {
-		List<Autor> autores = autorDao.lista(busca);
-		result.include("autorList", autores);
+	public void lista(String busca, Integer paginaAtual) {
+		Paginacao<Autor> paginacao = autorDao.lista(busca, paginaAtual);
+		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
 	}
@@ -67,7 +66,7 @@ public class AutorController {
 		}
 		result.include("message", "Autor adicionado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -86,8 +85,8 @@ public class AutorController {
 			HibernateUtil.beginTransaction();
 			autorService.atualizar(autor, imagemAutor);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("");
-			;
+			validator.onErrorRedirectTo(this).lista("",1);
+			
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
@@ -97,7 +96,7 @@ public class AutorController {
 
 		result.include("mensagem", "Autor atualizado com sucesso");
 
-		result.redirectTo(this).lista("");
+		result.redirectTo(this).lista("",1);
 
 	}
 
@@ -111,11 +110,11 @@ public class AutorController {
 			autorService.remove(autor);
 			HibernateUtil.commit();
 			result.include("mensagem", "Autor removido com sucesso");
-			result.redirectTo(this).lista("");
+			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("");
+			validator.onErrorRedirectTo(this).lista("",1);
 		}
 
 	}

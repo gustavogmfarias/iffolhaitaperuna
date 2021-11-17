@@ -12,3 +12,5 @@ br.com.iffolhaitap.model.Turma
 br.com.iffolhaitap.model.Usuario
 br.com.iffolhaitap.model.NoticiaImagem
 br.com.iffolhaitap.model.Log
+br.com.iffolhaitap.model.Configuracao
+br.com.iffolhaitap.model.Video
