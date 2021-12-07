@@ -12,8 +12,9 @@ import br.com.iffolhaitap.model.Tag;
 public class TagService {
 
 	@Inject TagDao tagDao;
-	
+
 	public Noticia criarTags(Noticia noticia, String tagsEmTexto) {
+
 
 		if (tagsEmTexto == null || tagsEmTexto.isEmpty()) {
 
@@ -33,12 +34,14 @@ public class TagService {
 			if (tagDao.existeTagPorNome(tagStr)) {
 				tag = tagDao.procuraPorNome(tagStr);
 			} else {
+				tag.montarUrl();
+
 				tag = tagDao.merge(tag);
 			}
 			noticia.getTags().add(tag);
 
 		}
-	
+
 		return noticia;
 
 	}
@@ -67,8 +70,8 @@ public class TagService {
 			artigo.getTags().add(tag);
 
 		}
-	
+
 		return artigo;
 	}
-	
+
 }

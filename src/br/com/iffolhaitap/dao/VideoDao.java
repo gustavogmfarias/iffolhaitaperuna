@@ -1,5 +1,7 @@
 package br.com.iffolhaitap.dao;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 
 import org.hibernate.Criteria;
@@ -15,15 +17,19 @@ import br.com.iffolhaitap.paginacao.Paginacao;
 public class VideoDao extends HibernateDao<Video> {
 
 	@SuppressWarnings("unchecked")
-	public Paginacao<Video> lista(String busca, Integer paginaAtual) {
+	public Paginacao<Video> lista(String busca, Integer paginaAtual, Boolean ehDestaque) {
 		if (busca == null) {
 			busca = "";
 		}
-
 		Conjunction conjuctionPaginacao = Restrictions.conjunction();
+
+		if (ehDestaque != null && ehDestaque == true) {
+			conjuctionPaginacao.add(Restrictions.eq("ehDestaque", ehDestaque));
+		}
+
 		conjuctionPaginacao.add(Restrictions.ilike("descricao", busca, MatchMode.ANYWHERE));
 
-		Paginacao<Video> paginacao = paginar(conjuctionPaginacao, paginaAtual, Order.asc("descricao"));
+		Paginacao<Video> paginacao = paginar(conjuctionPaginacao, paginaAtual, Order.desc("id"));
 
 		return paginacao;
 
@@ -44,6 +50,23 @@ public class VideoDao extends HibernateDao<Video> {
 
 		return (Video) criteria.uniqueResult();
 
+	}
+
+	public List<Video> pegarDestaque() {
+		Criteria criteria = session.createCriteria(classePersistida);
+		criteria.add(Restrictions.eq("ehDestaque", true));
+
+		criteria.addOrder(Order.desc("id"));
+		criteria.setMaxResults(4);
+
+		return criteria.list();
+	}
+
+	public List<Video> buscarCincoUltimosVideos() {
+		Criteria criteria = session.createCriteria(classePersistida);
+		criteria.addOrder(Order.desc("id"));
+		criteria.setMaxResults(5);
+		return criteria.list();
 	}
 
 }

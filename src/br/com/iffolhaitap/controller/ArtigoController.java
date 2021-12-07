@@ -6,6 +6,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -24,6 +27,7 @@ import br.com.iffolhaitap.model.Artigo;
 import br.com.iffolhaitap.model.Autor;
 import br.com.iffolhaitap.model.Curso;
 import br.com.iffolhaitap.model.GeneroTexto;
+import br.com.iffolhaitap.model.Tag;
 import br.com.iffolhaitap.model.Turma;
 import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.service.ArtigoService;
@@ -57,7 +61,7 @@ public class ArtigoController {
 	@Privado
 	@Get("/adm/artigos")
 	public void lista(String busca, Integer paginaAtual) {
-		Paginacao<Artigo> paginacao = artigoDao.lista(busca, paginaAtual);
+		Paginacao<Artigo> paginacao = artigoDao.lista(busca, paginaAtual, null, null);
 		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 
@@ -115,7 +119,7 @@ public class ArtigoController {
 		result.include("generosList", generosList);
 		artigo = artigoDao.get(artigo.getId());
 		result.include("artigo", artigo);
-		
+
 	}
 
 	@Privado
@@ -159,6 +163,37 @@ public class ArtigoController {
 			validator.onErrorRedirectTo(this).lista("", 1);
 		}
 
+	}
+
+	@Get("/artigos")
+	public void artigos(String busca, Integer paginaAtual, Tag tag, GeneroTexto genero) {
+
+		List<GeneroTexto> generos = generoDao.buscaTodos();
+		Paginacao<Artigo> paginacao = artigoDao.lista(busca, paginaAtual, genero, tag);
+		result.include("paginacao", paginacao);
+		result.include("busca", busca);
+		result.include("generos", generos);
+
+	}
+
+	@Get("/artigos/{artigo.url}")
+	public void showArtigo(Artigo artigo) {
+
+		artigo = artigoDao.procuraPorUrl(artigo);
+		result.include("artigo", artigo);
+
+	}
+
+	@Get("/artigos/tags/{tag.url}")
+	public void buscaArtigoPorTag(Tag tag) {
+		tag = tagDao.procuraPorUrl(tag);
+		result.forwardTo(this).artigos(null, null, tag, null);
+	}
+
+	@Get("/artigos/generos/{genero.url}")
+	public void buscaArtigoPorGenero(GeneroTexto genero) {
+		genero = generoDao.procuraPorUrl(genero);
+		result.forwardTo(this).artigos(null, null, null, genero);
 	}
 
 }

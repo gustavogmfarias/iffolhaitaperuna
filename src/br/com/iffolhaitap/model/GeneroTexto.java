@@ -8,15 +8,32 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.com.iffolhaitap.util.FormatterString;
+
 @Entity(name="GENEROTEXTO")
 public class GeneroTexto extends Entidade {
-	
-	
+
+
     @NotEmpty
 	private String genero;
-	
+
     @OneToMany(mappedBy = "genero")
     private List<Artigo> artigos;
+
+    private String url;
+
+
+
+	public String getUrl() {
+		if(url==null || url.isEmpty()) {
+			return new FormatterString().generateNamedUrl(genero);
+		}
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public GeneroTexto(String genero, List<Artigo> artigos) {
 		super();
@@ -69,5 +86,9 @@ public class GeneroTexto extends Entidade {
 		return "GeneroTexto [genero=" + genero +"]";
 	}
 
-    
+	public void montarUrl() {
+		this.url = new FormatterString().generateNamedUrl(genero);
+
+	}
+
 }

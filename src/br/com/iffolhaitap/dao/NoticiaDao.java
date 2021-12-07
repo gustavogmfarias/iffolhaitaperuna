@@ -1,5 +1,7 @@
 package br.com.iffolhaitap.dao;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 
 import org.hibernate.Criteria;
@@ -9,13 +11,14 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.iffolhaitap.model.Noticia;
+import br.com.iffolhaitap.model.Tag;
 import br.com.iffolhaitap.paginacao.Paginacao;
 
 @RequestScoped
 public class NoticiaDao extends HibernateDao<Noticia> {
 
 	@SuppressWarnings("unchecked")
-	public Paginacao<Noticia> lista(String busca, Integer paginaAtual, Boolean ehDestaque) {
+	public Paginacao<Noticia> lista(String busca, Integer paginaAtual, Boolean ehDestaque, Tag tag) {
 		if (busca == null) {
 			busca = "";
 		}
@@ -27,10 +30,39 @@ public class NoticiaDao extends HibernateDao<Noticia> {
 			conjuctionPaginacao.add(Restrictions.eq("ehDestaque", ehDestaque));
 		}
 
-		Paginacao<Noticia> paginacao = paginar(conjuctionPaginacao, paginaAtual, Order.desc("id"));
+		if (tag != null && tag.getId() > 0) {
+			conjuctionPaginacao.add(Restrictions.eq("tags.id", tag.getId()));
+			return paginar(conjuctionPaginacao, paginaAtual, Order.desc("id"), "tags");
+		} else {
+			return paginar(conjuctionPaginacao, paginaAtual, Order.desc("id"));
+		}
 
-		return paginacao;
+	}
 
+	public Noticia procuraPorUrl(Noticia noticia) {
+
+		Criteria criteria = session.createCriteria(classePersistida);
+		criteria.add(Restrictions.eq("url", noticia.getUrl()));
+
+		return (Noticia) criteria.uniqueResult();
+
+	}
+
+	public List<Noticia> buscarTresUltimasNoticias() {
+		Criteria criteria = session.createCriteria(classePersistida);
+		criteria.addOrder(Order.desc("id"));
+		criteria.setMaxResults(3);
+		return criteria.list();
+	}
+
+	public Noticia pegarDestaque() {
+		Criteria criteria = session.createCriteria(classePersistida);
+		criteria.add(Restrictions.eq("ehDestaque", true));
+
+		criteria.addOrder(Order.desc("id"));
+		criteria.setMaxResults(1);
+
+		return (Noticia) criteria.uniqueResult();
 	}
 
 }

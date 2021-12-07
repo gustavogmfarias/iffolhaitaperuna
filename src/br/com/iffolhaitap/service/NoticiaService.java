@@ -24,6 +24,8 @@ public class NoticiaService {
 
 	public Noticia adicionar(Noticia noticia, UploadedFile imagemNoticia) throws Exception {
 
+		noticia.montarUrl();
+
 		if (imagemNoticia != null) {
 			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
 			imagemNoticia.writeTo(fotoSalva);

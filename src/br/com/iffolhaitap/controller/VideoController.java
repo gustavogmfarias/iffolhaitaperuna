@@ -36,10 +36,11 @@ public class VideoController {
 
 	@Privado
 	@Get("/adm/videos")
-	public void lista(String busca, Integer paginaAtual) {
-		Paginacao<Video> paginacao = videoDao.lista(busca, paginaAtual);
+	public void lista(String busca, Integer paginaAtual, Boolean ehDestaque) {
+		Paginacao<Video> paginacao = videoDao.lista(busca, paginaAtual, ehDestaque);
 		result.include("paginacao", paginacao);
 		result.include("busca", busca);
+		result.include("ehDestaque", ehDestaque);
 
 	}
 
@@ -52,6 +53,11 @@ public class VideoController {
 	@Privado
 	@Post("/adm/videos")
 	public void adiciona(@Valid Video video, UploadedFile imagemVideo) throws IOException {
+		validator.onErrorRedirectTo(this).novo();
+		if(imagemVideo== null) {
+			validator.add(new SimpleMessage("error", "Por favor, insira uma imagem"));
+			validator.onErrorRedirectTo(this).novo();
+		}
 
 		try {
 
@@ -66,7 +72,7 @@ public class VideoController {
 		}
 		result.include("message", "Video adicionado com sucesso");
 
-		result.redirectTo(this).lista("",1);
+		result.redirectTo(this).lista("",1,null);
 
 	}
 
@@ -85,7 +91,7 @@ public class VideoController {
 			HibernateUtil.beginTransaction();
 			videoService.atualizar(video, imagemVideo);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("",1);
+			validator.onErrorRedirectTo(this).lista("",1,null);
 
 
 		} catch (Exception e) {
@@ -96,7 +102,7 @@ public class VideoController {
 
 		result.include("mensagem", "Video atualizado com sucesso");
 
-		result.redirectTo(this).lista("",1);
+		result.redirectTo(this).lista("",1,null);
 
 	}
 
@@ -110,11 +116,11 @@ public class VideoController {
 			videoService.remove(video);
 			HibernateUtil.commit();
 			result.include("mensagem", "Video removido com sucesso");
-			result.redirectTo(this).lista("",1);
+			result.redirectTo(this).lista("",1,null);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("",1);
+			validator.onErrorRedirectTo(this).lista("",1,null);
 		}
 
 	}

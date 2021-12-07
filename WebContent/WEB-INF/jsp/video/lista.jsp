@@ -14,7 +14,7 @@
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
 										href="${sessao.urlPadrao}adm">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Videos</li>
+									<li class="breadcrumb-item active" aria-current="page">Vídeos</li>
 								</ol>
 							</nav>
 						</h6>
@@ -39,7 +39,11 @@
 						<label class="sr-only" for="videoNome">Descrição:</label> <input
 							type="text" name="busca" value="${busca}"
 							class="form-control mb-2 mr-sm-2 form-control-sm" id="descricacao"
-							placeholder="Ex.: live da fabi">
+							placeholder="Ex.: live da fabi"> <input
+							<c:if test="${ehDestaque == true}"> checked="checked" </c:if>
+							name="ehDestaque" type="checkbox"
+							class="form-control mb-2 mr-sm-2 form-control-sm form-check-input"
+							id="ehDestaque"> <span> Vídeo Destaque?</span>
 
 						<button type="submit" class="btn btn-outline-primary mb-2 btn-sm">
 							<i class="fad fa-search"></i> Pesquisar

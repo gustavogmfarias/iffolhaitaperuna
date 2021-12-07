@@ -1,3 +1,7 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags"%>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,6 +22,9 @@
 
 <!-- inject:css -->
 <link rel="stylesheet" href="${sessao.urlPadrao}assets/css/style.css">
+<link rel="stylesheet"
+	href="${sessao.urlPadrao}assets/css/admin/video.css">
+
 <!-- endinject -->
 </head>
 
@@ -39,7 +46,8 @@
 								<ul class="navbar-top-right-menu">
 									<li class="nav-item"><a href="#" class="nav-link"><i
 											class="mdi mdi-magnify"></i></a></li>
-									<li class="nav-item"><a href="#" class="nav-link">Login</a>
+									<li class="nav-item"><a target="_blank"
+										href="${sessao.urlPadrao}adm/login" class="nav-link">Login</a>
 									</li>
 
 								</ul>
@@ -48,7 +56,7 @@
 						<div class="navbar-bottom">
 							<div class="d-flex justify-content-between align-items-center">
 								<div>
-									<a class="navbar-brand" href="#"><img
+									<a class="navbar-brand" href="${sessao.urlPadrao}"><img
 										src="${sessao.urlPadrao}img/iffolha-logo-index.png" alt="" /></a>
 								</div>
 								<div>
@@ -68,16 +76,17 @@
 												</button>
 											</li>
 											<li class="nav-item active"><a class="nav-link"
-												href="index.html">Home</a></li>
-											<li class="nav-item"><a class="nav-link" href="noticias">Not&iacute;cias</a></li>
+												href="${sessao.urlPadrao}">Home</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="pages/business.html">Artigos</a></li>
+												href="${sessao.urlPadrao}noticias">Not&iacute;cias</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="pages/blog.html">Blog</a></li>
+												href="${sessao.urlPadrao}artigos">Artigos</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="pages/sports.html">Quem Somos</a></li>
+												href="${sessao.urlPadrao}blog">Blog</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="pages/art.html">Contato</a></li>
+												href="${sessao.urlPadrao}quemsomos">Quem Somos</a></li>
+											<li class="nav-item"><a class="nav-link"
+												href="${sessao.urlPadrao}contato">Contato</a></li>
 										</ul>
 									</div>
 								</div>
@@ -144,60 +153,33 @@
 							</div>
 							<div class="col-sm-4">
 								<h3 class="font-weight-bold mb-3">NOT&Iacute;CIAS RECENTES</h3>
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="footer-border-bottom pb-2">
-											<div class="row">
-												<div class="col-3">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_1.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="col-9">
-													<h5 class="font-weight-600">Cotton import from USA to
-														soar was American traders predict</h5>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="footer-border-bottom pb-2 pt-2">
-											<div class="row">
-												<div class="col-3">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_2.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="col-9">
-													<h5 class="font-weight-600">Cotton import from USA to
-														soar was American traders predict</h5>
+								<c:forEach items="${tresUltimasNoticias}" var="noticia">
+
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="footer-border-bottom pb-2">
+												<div class="row">
+													<div class="col-3">
+														<img
+															src="${sessao.urlPadrao}img/imagens-noticia/${noticia.imagemPrincipal}"
+															alt="thumb" class="img-fluid" />
+													</div>
+													<div class="col-9">
+													<a class="font-weight-600" style="text-decoration: none; color: white;"
+												href="${sessao.urlPadrao}noticias/${noticia.url}">${noticia.getTituloResumido()}...</a>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-										<div>
-											<div class="row">
-												<div class="col-3">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_3.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="col-9">
-													<h5 class="font-weight-600 mb-3">Cotton import from
-														USA to soar was American traders predict</h5>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 							<div class="col-sm-3">
 								<h3 class="font-weight-bold mb-3">NEWSLETTER</h3>
+									<form  action="${sessao.urlPadrao}adm/newsletters" method="post" role="form">
+								<input id="newsletter" value="insira um email v&aacute;lido" name="newsletter.email">
+								<input type="submit" value="cadastrar">
+								</form>
 								<div class="footer-border-bottom pb-2">
 									<div class="d-flex justify-content-between align-items-center">
 										<h5 class="mb-0 font-weight-600">Assine nossa newsletter
@@ -245,8 +227,11 @@
 	<script src="${sessao.urlPadrao}assets/vendors/aos/dist/aos.js/aos.js"></script>
 	<!-- End plugin js for this page -->
 	<!-- Custom js for this page-->
-	<script src="./assets/js/demo.js"></script>
-	<script src="./assets/js/jquery.easeScroll.js"></script>
+	<script src="${sessao.urlPadrao}assets/js/demo.js"></script>
+	<script src="${sessao.urlPadrao}assets/js/site.js"></script>
+	<script src="${sessao.urlPadrao}assets/js/jquery.easeScroll.js"></script>
+
+
 	<!-- End custom js for this page-->
 </body>
 </html>

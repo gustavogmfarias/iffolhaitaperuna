@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jsoup.Jsoup;
 
+import br.com.iffolhaitap.util.FormatterString;
+
 @Entity(name = "NOTICIA")
 public class Noticia extends Entidade {
 
@@ -67,6 +69,8 @@ public class Noticia extends Entidade {
 
 	private int ordemDestaque;
 
+	private String url;
+
 	@Transient
 	private String tagsEmTexto;
 
@@ -89,7 +93,6 @@ public class Noticia extends Entidade {
 		this.ehDestaque = ehDestaque;
 		this.ordemDestaque = ordemDestaque;
 		this.ehAtiva = ehAtiva;
-
 
 	}
 
@@ -130,12 +133,10 @@ public class Noticia extends Entidade {
 		this.conteudo = conteudo;
 	}
 
-
-
 	public String getConteudoResumido() {
 
 		String conteudoSemHtml = Jsoup.parse(conteudo).text();
-		if(conteudoSemHtml.length()<300) {
+		if (conteudoSemHtml.length() < 300) {
 			return conteudoSemHtml;
 		} else {
 			return conteudoSemHtml.substring(0, 299);
@@ -172,8 +173,8 @@ public class Noticia extends Entidade {
 	}
 
 	public List<Tag> getTags() {
-		if(tags == null) {
-			 this.tags = new ArrayList<Tag>();
+		if (tags == null) {
+			this.tags = new ArrayList<Tag>();
 		}
 		return tags;
 	}
@@ -306,6 +307,14 @@ public class Noticia extends Entidade {
 		return tagsDaNoticia;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public boolean isEhAtiva() {
 		return ehAtiva;
 	}
@@ -359,8 +368,21 @@ public class Noticia extends Entidade {
 				+ ", dataEdicao=" + dataEdicao + "]";
 	}
 
+	public void montarUrl() {
 
+		this.url = new FormatterString().generateNamedUrl(titulo);
 
+	}
 
+	public String getTituloResumido() {
+
+		String tituloResumido = Jsoup.parse(titulo).text();
+		if (tituloResumido.length() < 54) {
+			return tituloResumido;
+		} else {
+			return tituloResumido.substring(0, 54);
+		}
+
+	}
 
 }

@@ -12,9 +12,9 @@
 						<h6 class="header-pretitle">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}">Home</a></li>
-									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm/videos">V\u00eddeos</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Editar V\u00eddeo</li>
+									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm">Home</a></li>
+									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm/videos">Vídeos</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Editar Vídeo</li>
 								</ol>
 							</nav>
 						</h6>

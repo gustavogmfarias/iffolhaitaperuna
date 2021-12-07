@@ -15,19 +15,19 @@ function iniciarFuncoesForm(){
 	iniciarInputTime();
 	iniciarSelect();
 	iniciarInputDateTime();
-	
+
 	iniciarInputFile();
-	
-	
+
+
 }
 
 function iniciarInputFile(){
-	
+
 	$(".file-imagem").each(function(){
 		console.log('entrou');
-		
+
 		var elemento = $(this);
-		
+
 		var opcoes = {
 					language:'pt-BR',
 					theme: 'fa',
@@ -37,7 +37,7 @@ function iniciarInputFile(){
 					initialPreviewShowDelete:false,
 					browseClass:'btn btn-default'
 				};
-				
+
 			var initial = $(this).attr('data-initialPreview');
 
 				if(initial != undefined && initial != null && initial != 'null'){
@@ -61,13 +61,13 @@ function iniciarInputFile(){
 					opcoes.initialPreviewConfig = config;
 				}
 		elemento.fileinput(opcoes);
-		
-		
+
+
 	});
-	
-	
-	
-	
+
+
+
+
 }
 
 
@@ -149,7 +149,7 @@ function iniciarTextarea(){
 	try{
 		$('.custom-html').attr('autocomplete', 'off');
 		$('.custom-html').summernote({
-			minHeight: 50,
+			minHeight: 600,
 			lang: 'pt-BR',
 			codemirror: {},
 			toolbar: [
@@ -158,7 +158,7 @@ function iniciarTextarea(){
 				['tres', ['fontsize']],
 				['quatro', ['bold', 'italic', 'underline']],
 				['cinco', ['paragraph', 'ol', 'ul']],
-				['seis', ['clear', 'codeview','picture', 'link']],
+				['seis', ['clear', 'codeview','picture', 'video', 'link']],
 			],
 		});
 	}catch(e){

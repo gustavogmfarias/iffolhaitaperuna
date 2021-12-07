@@ -10556,8 +10556,12 @@ footer .footer-top, .footer-bottom {
 }
 
 .tagNoticias {
+	margin: 0;
+	padding: 0;
 	list-style: none !important;
-	display: inline;
+	display: inline-flex;
+	justify-content: space-between;
+	gap: .8rem;
 }
 
 .noticiaSubtitulo {
@@ -10565,5 +10569,13 @@ footer .footer-top, .footer-bottom {
 	color: gray;
 
 }
+
+#noticiaTitulo {
+
+	color: black !important;
+
+
+}
+
 
 /*# sourceMappingURL=maps/style.css.map */

@@ -21,14 +21,17 @@ public class ArtigoService {
 	private ArtigoDao artigoDao;
 	@Inject private TagService tagService;
 	@Inject private LogService logService;
-	
+
 	public Artigo adicionar(Artigo artigo, UploadedFile imagemArtigo) throws Exception {
-		
+
+		artigo.montarUrl();
+
+
 		if (imagemArtigo != null) {
 			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-artigo", imagemArtigo.getFileName());
 			imagemArtigo.writeTo(fotoSalva);
 			artigo.setImagemPrincipal(imagemArtigo.getFileName()); }
-		
+
 		String tagsEmTexto = artigo.getTagsEmTexto();
 		artigo.setPublicadoPor(sessao.getUsuario());
 		artigo.setDataDePublicacao(new Date());
@@ -46,7 +49,7 @@ public class ArtigoService {
 			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-artigo", imagemArtigo.getFileName());
 			imagemArtigo.writeTo(fotoSalva);
 			artigo.setImagemPrincipal(imagemArtigo.getFileName()); }
-		
+
 		Artigo artigoDoBancoDeDados = artigoDao.get(artigo.getId());
 		artigo.setDataDePublicacao(artigoDoBancoDeDados.getDataDePublicacao());
 		artigo.setPublicadoPor(artigoDoBancoDeDados.getPublicadoPor());
@@ -62,13 +65,13 @@ public class ArtigoService {
 	}
 
 	public void remove(Artigo artigo) {
-		
+
 		artigo = artigoDao.get(artigo.getId());
 		artigoDao.remove(artigo);
 		logService.criarLog("ARTIGO-REMOVER", artigo.toString());
 
 	}
-	
-	
+
+
 
 }

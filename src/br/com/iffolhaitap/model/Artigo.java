@@ -16,6 +16,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.jsoup.Jsoup;
+
+import br.com.iffolhaitap.util.FormatterString;
 
 @Entity(name = "ARTIGO")
 public class Artigo extends Entidade {
@@ -24,21 +27,19 @@ public class Artigo extends Entidade {
 	private String titulo;
 
 	private String subtitulo;
-	
+
 	@NotEmpty
 	@Lob
 	private String conteudo;
-
-	
 	private String imagemPrincipal;
-	
+	@Lob
+	private String conteudoResumido;
 	@OneToOne
 	private Usuario publicadoPor;
 
 	@OneToOne
 	private Usuario editadoPor;
 
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDePublicacao;
 
@@ -56,11 +57,13 @@ public class Artigo extends Entidade {
 
 	@ManyToMany
 	private List<Curso> cursos;
-	
+
 	@ManyToOne
 	private GeneroTexto genero;
-	
+
 	private boolean ehAtiva;
+
+	private String url;
 
 	@Transient
 	private String tagsEmTexto;
@@ -163,8 +166,8 @@ public class Artigo extends Entidade {
 	}
 
 	public List<Tag> getTags() {
-		if(tags == null) {
-			 this.tags = new ArrayList<Tag>();
+		if (tags == null) {
+			this.tags = new ArrayList<Tag>();
 		}
 		return tags;
 	}
@@ -207,6 +210,21 @@ public class Artigo extends Entidade {
 
 	public String getTagsEmTexto() {
 		return tagsEmTexto;
+	}
+
+	public String getConteudoResumido() {
+
+		String conteudoSemHtml = Jsoup.parse(conteudo).text();
+		if (conteudoSemHtml.length() < 300) {
+			return conteudoSemHtml;
+		} else {
+			return conteudoSemHtml.substring(0, 299);
+		}
+
+	}
+
+	public void setConteudoResumido(String conteudoResumido) {
+		this.conteudoResumido = conteudoResumido;
 	}
 
 	public void setTagsEmTexto(String tagsEmTexto) {
@@ -280,7 +298,15 @@ public class Artigo extends Entidade {
 		}
 		return tagsDoArtigo;
 	}
-	
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -312,9 +338,13 @@ public class Artigo extends Entidade {
 	@Override
 	public String toString() {
 		return "Artigo [titulo=" + titulo + ", subtitulo=" + subtitulo + ", publicadoPor=" + publicadoPor
-				+ ", editadoPor=" + editadoPor + ", dataDePublicacao=" + dataDePublicacao + ", dataEdicao="
-				+ dataEdicao + ", ehAtiva=" + ehAtiva + "]";
+				+ ", editadoPor=" + editadoPor + ", dataDePublicacao=" + dataDePublicacao + ", dataEdicao=" + dataEdicao
+				+ ", ehAtiva=" + ehAtiva + "]";
 	}
-	
-	
+
+	public void montarUrl() {
+		this.url = new FormatterString().generateNamedUrl(titulo);
+
+	}
+
 }

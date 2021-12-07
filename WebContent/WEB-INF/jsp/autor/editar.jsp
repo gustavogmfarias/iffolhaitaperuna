@@ -12,7 +12,7 @@
 						<h6 class="header-pretitle">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}">Home</a></li>
+									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm">Home</a></li>
 									<li class="breadcrumb-item"><a href="${sessao.urlPadrao}adm/autores">Autores</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Editar Autor</li>
 								</ol>
@@ -30,7 +30,7 @@
 		enctype="multipart/form-data">
 		<%@include file="form.jsp"%>
 	</form>
-	
+
 	${mensagem} <br>
 
 </template:admin>

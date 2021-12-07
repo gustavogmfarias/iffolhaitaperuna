@@ -18,6 +18,7 @@ public class HibernateDao<T> {
 
 	protected Session session;
 	protected Class<T> classePersistida;
+	private Integer numeroDeItensPorPaginaPadrao = 2;
 
 	public HibernateDao() {
 		this.session = HibernateUtil.currentSession();
@@ -77,18 +78,23 @@ public class HibernateDao<T> {
 		return paginar(conjuctionPaginacao, paginaAtual, null);
 	}
 
-	public Paginacao<T> paginar(Conjunction conjuctionPaginacao, Integer paginaAtual, Order order) {
+	public Paginacao<T> paginar(Conjunction conjuctionPaginacao, Integer paginaAtual, Order order, String... aliases) {
 		if (paginaAtual == null || paginaAtual == 0) {
 			paginaAtual = 1;
 		}
 
-		Integer itensTotais = contarTodosItens(conjuctionPaginacao);
+		Integer itensTotais = contarTodosItens(conjuctionPaginacao, aliases);
 
 		Integer paginas = encontraPaginas(itensTotais, this.numeroDeItensPorPaginaPadrao);
 
 		Integer min = (paginaAtual * this.numeroDeItensPorPaginaPadrao) - this.numeroDeItensPorPaginaPadrao;
 		Integer max = paginaAtual * this.numeroDeItensPorPaginaPadrao;
 		Criteria criteria = session.createCriteria(classePersistida);
+		if(aliases != null) {
+			for(String alias : aliases) {
+				criteria.createAlias(alias, alias);
+			}
+		}
 		criteria.add(conjuctionPaginacao);
 
 		if (order != null) {
@@ -113,7 +119,7 @@ public class HibernateDao<T> {
 		return retorno;
 	}
 
-	private Integer numeroDeItensPorPaginaPadrao = 20;
+
 
 	private Integer encontraPaginas(Integer itensTotais, Integer numerosDeItensPorPaginaPadrao2) {
 		if (itensTotais < numerosDeItensPorPaginaPadrao2)
@@ -127,9 +133,15 @@ public class HibernateDao<T> {
 		}
 	}
 
-	private Integer contarTodosItens(Conjunction conjuctionPaginacao) {
+	private Integer contarTodosItens(Conjunction conjuctionPaginacao, String... aliases) {
 
 		Criteria criteriaCount = session.createCriteria(classePersistida);
+
+		if(aliases != null) {
+			for(String alias : aliases) {
+				criteriaCount.createAlias(alias, alias);
+			}
+		}
 
 		criteriaCount.add(conjuctionPaginacao);
 		criteriaCount.setProjection(Projections.rowCount());

@@ -26,6 +26,11 @@
 		<label for="videoImagem" class="control-label">Imagem de Capa:</label> <input
 			class="form-control" id="videoImagem" type="file" name="imagemVideo">
 	</div>
+	  <div class="form-group custom-control custom-switch">
+    <input name="video.ehDestaque" type="checkbox" class="custom-control-input" id="ehDestaque" <c:if
+            test="${empty video.id || video.ehDestaque == true}">checked="checked"</c:if> >
+    <label class="custom-control-label" for="ehDestaque">Vídeo Destaque</label>
+  </div>
 
 	<div class="form-group ">
 		<c:if test="${empty video.id}">

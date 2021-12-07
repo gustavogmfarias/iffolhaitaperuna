@@ -4,8 +4,10 @@
   <c:if test="${not empty noticia.id}">
     <input type="hidden" class="form-control" name="noticia.id"
 			value="${noticia.id}">
-	<input type="hidden" class="form-control" name="usuario.imagem"
+	<input type="hidden" class="form-control" name="noticia.imagemPrincipal"
 			value="${noticia.imagemPrincipal}">
+				<input type="hidden" class="form-control" name="noticia.url"
+			value="${noticia.url}">
   </c:if>
   <div class="form-group ">
     <label for="noticiaTitulo" class="control-label">Título:</label>
@@ -19,16 +21,16 @@
     <label for="noticiaConteudo" class="control-label textarea init">Conteúdo:</label>
     <textarea class="form-control required custom-html" id="noticiaConteudo" name="noticia.conteudo">${noticia.conteudo}</textarea>
   </div>
-  
+
    <div class="form-group ">
     <label for="imagemNoticia" class="control-label">Imagem Principal:</label>
     <input class="form-control file-imagem" id="imagemNoticia" type="file" name="imagemNoticia"
-    
+
     data-initialPreview='[{"urlCompleta":"${sessao.urlPadrao}img/imagens-noticia/${noticia.imagemPrincipal}"}]'
-    
+
     >
   </div>
-  
+
   <div class="form-group ">
     <label for="autoresNoticia"  class="control-label">Autores:</label>
     <select multiple data-live-search="true" class="form-control required custom-select" id="autoresNoticia" name="noticia.autores[].id" >
@@ -64,13 +66,13 @@
       <input class="form-control " id="noticiaOrdemDestaque" type="text" name="noticia.ordemDestaque" value="${noticia.ordemDestaque}">
     </div>
   </div>
-  
+
    <div class="form-group custom-control custom-switch">
     <input name="noticia.ehAtiva" type="checkbox" class="custom-control-input" id="ehAtiva" <c:if
             test="${empty noticia.id || noticia.ehAtiva == true}">checked="checked"</c:if> >
     <label class="custom-control-label" for="ehAtiva">Notícia Ativa</label>
   </div>
-  
+
   <div class="form-group ">
     <label for="noticiaTags" class="control-label">Tags:</label>
     <input data-role="tagsinput" class="form-control " id="noticiaTags" type="text" name="noticia.tagsEmTexto" value="${noticia.getTagsParaExibicao()}">

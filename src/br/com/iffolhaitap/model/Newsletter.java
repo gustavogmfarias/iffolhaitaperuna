@@ -11,13 +11,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name="NEWSLETTER")
 public class Newsletter extends Entidade{
-	
-	@NotEmpty
-	private String nome;
-	
+
 	@NotEmpty
 	private String email;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDoEnvio;
 
@@ -25,7 +22,7 @@ public class Newsletter extends Entidade{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(dataDoEnvio, email, nome);
+		result = prime * result + Objects.hash(dataDoEnvio, email);
 		return result;
 	}
 
@@ -39,14 +36,30 @@ public class Newsletter extends Entidade{
 			return false;
 		Newsletter other = (Newsletter) obj;
 		return Objects.equals(dataDoEnvio, other.dataDoEnvio) && Objects.equals(email, other.email)
-				&& Objects.equals(nome, other.nome);
+				;
 	}
 
 	@Override
 	public String toString() {
-		return "Newsletter [nome=" + nome + ", email=" + email + ", dataDoEnvio=" + dataDoEnvio + "]";
+		return "Newsletter [email=" + email + ", dataDoEnvio=" + dataDoEnvio + "]";
 	}
 
-	
-	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getDataDoEnvio() {
+		return dataDoEnvio;
+	}
+
+	public void setDataDoEnvio(Date dataDoEnvio) {
+		this.dataDoEnvio = dataDoEnvio;
+	}
+
+
+
 }

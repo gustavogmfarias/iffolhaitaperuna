@@ -14,24 +14,25 @@ public class GeneroService {
 
 	public void adiciona(GeneroTexto generoTexto) throws Exception {
 
-		
+
 		if (generoDao.existeGeneroTextoPorNome(generoTexto.getGenero())) {
 			throw new Exception("Já existe um Gênero de Texto cadastrado com esse genero");
 		}
-		
+
 		generoDao.adiciona(generoTexto);
+		generoTexto.montarUrl();
 		logService.criarLog("GENEROTEXTO-ADICIONAR", generoTexto.toString());
 
 	}
-	
+
 	public void remove(GeneroTexto generoTexto) {
-		
+
 		generoTexto = generoDao.get(generoTexto.getId());
 		generoDao.remove(generoTexto);
 		logService.criarLog("GENEROTEXTO-REMOVER", generoTexto.toString());
 
 
-		
+
 	}
-	
+
 }

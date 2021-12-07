@@ -8,72 +8,55 @@
 	<div class="content-wrapper">
 		<div class="container">
 			<div class="row" data-aos="fade-up">
+
 				<div class="col-xl-8 stretch-card grid-margin">
-					<div class="position-relative">
-						<img src="${sessao.urlPadrao}img/imagens-noticia/principal.jpg"
-							alt="banner" class="img-fluid" />
-						<div class="banner-content">
-							<div class="badge badge-danger fs-12 font-weight-bold mb-3">
-								global news</div>
-							<h1 class="mb-0">Inscri&ccedil;&otilde;es abertas para
-								Cursos T&eacute;cnicos</h1>
-							<h1 class="mb-2">As inscri&ccedil;&otilde;es s&atilde;o
-								gratuitas.</h1>
-							<div class="fs-12">
-								<span class="mr-2">Photo </span>10 Minutes ago
+					<a style="text-style: none;"
+						href="${sessao.urlPadrao}noticias/${destaque.url}">
+						<div class="position-relative">
+							<img
+								src="${sessao.urlPadrao}img/imagens-noticia/${destaque.imagemPrincipal}"
+								alt="banner" class="img-fluid "
+								style="width: 724px; height: 410px" />
+							<div class="banner-content">
+								<div class="badge badge-danger fs-12 font-weight-bold mb-3">
+									DESTAQUE IFFOLHA</div>
+								<h1 class="mb-0">${destaque.titulo}</h1>
+								<h1 class="mb-2">${destaque.subtitulo}</h1>
+								<div class="fs-12">
+									<span class="mr-2">Photo </span>
+									<fmt:formatDate pattern="dd/MM/yyyy"
+										value="${destaque.dataDePublicacao}" />
+								</div>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 				<div class="col-xl-4 stretch-card grid-margin">
 					<div class="card bg-dark text-white">
 						<div class="card-body">
 							<h2>&Uacute;ltimas not&iacute;cias</h2>
-
-							<div
-								class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
-								<div class="pr-3">
-									<h5>Virus Kills Member Of Advising Iran’s Supreme</h5>
-									<div class="fs-12">
-										<span class="mr-2">Photo </span>10 Minutes ago
+							<c:forEach items="${tresUltimasNoticias}" var="noticia">
+								<div
+									class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
+									<div class="pr-3">
+										<h5>
+											<a style="text-decoration: none; color: #71c53b;"
+												href="${sessao.urlPadrao}noticias/${noticia.url}">${noticia.getTituloResumido()}...</a>
+										</h5>
+										<div class="fs-12">
+											<span class="mr-2">Photo </span>
+											<fmt:formatDate pattern="dd/MM/yyyy"
+												value="${noticia.dataDePublicacao}" />
+										</div>
+									</div>
+									<div class="rotate-img">
+										<img style="width: 80px; height: 61px;"
+											src="${sessao.urlPadrao}img/imagens-noticia/${noticia.imagemPrincipal}"
+											alt="thumb" class="img-fluid img-lg" />
 									</div>
 								</div>
-								<div class="rotate-img">
-									<img
-										src="${sessao.urlPadrao}assets/images/dashboard/home_1.jpg"
-										alt="thumb" class="img-fluid img-lg" />
-								</div>
-							</div>
+							</c:forEach>
 
-							<div
-								class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between">
-								<div class="pr-3">
-									<h5>Virus Kills Member Of Advising Iran’s Supreme</h5>
-									<div class="fs-12">
-										<span class="mr-2">Photo </span>10 Minutes ago
-									</div>
-								</div>
-								<div class="rotate-img">
-									<img
-										src="${sessao.urlPadrao}assets/images/dashboard/home_2.jpg"
-										alt="thumb" class="img-fluid img-lg" />
-								</div>
-							</div>
-
-							<div
-								class="d-flex pt-4 align-items-center justify-content-between">
-								<div class="pr-3">
-									<h5>Virus Kills Member Of Advising Iran’s Supreme</h5>
-									<div class="fs-12">
-										<span class="mr-2">Photo </span>10 Minutes ago
-									</div>
-								</div>
-								<div class="rotate-img">
-									<img
-										src="${sessao.urlPadrao}assets/images/dashboard/home_3.jpg"
-										alt="thumb" class="img-fluid img-lg" />
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -84,18 +67,10 @@
 						<div class="card-body">
 							<h2>G&ecirc;nero</h2>
 							<ul class="vertical-menu">
-								<li><a href="#">Politics</a></li>
-								<li><a href="#">International</a></li>
-								<li><a href="#">Finance</a></li>
-								<li><a href="#">Health care</a></li>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Jobs</a></li>
-								<li><a href="#">Media</a></li>
-								<li><a href="#">Administration</a></li>
-								<li><a href="#">Sports</a></li>
-								<li><a href="#">Game</a></li>
-								<li><a href="#">Art</a></li>
-								<li><a href="#">Kids</a></li>
+								<c:forEach items="${todosGeneros}" var="genero">
+									<li><a
+										href="${sessao.urlPadrao}artigos/generos/${genero.url}">${genero.genero}</a></li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -103,84 +78,44 @@
 				<div class="col-lg-9 stretch-card grid-margin">
 					<div class="card">
 						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4 grid-margin">
-									<div class="position-relative">
-										<div class="rotate-img">
-											<img
-												src="${sessao.urlPadrao}assets/images/dashboard/home_4.jpg"
-												alt="thumb" class="img-fluid" />
+							<h2>
+								<a
+									href="https://www.youtube.com/channel/UCTZUjPXEdaGpmK7VyIlnNJQ/featured"
+									style="text-decoration: none; color: black;">Artigos</a>
+							</h2>
+							<c:forEach items="${tresUltimosArtigos}" var="artigo">
+								<a style="text-decoration: none; color: black;"
+									href="${sessao.urlPadrao}artigos/${artigo.url}">
+									<div class="row">
+										<div class="col-sm-4 grid-margin">
+											<div class="position-relative">
+												<div class="rotate-img">
+													<img style="height: 155px;"
+														src="${sessao.urlPadrao}img/imagens-artigo/${artigo.imagemPrincipal}"
+														alt="thumb" class="img-fluid" />
+												</div>
+												<div class="badge-positioned">
+													<span class="badge badge-danger font-weight-bold">${artigo.genero.genero}</span>
+												</div>
+											</div>
 										</div>
-										<div class="badge-positioned">
-											<span class="badge badge-danger font-weight-bold">Flash
-												news</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-8  grid-margin">
-									<h2 class="mb-2 font-weight-600">South Korea’s Moon Jae-in
-										sworn in vowing to address North</h2>
-									<div class="fs-13 mb-2">
-										<span class="mr-2">Photo </span>10 Minutes ago
-									</div>
-									<p class="mb-0">Lorem Ipsum has been the industry's
-										standard dummy text ever since the 1500s, when an</p>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-4 grid-margin">
-									<div class="position-relative">
-										<div class="rotate-img">
-											<img
-												src="${sessao.urlPadrao}assets/images/dashboard/home_5.jpg"
-												alt="thumb" class="img-fluid" />
-										</div>
-										<div class="badge-positioned">
-											<span class="badge badge-danger font-weight-bold">Flash
-												news</span>
+										<div class="col-sm-8  grid-margin">
+											<h2 class="mb-2 font-weight-600">${artigo.titulo }</h2>
+											<div class="fs-13 mb-2">
+												<span class="mr-2">Photo </span>
+												<fmt:formatDate pattern="dd/MM/yyyy"
+													value="${artigo.dataDePublicacao}" />
+											</div>
+											<p class="mb-0">${artigo.conteudoResumido}</p>
 										</div>
 									</div>
-								</div>
-								<div class="col-sm-8  grid-margin">
-									<h2 class="mb-2 font-weight-600">No charges over 2017
-										Conservative battle bus cases</h2>
-									<div class="fs-13 mb-2">
-										<span class="mr-2">Photo </span>10 Minutes ago
-									</div>
-									<p class="mb-0">Lorem Ipsum has been the industry's
-										standard dummy text ever since the 1500s, when an</p>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-4">
-									<div class="position-relative">
-										<div class="rotate-img">
-											<img
-												src="${sessao.urlPadrao}assets/images/dashboard/home_6.jpg"
-												alt="thumb" class="img-fluid" />
-										</div>
-										<div class="badge-positioned">
-											<span class="badge badge-danger font-weight-bold">Flash
-												news</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-8">
-									<h2 class="mb-2 font-weight-600">Kaine: Trump Jr. may have
-										committed treason</h2>
-									<div class="fs-13 mb-2">
-										<span class="mr-2">Photo </span>10 Minutes ago
-									</div>
-									<p class="mb-0">Lorem Ipsum has been the industry's
-										standard dummy text ever since the 1500s, when an</p>
-								</div>
-							</div>
+								</a>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="row" data-aos="fade-up">
 				<div class="col-sm-12 grid-margin">
 					<div class="card">
@@ -189,150 +124,67 @@
 								<div class="col-lg-8">
 									<div class="card-title">Video</div>
 									<div class="row">
-										<div class="col-sm-6 grid-margin">
-											<div class="position-relative">
-												<div class="rotate-img">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_7.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="badge-positioned w-90">
-													<div
-														class="d-flex justify-content-between align-items-center">
-														<span class="badge badge-danger font-weight-bold">Lifestyle</span>
-														<div class="video-icon">
-															<i class="mdi mdi-play"></i>
+										<c:forEach items="${destaquesVideo}" var="videoDestaque">
+											<div class="col-sm-6 grid-margin">
+												<div class="position-relative">
+													<div class="rotate-img">
+														<a style="text-decoration: none"
+															href="${videoDestaque.link }" target="_blank"> <img
+															style="width: 322px !important; height: 188px !important;"
+															src="${sessao.urlPadrao}img/imagens-video/${videoDestaque.imagem}"
+															alt="thumb" class="img-fluid" /></a>
+													</div>
+													<div class="badge-positioned w-90">
+														<div
+															class="d-flex justify-content-between align-items-center">
+															<span class="badge badge-danger font-weight-bold">${videoDestaque.getDescResumida()}...</span>
+															<div class="video-icon">
+																<i class="mdi mdi-play"></i>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
 
-										<div class="col-sm-6 grid-margin">
-											<div class="position-relative">
-												<div class="rotate-img">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_8.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="badge-positioned w-90">
-													<div
-														class="d-flex justify-content-between align-items-center">
-														<span class="badge badge-danger font-weight-bold">National
-															News</span>
-														<div class="video-icon">
-															<i class="mdi mdi-play"></i>
-														</div>
-													</div>
-												</div>
 											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-6 grid-margin">
-											<div class="position-relative">
-												<div class="rotate-img">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_9.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="badge-positioned w-90">
-													<div
-														class="d-flex justify-content-between align-items-center">
-														<span class="badge badge-danger font-weight-bold">Lifestyle</span>
-														<div class="video-icon">
-															<i class="mdi mdi-play"></i>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
 
-										<div class="col-sm-6 grid-margin">
-											<div class="position-relative">
-												<div class="rotate-img">
-													<img
-														src="${sessao.urlPadrao}assets/images/dashboard/home_10.jpg"
-														alt="thumb" class="img-fluid" />
-												</div>
-												<div class="badge-positioned w-90">
-													<div
-														class="d-flex justify-content-between align-items-center">
-														<span class="badge badge-danger font-weight-bold">National
-															News</span>
-														<div class="video-icon">
-															<i class="mdi mdi-play"></i>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+										</c:forEach>
 									</div>
 								</div>
+
+
 								<div class="col-lg-4">
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="card-title">Latest Video</div>
-										<p class="mb-3">See all</p>
+										<div class="card-title">&Uacute;ltimos Videos</div>
+										<p class="mb-3">
+											<a
+												href="https://www.youtube.com/channel/UCTZUjPXEdaGpmK7VyIlnNJQ/featured"
+												style="text-decoration: none; color: black;" target="_blank">Ver
+												todos</a>
+										</p>
 									</div>
-									<div
-										class="d-flex justify-content-between align-items-center border-bottom pb-2">
-										<div class="div-w-80 mr-3">
-											<div class="rotate-img">
-												<img
-													src="${sessao.urlPadrao}assets/images/dashboard/home_11.jpg"
-													alt="thumb" class="img-fluid" />
+
+									<c:forEach items="${videos}" var="video">
+										<div
+											class="d-flex justify-content-between align-items-center border-bottom pb-2">
+
+											<div class="div-w-80 mr-3">
+												<div class="rotate-img">
+													<a href="${video.link }" target="_blank"> <img
+														style="height: 72px !important; width: 96px !important;"
+														src="${sessao.urlPadrao}img/imagens-video/${video.imagem}"
+														alt="thumb" class="img-fluid" /></a>
+												</div>
 											</div>
+											<a style="text-decoration: none !important; color: #3a3a3a;"
+												href="${video.link}" target="_blank">
+												<h3 style="text-decoration: none !important"
+													class="font-weight-600 mb-0">
+													${video.getDescResumidaUltimos()}...</h3>
+											</a>
+
 										</div>
-										<h3 class="font-weight-600 mb-0">Apple Introduces Apple
-											Watch</h3>
-									</div>
-									<div
-										class="d-flex justify-content-between align-items-center border-bottom pt-3 pb-2">
-										<div class="div-w-80 mr-3">
-											<div class="rotate-img">
-												<img
-													src="${sessao.urlPadrao}assets/images/dashboard/home_12.jpg"
-													alt="thumb" class="img-fluid" />
-											</div>
-										</div>
-										<h3 class="font-weight-600 mb-0">SEO Strategy & Google
-											Search</h3>
-									</div>
-									<div
-										class="d-flex justify-content-between align-items-center border-bottom pt-3 pb-2">
-										<div class="div-w-80 mr-3">
-											<div class="rotate-img">
-												<img
-													src="${sessao.urlPadrao}assets/images/dashboard/home_13.jpg"
-													alt="thumb" class="img-fluid" />
-											</div>
-										</div>
-										<h3 class="font-weight-600 mb-0">Cycling benefit &
-											disadvantag</h3>
-									</div>
-									<div
-										class="d-flex justify-content-between align-items-center border-bottom pt-3 pb-2">
-										<div class="div-w-80 mr-3">
-											<div class="rotate-img">
-												<img
-													src="${sessao.urlPadrao}assets/images/dashboard/home_14.jpg"
-													alt="thumb" class="img-fluid" />
-											</div>
-										</div>
-										<h3 class="font-weight-600">The Major Health Benefits of</h3>
-									</div>
-									<div
-										class="d-flex justify-content-between align-items-center pt-3">
-										<div class="div-w-80 mr-3">
-											<div class="rotate-img">
-												<img
-													src="${sessao.urlPadrao}assets/images/dashboard/home_15.jpg"
-													alt="thumb" class="img-fluid" />
-											</div>
-										</div>
-										<h3 class="font-weight-600 mb-0">Powerful Moments of
-											Peace</h3>
-									</div>
+									</c:forEach>
+
 								</div>
 							</div>
 						</div>
