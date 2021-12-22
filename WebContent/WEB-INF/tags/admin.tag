@@ -127,9 +127,14 @@
 						class="nav-link "> <i class="fas fa-video fa-fw mr-2"></i>
 							Vídeos
 					</a></li>
-										<li class="nav-item"><a href="${sessao.urlPadrao}adm/newsletters"
-						class="nav-link "> <i class="fas fa-newspaper fa-fw mr-2"></i>
-							Newsletter
+
+					<li class="nav-item"><a
+						href="${sessao.urlPadrao}adm/newsletters" class="nav-link "> <i
+							class="fas fa-newspaper fa-fw mr-2"></i> Newsletter
+					</a></li>
+										<li class="nav-item"><a
+						href="${sessao.urlPadrao}adm/contatos" class="nav-link "> <i
+							class="fas fa-question-circle fa-fw mr-2"></i> Contatos
 					</a></li>
 					<li class="nav-item"><a href="${sessao.urlPadrao}adm/log"
 						class="nav-link "> <i class="fas fa-cabinet-filing fa-fw mr-2"></i>

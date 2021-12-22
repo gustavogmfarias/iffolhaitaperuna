@@ -18,7 +18,7 @@ public class HibernateDao<T> {
 
 	protected Session session;
 	protected Class<T> classePersistida;
-	private Integer numeroDeItensPorPaginaPadrao = 2;
+	private Integer numeroDeItensPorPaginaPadrao = 20;
 
 	public HibernateDao() {
 		this.session = HibernateUtil.currentSession();

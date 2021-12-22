@@ -50,6 +50,7 @@ public class NewsletterController {
 
 	@Post("/adm/newsletters")
 	public void adiciona(@Valid Newsletter newsletter) throws IOException {
+		validator.onErrorForwardTo(SiteController.class).home();
 
 		try {
 			HibernateUtil.beginTransaction();
@@ -59,11 +60,10 @@ public class NewsletterController {
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", e.getMessage()));
-			validator.onErrorRedirectTo(this).novo();
+			validator.onErrorForwardTo(SiteController.class).home();
 		}
-		result.include("message", "Newsletter adicionado com sucesso");
-
-		result.redirectTo(this).lista("",1);
+		result.include("message", "E-mail adicionado com sucesso");
+		result.redirectTo(SiteController.class).home();
 
 	}
 
@@ -82,7 +82,7 @@ public class NewsletterController {
 			HibernateUtil.beginTransaction();
 			newsletterService.atualizar(newsletter, nomeAnterior);
 			HibernateUtil.commit();
-			validator.onErrorRedirectTo(this).lista("",1);
+			validator.onErrorRedirectTo(this).lista("", 1);
 			;
 
 		} catch (Exception e) {
@@ -92,8 +92,7 @@ public class NewsletterController {
 		}
 
 		result.include("mensagem", "Newsletter atualizado com sucesso");
-
-		result.redirectTo(this).lista("",1);
+		result.redirectTo(this).lista("", 1);
 
 	}
 
@@ -107,11 +106,11 @@ public class NewsletterController {
 			newsletterService.remove(newsletter);
 			HibernateUtil.commit();
 			result.include("mensagem", "Newsletter removido com sucesso");
-			result.redirectTo(this).lista("",1);
+			result.redirectTo(this).lista("", 1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
 			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
-			validator.onErrorRedirectTo(this).lista("",1);
+			validator.onErrorRedirectTo(this).lista("", 1);
 		}
 
 	}

@@ -15,10 +15,9 @@
 	href="${sessao.urlPadrao}assets/vendors/mdi/css/materialdesignicons.min.css" />
 <link rel="stylesheet"
 	href="${sessao.urlPadrao}assets/vendors/aos/dist/aos.css/aos.css" />
-
 <!-- End plugin css for this page -->
 <link rel="shortcut icon"
-	href="${sessao.urlPadrao}assets/images/favicon.png" />
+	href="${sessao.urlPadrao}img/imagens-config/${sessao.configuracao.favicon}" />
 
 <!-- inject:css -->
 <link rel="stylesheet" href="${sessao.urlPadrao}assets/css/style.css">
@@ -57,7 +56,8 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div>
 									<a class="navbar-brand" href="${sessao.urlPadrao}"><img
-										src="${sessao.urlPadrao}img/iffolha-logo-index.png" alt="" /></a>
+										src="${sessao.urlPadrao}img/imagens-config/${sessao.configuracao.logo}"
+										alt="" /></a>
 								</div>
 								<div>
 									<button class="navbar-toggler" type="button"
@@ -91,16 +91,14 @@
 									</div>
 								</div>
 								<ul class="social-media">
-									<li><a
-										href="https://www.facebook.com/jornaliffolhaitaperuna"> <i
+									<li><a href="${sessao.configuracao.facebook}"> <i
 											class="mdi mdi-facebook"></i>
 									</a></li>
-									<li><a
-										href="https://www.youtube.com/channel/UCTZUjPXEdaGpmK7VyIlnNJQ">
-											<i class="mdi mdi-youtube"></i>
+									<li><a href="${sessao.configuracao.youtube}"> <i
+											class="mdi mdi-youtube"></i>
 									</a></li>
-									<li><a href="https://www.instagram.com/iffolhaitaperuna/">
-											<i class="mdi mdi-instagram"></i>
+									<li><a href="${sessao.configuracao.instagram}"> <i
+											class="mdi mdi-instagram"></i>
 									</a></li>
 								</ul>
 							</div>
@@ -110,13 +108,13 @@
 			</header>
 
 			<!-- partial -->
-			<div class="flash-news-banner">
+
+			<div class="flash-news-banner"
+				<c:if test="${sessao.configuracao.menuAlertaAtivo==false}">style="display:none;"</c:if>>
 				<div class="container">
 					<div class="d-lg-flex align-items-center justify-content-between">
 						<div class="d-flex align-items-center">
-							<span class="badge badge-dark mr-3">***LIVE AGORA *** </span>
-							<p class="mb-0">IFFolha est&aacute; realizando uma live no
-								momento. Clique e confira!</p>
+							<p class="mb-0 " style="text-align: center; !important">${sessao.configuracao.menuAlerta}</p>
 						</div>
 					</div>
 				</div>
@@ -130,7 +128,8 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-5">
-								<img src="${sessao.urlPadrao}img/iffolha-logo-index.png"
+								<img
+									src="${sessao.urlPadrao}img/imagens-config/${sessao.configuracao.logo}"
 									class="footer-logo" alt="" />
 								<h5 class="font-weight-normal mt-4 mb-5">O Jornal IFFolha
 									Itaperuna foi inspirado no seu hom&ocirc;nimo do Instituto
@@ -138,16 +137,14 @@
 									not&iacute;cias do campus, artigos e outras
 									informa&ccedil;&otilde;es produzidas pelos alunos.</h5>
 								<ul class="social-media">
-									<li><a
-										href="https://www.facebook.com/jornaliffolhaitaperuna"> <i
+									<li><a href="${sessao.configuracao.facebook}"> <i
 											class="mdi mdi-facebook"></i>
 									</a></li>
-									<li><a
-										href="https://www.youtube.com/channel/UCTZUjPXEdaGpmK7VyIlnNJQ">
-											<i class="mdi mdi-youtube"></i>
+									<li><a href="${sessao.configuracao.youtube}"> <i
+											class="mdi mdi-youtube"></i>
 									</a></li>
-									<li><a href="https://www.instagram.com/iffolhaitaperuna/">
-											<i class="mdi mdi-instagram"></i>
+									<li><a href="${sessao.configuracao.instagram}"> <i
+											class="mdi mdi-instagram"></i>
 									</a></li>
 								</ul>
 							</div>
@@ -165,8 +162,9 @@
 															alt="thumb" class="img-fluid" />
 													</div>
 													<div class="col-9">
-													<a class="font-weight-600" style="text-decoration: none; color: white;"
-												href="${sessao.urlPadrao}noticias/${noticia.url}">${noticia.getTituloResumido()}...</a>
+														<a class="font-weight-600"
+															style="text-decoration: none; color: white;"
+															href="${sessao.urlPadrao}noticias/${noticia.url}">${noticia.getTituloResumido()}...</a>
 													</div>
 												</div>
 											</div>
@@ -176,9 +174,28 @@
 							</div>
 							<div class="col-sm-3">
 								<h3 class="font-weight-bold mb-3">NEWSLETTER</h3>
-									<form  action="${sessao.urlPadrao}adm/newsletters" method="post" role="form">
-								<input id="newsletter" value="insira um email v&aacute;lido" name="newsletter.email">
-								<input type="submit" value="cadastrar">
+								<form action="${sessao.urlPadrao}adm/newsletters" method="post"
+									role="form">
+									<c:if test="${not empty mensagem}">
+										<div class="alert alert-success" role="alert">
+											${mensagem}</div>
+									</c:if>
+									<c:if test="${not empty errors}">
+										<div class="container-fluid"
+											style="padding-left: 0 !important;">
+
+											<c:forEach items="${errors}" var="error">
+												<span>${error.message}</span>
+											</c:forEach>
+												<span>${message}</span>
+
+
+										</div>
+									</c:if>
+									<input id="newsletter" type="email"
+										placeholder="insira um email v&aacute;lido"
+										name="newsletter.email"> <input type="submit"
+										value="cadastrar">
 								</form>
 								<div class="footer-border-bottom pb-2">
 									<div class="d-flex justify-content-between align-items-center">
@@ -191,33 +208,32 @@
 						</div>
 					</div>
 				</div>
-		</div>
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="d-sm-flex justify-content-between align-items-center">
-							<div class="fs-14 font-weight-600">
-								&copy; 2022 @ <a href="https://www.bootstrapdash.com/"
-									target="_blank" class="text-white"> IFFolha Itaperuna</a>.
-								Todos os direitos reservados.
-							</div>
-							<div class="fs-14 font-weight-600">
-								Theme by <a href="https://www.bootstrapdash.com/"
-									target="_blank" class="text-white">BootstrapDash</a> &
-								Administration System and Adaptation by <a
-									href="http://gustavogmfarias.me" target="_blank"
-									class="text-white">Gustavo Goulart</a>
+				<div class="footer-bottom">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12">
+								<div
+									class="d-sm-flex justify-content-between align-items-center">
+									<div class="fs-14 font-weight-600">
+										&copy; 2022 @ <a href="https://www.bootstrapdash.com/"
+											target="_blank" class="text-white"> IFFolha Itaperuna</a>.
+										Todos os direitos reservados.
+									</div>
+									<div class="fs-14 font-weight-600">
+										Theme by <a href="https://www.bootstrapdash.com/"
+											target="_blank" class="text-white">BootstrapDash</a> &amp;
+										Control Panel and Adaptation by <a
+											href="http://gustavogmfarias.me" target="_blank"
+											class="text-white">Gustavo Goulart</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</footer>
+			<!-- partial -->
 		</div>
-		</footer>
-
-		<!-- partial -->
-	</div>
 	</div>
 	<!-- inject:js -->
 	<script

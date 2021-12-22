@@ -6,9 +6,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.iffolhaitap.dao.ArtigoDao;
 import br.com.iffolhaitap.dao.ConfiguracaoDao;
 import br.com.iffolhaitap.dao.GeneroTextoDao;
@@ -17,11 +15,9 @@ import br.com.iffolhaitap.dao.NoticiaDao;
 import br.com.iffolhaitap.dao.VideoDao;
 import br.com.iffolhaitap.model.Artigo;
 import br.com.iffolhaitap.model.GeneroTexto;
-import br.com.iffolhaitap.model.Newsletter;
 import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.model.Video;
 import br.com.iffolhaitap.service.NewsletterService;
-import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
 @Controller
