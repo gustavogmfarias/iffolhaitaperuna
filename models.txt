@@ -1,0 +1,116 @@
+Autor
+nome
+email
+telefone
+noticias Noticia
+artigos Artigo
+imagem
+
+Artigo
+titulo
+subtitulo
+conteudo
+imagemPrincipal
+conteudoResumido
+publicadoPor Usuario
+editadoPor Usuario
+dataDePublicacao
+dataDeEdicao
+autores Autor
+tags Tag
+turmas Turma
+cursos Curso
+genero GeneroTexto
+ehAtiva
+url
+
+Configuracao
+titulo
+logo
+favicon
+corBarraPrincipal
+facebook
+instagram
+youtube
+menuAlerta
+menuAlertaAtivo
+
+
+Contato
+nome
+email
+assunto
+conteudo
+whatsapp
+respondidoPor Usuario
+dataDoEnvio
+dataDaReposta
+
+Curso
+nome
+turmas Turma
+noticia Noticias
+artigos 
+
+GeneroTexto
+genero
+artigos Artigo
+url
+
+Log
+titulo
+descricao
+data
+
+Newsletter
+email
+dataDoEnvio
+
+Noticia
+titulo
+subtitulo
+conteudo
+conteudoResumido
+imagemPrincipal
+publicadoPor Usuario
+editadoPor Usuario
+dataDePublicacao
+dataDeEdicao
+autores Autor
+tags Tag
+turmas Turma
+cursos Curso
+genero GeneroTexto
+ehAtiva
+ordemDestaque int
+url
+
+Perfil enum
+ADMINISTRADOR
+EDITOR
+
+Tag
+nome
+url
+noticias Notícia
+artigos Artigo
+
+Turma
+nome
+curso Curso
+noticias Notícia
+artigos Artigo
+
+Usuario
+nome
+senha
+senhaConfirmacao
+email
+imagem
+
+Video
+descricao
+link
+imagem
+ehDestaque
+

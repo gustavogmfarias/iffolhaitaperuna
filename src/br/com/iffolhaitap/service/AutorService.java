@@ -8,17 +8,22 @@ import javax.inject.Inject;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.iffolhaitap.dao.AutorDao;
 import br.com.iffolhaitap.model.Autor;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class AutorService {
 
+	@ManyToOne
 	@Inject AutorDao autorDao;
+	@ManyToOne
 	@Inject LogService logService;
 
 	public void adiciona(Autor autor, UploadedFile imagemAutor) throws Exception {
 		
 		if (imagemAutor != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-autor",
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-autor",
 					imagemAutor.getFileName());
 			imagemAutor.writeTo(fotoSalva);
 			autor.setImagem(imagemAutor.getFileName());
@@ -26,7 +31,7 @@ public class AutorService {
 
 		if (autorDao.existeAutorPorEmail(autor.getEmail())) {
 
-			throw new Exception("Já existe autor cadastrado com esse e-mail");
+			throw new Exception("Jï¿½ existe autor cadastrado com esse e-mail");
 
 		}
 		
@@ -40,7 +45,7 @@ public class AutorService {
 	public void atualizar(Autor autor, UploadedFile imagemAutor) throws Exception {
 		
 		if (imagemAutor != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-autor",
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-autor",
 					imagemAutor.getFileName());
 			imagemAutor.writeTo(fotoSalva);
 			autor.setImagem(imagemAutor.getFileName());
@@ -48,7 +53,7 @@ public class AutorService {
 
 		if (autorDao.existeAutorPorEmail(autor.getEmail()) && !autor.getEmail().equals(autor.getNovoEmail())) {
 
-			throw new Exception("Já existe autor cadastrado com esse e-mail");
+			throw new Exception("Jï¿½ existe autor cadastrado com esse e-mail");
 
 		}
 		

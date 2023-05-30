@@ -2,7 +2,9 @@ package br.com.iffolhaitap.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import javax.persistence.Entity;
 
+@Entity
 public class FileUtils {
 
 	private FileUtils() {

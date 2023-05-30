@@ -8,17 +8,22 @@ import javax.inject.Inject;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.iffolhaitap.dao.VideoDao;
 import br.com.iffolhaitap.model.Video;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class VideoService {
 
+	@ManyToOne
 	@Inject VideoDao videoDao;
+	@ManyToOne
 	@Inject LogService logService;
 
 	public void adiciona(Video video, UploadedFile imagemVideo) throws Exception {
 
 		if (imagemVideo != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-video",
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-video",
 					imagemVideo.getFileName());
 			imagemVideo.writeTo(fotoSalva);
 			video.setImagem(imagemVideo.getFileName());
@@ -26,7 +31,7 @@ public class VideoService {
 
 		if (videoDao.existeVideoPorLink(video.getLink())) {
 
-			throw new Exception("Já existe video cadastrado com esse link");
+			throw new Exception("Jï¿½ existe video cadastrado com esse link");
 
 		}
 
@@ -40,7 +45,7 @@ public class VideoService {
 	public void atualizar(Video video, UploadedFile imagemVideo) throws Exception {
 
 		if (imagemVideo != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-video",
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-video",
 					imagemVideo.getFileName());
 			imagemVideo.writeTo(fotoSalva);
 			video.setImagem(imagemVideo.getFileName());
@@ -48,7 +53,7 @@ public class VideoService {
 
 		if (videoDao.existeVideoPorLink(video.getLink()) && !video.getLink().equals(video.getNovoLink())) {
 
-			throw new Exception("Já existe video cadastrado com esse link");
+			throw new Exception("Jï¿½ existe video cadastrado com esse link");
 
 		}
 

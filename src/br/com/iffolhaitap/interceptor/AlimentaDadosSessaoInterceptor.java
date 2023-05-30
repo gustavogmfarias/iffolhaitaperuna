@@ -11,13 +11,18 @@ import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.iffolhaitap.dao.ConfiguracaoDao;
 import br.com.iffolhaitap.model.Configuracao;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 @Intercepts
 public class AlimentaDadosSessaoInterceptor implements Interceptor {
 
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private ConfiguracaoDao configuracaoDao;
 

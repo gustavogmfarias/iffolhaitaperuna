@@ -34,6 +34,7 @@ public class Usuario extends Entidade {
 
 	private String imagem = "";
 
+//	@Enumerated
 	@Enumerated(EnumType.STRING)
 	private Perfil perfil;
 

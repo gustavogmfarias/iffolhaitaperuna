@@ -14,20 +14,27 @@ import br.com.iffolhaitap.service.LogService;
 import br.com.iffolhaitap.service.LoginService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @Controller
 public class LoginController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private UsuarioDao usuarioDao;
 	@Inject
 	private Validator validator;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private LoginService loginService;
+	@ManyToOne
 	@Inject
 	private LogService logService;
 
@@ -46,7 +53,7 @@ public class LoginController {
 			validator.onErrorRedirectTo(this).login();
 		}
 
-		result.include("message", "Usuário logado com sucesso");
+		result.include("message", "Usuï¿½rio logado com sucesso");
 
 		try {
 			HibernateUtil.beginTransaction();

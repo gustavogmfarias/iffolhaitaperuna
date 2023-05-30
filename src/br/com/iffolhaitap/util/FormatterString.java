@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
+import javax.persistence.Entity;
 import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.lang.RandomStringUtils;
 
 
 
+@Entity
 public class FormatterString {
 
 	private static String[] listImagem = {"jpg","jpeg","bmp","gif","png"};

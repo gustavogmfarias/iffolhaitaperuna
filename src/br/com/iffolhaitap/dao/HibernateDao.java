@@ -4,7 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import org.apache.poi.ss.formula.functions.T;
+import javax.persistence.Entity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Conjunction;
@@ -14,6 +14,7 @@ import org.hibernate.criterion.Projections;
 import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.util.HibernateUtil;
 
+@Entity
 public class HibernateDao<T> {
 
 	protected Session session;
@@ -90,8 +91,8 @@ public class HibernateDao<T> {
 		Integer min = (paginaAtual * this.numeroDeItensPorPaginaPadrao) - this.numeroDeItensPorPaginaPadrao;
 		Integer max = paginaAtual * this.numeroDeItensPorPaginaPadrao;
 		Criteria criteria = session.createCriteria(classePersistida);
-		if(aliases != null) {
-			for(String alias : aliases) {
+		if (aliases != null) {
+			for (String alias : aliases) {
 				criteria.createAlias(alias, alias);
 			}
 		}
@@ -119,8 +120,6 @@ public class HibernateDao<T> {
 		return retorno;
 	}
 
-
-
 	private Integer encontraPaginas(Integer itensTotais, Integer numerosDeItensPorPaginaPadrao2) {
 		if (itensTotais < numerosDeItensPorPaginaPadrao2)
 			return 1;
@@ -137,8 +136,8 @@ public class HibernateDao<T> {
 
 		Criteria criteriaCount = session.createCriteria(classePersistida);
 
-		if(aliases != null) {
-			for(String alias : aliases) {
+		if (aliases != null) {
+			for (String alias : aliases) {
 				criteriaCount.createAlias(alias, alias);
 			}
 		}

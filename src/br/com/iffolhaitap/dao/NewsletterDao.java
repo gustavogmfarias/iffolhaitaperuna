@@ -2,6 +2,7 @@ package br.com.iffolhaitap.dao;
 
 import javax.enterprise.context.RequestScoped;
 
+import javax.persistence.Entity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.MatchMode;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.iffolhaitap.model.Newsletter;
 import br.com.iffolhaitap.paginacao.Paginacao;
 
+@Entity
 @RequestScoped
 public class NewsletterDao extends HibernateDao<Newsletter> {
 

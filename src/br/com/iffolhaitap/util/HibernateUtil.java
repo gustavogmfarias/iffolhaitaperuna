@@ -9,6 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.CDI;
 
+import javax.persistence.Entity;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -18,6 +19,7 @@ import org.hibernate.service.ServiceRegistry;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.events.VRaptorInitialized;
 
+@Entity
 @SuppressWarnings("resource")
 @ApplicationScoped
 public class HibernateUtil {

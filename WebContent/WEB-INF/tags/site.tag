@@ -43,9 +43,7 @@
 
 								</ul>
 								<ul class="navbar-top-right-menu">
-									<li class="nav-item"><a href="#" class="nav-link"><i
-											class="mdi mdi-magnify"></i></a></li>
-									<li class="nav-item"><a target="_blank"
+																	<li class="nav-item"><a target="_blank"
 										href="${sessao.urlPadrao}adm/login" class="nav-link">Login</a>
 									</li>
 
@@ -81,9 +79,7 @@
 												href="${sessao.urlPadrao}noticias">Not&iacute;cias</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="${sessao.urlPadrao}artigos">Artigos</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="${sessao.urlPadrao}blog">Blog</a></li>
-											<li class="nav-item"><a class="nav-link"
+															<li class="nav-item"><a class="nav-link"
 												href="${sessao.urlPadrao}quemsomos">Quem Somos</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="${sessao.urlPadrao}contato">Contato</a></li>

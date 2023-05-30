@@ -1,5 +1,8 @@
 package br.com.iffolhaitap.paginacao;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ItemPaginacao {
 	private Integer numeroDaPagina;
 	private Integer paginaAtual;

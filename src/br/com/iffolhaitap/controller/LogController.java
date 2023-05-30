@@ -11,16 +11,21 @@ import br.com.iffolhaitap.dao.LogDao;
 import br.com.iffolhaitap.model.Log;
 import br.com.iffolhaitap.paginacao.Paginacao;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @Controller
 public class LogController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private LogDao logDao;
 	@Inject
 	private Validator validator;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
 

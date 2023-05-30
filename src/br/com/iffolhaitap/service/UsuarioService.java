@@ -8,27 +8,32 @@ import javax.inject.Inject;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class UsuarioService {
 
+	@ManyToOne
 	@Inject UsuarioDao usuarioDao;
+	@ManyToOne
 	@Inject LogService logService;
 	
 	public void adiciona(Usuario usuario, UploadedFile imagemUsuario) throws Exception {
 		
 		if (imagemUsuario != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-usuario", imagemUsuario.getFileName());
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-usuario", imagemUsuario.getFileName());
 			imagemUsuario.writeTo(fotoSalva);
 			usuario.setImagem(imagemUsuario.getFileName());
 		}
 
 		if (usuario.getPerfil() == null) {
-			throw new Exception("Por favor, escolha um tipo de perfil para o usuário");
+			throw new Exception("Por favor, escolha um tipo de perfil para o usuï¿½rio");
 		}
 
 		if (usuarioDao.existeUsuarioPorEmail(usuario.getEmail())) {
-			throw new Exception("Já existe usuário cadastrado com esse e-mail");
+			throw new Exception("Jï¿½ existe usuï¿½rio cadastrado com esse e-mail");
 		}
 
 		usuarioDao.adiciona(usuario);
@@ -40,21 +45,21 @@ public class UsuarioService {
 	public void atualizar(Usuario usuario, UploadedFile imagemUsuario) throws Exception {
 		
 		if (imagemUsuario != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-usuario",
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-usuario",
 					imagemUsuario.getFileName());
 			imagemUsuario.writeTo(fotoSalva);
 			usuario.setImagem(imagemUsuario.getFileName());
 		}
 		
 		if (usuario.getPerfil() == null) {
-			throw new Exception("Por favor, escolha um tipo de perfil para o usuário");
+			throw new Exception("Por favor, escolha um tipo de perfil para o usuï¿½rio");
 
 		}
 
 		
 		if (usuarioDao.existeUsuarioPorEmail(usuario.getEmail()) && !usuario.getEmail().equals(usuario.getNovoEmail())) {
 
-			throw new Exception("Já existe usuário cadastrado com esse e-mail");
+			throw new Exception("Jï¿½ existe usuï¿½rio cadastrado com esse e-mail");
 
 		}
 		

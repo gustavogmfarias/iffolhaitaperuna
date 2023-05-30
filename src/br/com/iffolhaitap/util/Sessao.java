@@ -7,19 +7,28 @@ import javax.inject.Named;
 
 import br.com.iffolhaitap.model.Configuracao;
 import br.com.iffolhaitap.model.Usuario;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 @Named("sessao")
 @SessionScoped
 public class Sessao implements Serializable {
 
+	@Id
+	@GeneratedValue
 	private static final long serialVersionUID = -2716020570285741943L;
 
+	@ManyToOne
 	private Usuario usuario;
 	private String url;
 	private String titulo;
 
 	private String urlPadrao;
 	private String urlContinuacao;
+	@ManyToOne
 	private Configuracao configuracao;
 
 	public Sessao() {

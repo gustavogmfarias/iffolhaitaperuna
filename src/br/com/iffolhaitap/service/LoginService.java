@@ -7,12 +7,18 @@ import br.com.iffolhaitap.dao.UsuarioDao;
 import br.com.iffolhaitap.model.Usuario;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class LoginService {
 
+	@ManyToOne
 	@Inject private UsuarioDao usuarioDao;
+	@ManyToOne
 	@Inject private Sessao sessao;
+	@ManyToOne
 	@Inject private LogService logService;
 
 	public void logar(Usuario usuario) throws Exception {
@@ -20,11 +26,11 @@ public class LoginService {
 		Usuario usuarioBanco = usuarioDao.procuraPorEmail(usuario.getEmail());
 
 		if (usuarioBanco == null) {
-			throw new Exception("Usuário não encontrado");
+			throw new Exception("Usuï¿½rio nï¿½o encontrado");
 		}
 
 		if (!usuarioBanco.getSenha().equals(usuario.getSenha())) {
-			throw new Exception("Senha inválida");
+			throw new Exception("Senha invï¿½lida");
 		}
 
 		sessao.setUsuario(usuarioBanco);

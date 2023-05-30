@@ -2,12 +2,20 @@ package br.com.iffolhaitap.paginacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Paginacao<T> {
 
 	private List<T> objetosDaPaginaAtual;
+	@OneToMany
 	private List<ItemPaginacao> itens;
 	private Integer paginaAtual;
+	@Id
+	@GeneratedValue
 	private Integer quantidadeDePaginas;
 	private Integer totalDeItens;
 

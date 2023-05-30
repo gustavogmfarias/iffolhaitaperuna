@@ -18,18 +18,24 @@ import br.com.iffolhaitap.model.Perfil;
 import br.com.iffolhaitap.service.ConfiguracaoService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @Controller
 public class ConfiguracaoController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private ConfiguracaoDao configuracaoDao;
 	@Inject
 	private Validator validator;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private ConfiguracaoService configuracaoService;
 
@@ -62,7 +68,7 @@ public class ConfiguracaoController {
 			validator.add(new SimpleMessage("error", e.getMessage()));
 			validator.onErrorRedirectTo(this).configuracoes();
 		}
-		result.include("mensagem", "Confirguração atualizada com sucesso");
+		result.include("mensagem", "Confirguraï¿½ï¿½o atualizada com sucesso");
 		result.redirectTo(this).configuracoes();
 
 	}

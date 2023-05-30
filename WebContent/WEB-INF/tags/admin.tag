@@ -143,12 +143,7 @@
 				</ul>
 				<hr class="navbar-divider my-3">
 
-				<ul class="navbar-nav">
-					<li class="nav-item"><a href="${sessao.urlPadrao}adm/unidades"
-						class="nav-link "> <i class="fad fa-clinic-medical fa-fw mr-2"></i>
-							Unidades
-					</a></li>
-				</ul>
+				
 
 
 				<ul class="navbar-nav mt-auto">

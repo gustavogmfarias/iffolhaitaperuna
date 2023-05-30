@@ -3,6 +3,7 @@ package br.com.iffolhaitap.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;

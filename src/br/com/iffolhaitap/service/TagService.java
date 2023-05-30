@@ -7,10 +7,14 @@ import br.com.iffolhaitap.dao.TagDao;
 import br.com.iffolhaitap.model.Artigo;
 import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.model.Tag;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class TagService {
 
+	@ManyToOne
 	@Inject TagDao tagDao;
 
 	public Noticia criarTags(Noticia noticia, String tagsEmTexto) {

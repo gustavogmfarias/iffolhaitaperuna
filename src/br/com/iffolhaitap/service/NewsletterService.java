@@ -5,18 +5,23 @@ import javax.inject.Inject;
 
 import br.com.iffolhaitap.dao.NewsletterDao;
 import br.com.iffolhaitap.model.Newsletter;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class NewsletterService {
+	@ManyToOne
 	@Inject
 	private NewsletterDao newsletterDao;
+	@ManyToOne
 	@Inject private LogService logService;
 
 	public void adiciona(Newsletter newsletter) throws Exception {
 
 		if (newsletterDao.existeNewsletterPorEmail(newsletter.getEmail())) {
 
-			throw new Exception("Já existe um newsletter cadastrado com esse email");
+			throw new Exception("Jï¿½ existe um newsletter cadastrado com esse email");
 		}
 		newsletterDao.adiciona(newsletter);
 		logService.criarLog("NEWSLETTER-ADICIONAR", newsletter.toString());
@@ -27,7 +32,7 @@ public class NewsletterService {
 
 		if (newsletterDao.existeNewsletterPorEmail(newsletter.getEmail()) && !newsletter.getEmail().equals(emailAnterior)) {
 
-			throw new Exception("Já existe um newsletter cadastrado com esse email");
+			throw new Exception("Jï¿½ existe um newsletter cadastrado com esse email");
 		}
 
 		newsletterDao.atualizar(newsletter);

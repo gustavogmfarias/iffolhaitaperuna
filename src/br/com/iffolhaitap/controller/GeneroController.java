@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 import br.com.caelum.vraptor.Controller;
@@ -20,17 +22,21 @@ import br.com.iffolhaitap.service.GeneroService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
+@Entity
 @Controller
 public class GeneroController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private GeneroTextoDao generoTextoDao;
 	@Inject
 	private Validator validator;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private GeneroService generoService;
 
@@ -81,7 +87,7 @@ public class GeneroController {
 
 		if (generoTextoDao.existeGeneroTextoPorNome(generoTexto.getGenero())) {
 
-			validator.add(new SimpleMessage("error", "Já existe um Genero de Texto cadastrado com esse genero"));
+			validator.add(new SimpleMessage("error", "Jï¿½ existe um Genero de Texto cadastrado com esse genero"));
 			validator.onErrorRedirectTo(this).novo();
 
 		}
@@ -98,7 +104,7 @@ public class GeneroController {
 
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", "Transaï¿½ï¿½o nï¿½o Efetuada"));
 			validator.onErrorRedirectTo(this).editar(generoTexto);
 		}
 
@@ -121,7 +127,7 @@ public class GeneroController {
 			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", "Transaï¿½ï¿½o nï¿½o Efetuada"));
 			validator.onErrorRedirectTo(this).lista("",1);
 		}
 

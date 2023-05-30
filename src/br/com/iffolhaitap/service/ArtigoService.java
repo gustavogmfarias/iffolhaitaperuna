@@ -11,15 +11,22 @@ import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.iffolhaitap.dao.ArtigoDao;
 import br.com.iffolhaitap.model.Artigo;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class ArtigoService {
 
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private ArtigoDao artigoDao;
+	@ManyToOne
 	@Inject private TagService tagService;
+	@ManyToOne
 	@Inject private LogService logService;
 
 	public Artigo adicionar(Artigo artigo, UploadedFile imagemArtigo) throws Exception {
@@ -28,7 +35,7 @@ public class ArtigoService {
 
 
 		if (imagemArtigo != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-artigo", imagemArtigo.getFileName());
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-artigo", imagemArtigo.getFileName());
 			imagemArtigo.writeTo(fotoSalva);
 			artigo.setImagemPrincipal(imagemArtigo.getFileName()); }
 
@@ -46,7 +53,7 @@ public class ArtigoService {
 	public Artigo atualizar(Artigo artigo, UploadedFile imagemArtigo) throws Exception {
 
 		if (imagemArtigo != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-artigo", imagemArtigo.getFileName());
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-artigo", imagemArtigo.getFileName());
 			imagemArtigo.writeTo(fotoSalva);
 			artigo.setImagemPrincipal(imagemArtigo.getFileName()); }
 

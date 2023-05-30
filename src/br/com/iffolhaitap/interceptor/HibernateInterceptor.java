@@ -3,6 +3,7 @@ package br.com.iffolhaitap.interceptor;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 
+import javax.persistence.Entity;
 import org.apache.log4j.Logger;
 import org.hibernate.exception.JDBCConnectionException;
 
@@ -13,6 +14,7 @@ import br.com.caelum.vraptor.events.RequestSucceded;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.iffolhaitap.util.HibernateUtil;
 
+@Entity
 @RequestScoped
 @Intercepts(before = { AlimentaDadosSessaoInterceptor.class })
 public class HibernateInterceptor implements Interceptor {

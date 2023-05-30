@@ -3,6 +3,8 @@ package br.com.iffolhaitap.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 import br.com.caelum.vraptor.Controller;
@@ -21,13 +23,17 @@ import br.com.iffolhaitap.service.UsuarioService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
+@Entity
 @Controller
 public class UsuarioController {
 
 	@Inject private Result result;
+	@ManyToOne
 	@Inject private UsuarioDao usuarioDao;
 	@Inject private Validator validator;
+	@ManyToOne
 	@Inject private Sessao sessao;
+	@ManyToOne
 	@Inject private UsuarioService usuarioService;
 	
 	@Privado(Perfil.ADMINISTRADOR)
@@ -101,7 +107,7 @@ public class UsuarioController {
 			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", "Transaï¿½ï¿½o nï¿½o Efetuada"));
 			validator.onErrorRedirectTo(this).lista("",1);
 		}
 
@@ -119,13 +125,13 @@ public class UsuarioController {
 		Usuario usuarioBd = usuarioDao.get(usuario.getId());
 
 		if (!usuarioBd.getSenha().equals(usuario.getSenhaAntiga())) {
-			validator.add(new SimpleMessage("error", "Senha atual inválida"));
+			validator.add(new SimpleMessage("error", "Senha atual invï¿½lida"));
 			validator.onErrorRedirectTo(this).mudarMinhaSenha();
 		}
 		
 
 		if (!usuario.getSenhaConfirmacao().equals(usuario.getSenha())) {
-			validator.add(new SimpleMessage("error", "Senhas não coincidem"));
+			validator.add(new SimpleMessage("error", "Senhas nï¿½o coincidem"));
 			validator.onErrorRedirectTo(this).mudarMinhaSenha();
 		}
 
@@ -136,7 +142,7 @@ public class UsuarioController {
 			HibernateUtil.commit();
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", "Transaï¿½ï¿½o nï¿½o Efetuada"));
 			result.redirectTo(this).mudarMinhaSenha();
 		}
 		result.include("message", "Senha atualizada com sucesso");

@@ -23,9 +23,9 @@ public class Curso extends Entidade {
 	private List<Noticia> noticias;
 	
 	@ManyToMany(mappedBy = "cursos")
-	private List<Noticia> artigos;
+	private List<Artigo> artigos;
 
-	public Curso(String nome, List<Turma> turmas, List<Noticia> noticias, List<Noticia> artigos) {
+	public Curso(String nome, List<Turma> turmas, List<Noticia> noticias, List<Artigo> artigos) {
 		super();
 		this.nome = nome;
 		this.turmas = turmas;
@@ -61,11 +61,11 @@ public class Curso extends Entidade {
 		this.noticias = noticias;
 	}
 
-	public List<Noticia> getArtigos() {
+	public List<Artigo> getArtigos() {
 		return artigos;
 	}
 
-	public void setArtigos(List<Noticia> artigos) {
+	public void setArtigos(List<Artigo> artigos) {
 		this.artigos = artigos;
 	}
 

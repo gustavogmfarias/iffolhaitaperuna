@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 import org.hibernate.Criteria;
@@ -34,27 +36,36 @@ import br.com.iffolhaitap.service.ArtigoService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
+@Entity
 @Controller
 public class ArtigoController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private ArtigoDao artigoDao;
 	@Inject
 	private Validator validator;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private AutorDao autorDao;
+	@ManyToOne
 	@Inject
 	private TurmaDao turmaDao;
+	@ManyToOne
 	@Inject
 	private CursoDao cursoDao;
+	@ManyToOne
 	@Inject
 	private TagDao tagDao;
+	@ManyToOne
 	@Inject
 	private GeneroTextoDao generoDao;
+	@ManyToOne
 	@Inject
 	private ArtigoService artigoService;
 
@@ -159,7 +170,7 @@ public class ArtigoController {
 			result.redirectTo(this).lista("", 1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", "Transaï¿½ï¿½o nï¿½o Efetuada"));
 			validator.onErrorRedirectTo(this).lista("", 1);
 		}
 

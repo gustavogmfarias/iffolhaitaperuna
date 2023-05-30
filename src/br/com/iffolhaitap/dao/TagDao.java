@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 
+import javax.persistence.Entity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.model.Tag;
 
+@Entity
 @RequestScoped
 public class TagDao extends HibernateDao<Tag> {
 

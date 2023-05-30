@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 
+import javax.persistence.Entity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.MatchMode;
@@ -16,6 +17,7 @@ import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.model.Tag;
 import br.com.iffolhaitap.paginacao.Paginacao;
 
+@Entity
 @RequestScoped
 public class ArtigoDao extends HibernateDao<Artigo> {
 

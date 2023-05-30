@@ -2,6 +2,7 @@ package br.com.iffolhaitap.dao;
 
 import javax.enterprise.context.RequestScoped;
 
+import javax.persistence.Entity;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -10,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.iffolhaitap.model.Log;
 import br.com.iffolhaitap.paginacao.Paginacao;
 
+@Entity
 @RequestScoped
 public class LogDao extends HibernateDao<Log> {
 

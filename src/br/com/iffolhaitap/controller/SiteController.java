@@ -19,22 +19,33 @@ import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.model.Video;
 import br.com.iffolhaitap.service.NewsletterService;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @Controller
 public class SiteController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private ConfiguracaoDao configuracaoDao;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
 
+	@ManyToOne
 	@Inject private NoticiaDao noticiaDao;
+	@ManyToOne
 	@Inject private ArtigoDao artigoDao;
+	@ManyToOne
 	@Inject private GeneroTextoDao generoTextoDao;
+	@ManyToOne
 	@Inject private VideoDao videoDao;
+	@ManyToOne
 	@Inject private NewsletterDao newsletterDao;
+	@ManyToOne
 	@Inject private NewsletterService newsletterService;
 
 

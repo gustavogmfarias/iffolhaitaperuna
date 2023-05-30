@@ -11,15 +11,22 @@ import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.iffolhaitap.dao.NoticiaDao;
 import br.com.iffolhaitap.model.Noticia;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class NoticiaService {
 
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private NoticiaDao noticiaDao;
+	@ManyToOne
 	@Inject private TagService tagService;
+	@ManyToOne
 	@Inject private LogService logService;
 
 	public Noticia adicionar(Noticia noticia, UploadedFile imagemNoticia) throws Exception {
@@ -27,7 +34,7 @@ public class NoticiaService {
 		noticia.montarUrl();
 
 		if (imagemNoticia != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
 			imagemNoticia.writeTo(fotoSalva);
 			noticia.setImagemPrincipal(imagemNoticia.getFileName()); }
 
@@ -45,7 +52,7 @@ public class NoticiaService {
 	public Noticia atualizar(Noticia noticia, UploadedFile imagemNoticia) throws Exception {
 
 		if (imagemNoticia != null) {
-			File fotoSalva = new File("C:\\Workspace\\iffolha\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
+			File fotoSalva = new File("D:\\VScode\\iffolha\\iffolhaitaperuna\\WebContent\\img\\imagens-noticia", imagemNoticia.getFileName());
 			imagemNoticia.writeTo(fotoSalva);
 			noticia.setImagemPrincipal(imagemNoticia.getFileName()); }
 

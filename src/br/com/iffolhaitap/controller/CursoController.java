@@ -3,6 +3,8 @@ package br.com.iffolhaitap.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 import br.com.caelum.vraptor.Controller;
@@ -19,17 +21,21 @@ import br.com.iffolhaitap.service.CursoService;
 import br.com.iffolhaitap.util.HibernateUtil;
 import br.com.iffolhaitap.util.Sessao;
 
+@Entity
 @Controller
 public class CursoController {
 
 	@Inject
 	private Result result;
+	@ManyToOne
 	@Inject
 	private CursoDao cursoDao;
 	@Inject
 	private Validator validator;
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private CursoService cursoService;
 
@@ -111,7 +117,7 @@ public class CursoController {
 			result.redirectTo(this).lista("",1);
 		} catch (Exception e) {
 			HibernateUtil.rollback();
-			validator.add(new SimpleMessage("error", "Transação não Efetuada"));
+			validator.add(new SimpleMessage("error", "Transaï¿½ï¿½o nï¿½o Efetuada"));
 			validator.onErrorRedirectTo(this).lista("",1);
 		}
 

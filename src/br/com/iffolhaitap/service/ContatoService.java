@@ -11,16 +11,23 @@ import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.iffolhaitap.dao.ContatoDao;
 import br.com.iffolhaitap.model.Contato;
 import br.com.iffolhaitap.util.Sessao;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
 @RequestScoped
 public class ContatoService {
 
+	@ManyToOne
 	@Inject
 	private Sessao sessao;
+	@ManyToOne
 	@Inject
 	private ContatoDao contatoDao;
+	@ManyToOne
 	@Inject
 	private TagService tagService;
+	@ManyToOne
 	@Inject
 	private LogService logService;
 
