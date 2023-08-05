@@ -27,14 +27,18 @@ public class NoticiaDao extends HibernateDao<Noticia> {
 
 		Conjunction conjuctionPaginacao = Restrictions.conjunction();
 		conjuctionPaginacao.add(Restrictions.ilike("titulo", busca, MatchMode.ANYWHERE));
+		Criteria criteria = session.createCriteria(classePersistida);
 
 		if (ehDestaque != null && ehDestaque == true) {
+
 			conjuctionPaginacao.add(Restrictions.eq("ehDestaque", ehDestaque));
+			criteria.addOrder(Order.asc("ordemDestaque"));
+			criteria.addOrder(Order.desc("id"));
 		}
-		
+
 		if(validarAtivo)
 			conjuctionPaginacao.add(Restrictions.eq("ehAtiva", true));
-		
+
 		if (tag != null && tag.getId() > 0) {
 			conjuctionPaginacao.add(Restrictions.eq("tags.id", tag.getId()));
 			return paginar(conjuctionPaginacao, paginaAtual, Order.desc("id"), "tags");
@@ -55,9 +59,11 @@ public class NoticiaDao extends HibernateDao<Noticia> {
 
 	public List<Noticia> buscarTresUltimasNoticias() {
 		Criteria criteria = session.createCriteria(classePersistida);
+		criteria.addOrder(Order.asc("ordemDestaque"));
 		criteria.addOrder(Order.desc("id"));
 		criteria.add(Restrictions.eq("ehDestaque", true));
 		criteria.add(Restrictions.eq("ehAtiva", true));
+		criteria.setFirstResult(1);
 		criteria.setMaxResults(3);
 		return criteria.list();
 	}
@@ -67,6 +73,8 @@ public class NoticiaDao extends HibernateDao<Noticia> {
 		criteria.add(Restrictions.eq("ehDestaque", true));
 		criteria.add(Restrictions.eq("ehAtiva", true));
 
+
+		criteria.addOrder(Order.asc("ordemDestaque"));
 		criteria.addOrder(Order.desc("id"));
 		criteria.setMaxResults(1);
 
