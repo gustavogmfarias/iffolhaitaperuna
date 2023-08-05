@@ -22,7 +22,7 @@ public class QuemsomosController {
 	@Get("/quemsomos")
 	public void quemsomos() {
 
-		Noticia quemsomos = noticiaDao.get(47l);
+		Noticia quemsomos = noticiaDao.get(7l);
 		result.include("noticia", quemsomos);
 
 	}

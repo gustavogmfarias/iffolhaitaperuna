@@ -26,19 +26,19 @@ public class LoginService {
 		Usuario usuarioBanco = usuarioDao.procuraPorEmail(usuario.getEmail());
 
 		if (usuarioBanco == null) {
-			throw new Exception("Usu�rio n�o encontrado");
+			throw new Exception("Usu&aacute;rio no encontrado");
 		}
 
 		if (!usuarioBanco.getSenha().equals(usuario.getSenha())) {
-			throw new Exception("Senha inv�lida");
+			throw new Exception("Senha inv&aacute;lida");
 		}
 
 		sessao.setUsuario(usuarioBanco);
 
 
-		
+
 	}
-	
-	
-	
+
+
+
 }

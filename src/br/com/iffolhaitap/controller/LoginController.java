@@ -53,7 +53,7 @@ public class LoginController {
 			validator.onErrorRedirectTo(this).login();
 		}
 
-		result.include("message", "Usu�rio logado com sucesso");
+		result.include("message", "Usu&aacute;rio logado com sucesso");
 
 		try {
 			HibernateUtil.beginTransaction();

@@ -1,0 +1,15 @@
+Dashboard: volta para a tela inicial da dashboard
+Usuários: usada para listar, cadastrar, deletar ou editar usuários.
+Autores: usada para listar, cadastrar, deletar ou editar autores.
+Cursos: usada para listar, cadastrar, deletar ou editar cursos.
+Turmas: usada para listar, cadastrar, deletar ou editar turmas.
+Gêneros de Texto: usada para listar, cadastrar, deletar ou editar Gêneros Textuais.
+Notícias: usada para listar, cadastrar, deletar ou editar notícias.
+Artigos: usada para listar, cadastrar, deletar ou editar artigos.
+Videos: usada para listar, cadastrar, deletar ou editar vídeos.
+Newsletter: usada para listar, cadastrar, deletar ou editar inscritos na newsletter do portal.
+Contatos: usada para listar, cadastrar, deletar ou editar contatos realizados no portal.
+Log: usada para listar os logs de alterações feitas no sistema.
+Configurações: Usada para alterar configurações importantes das funcionalidades do sistema.
+Alterar senha: usada para o usuário alterar a própria senha
+Sair: Usada para fazer logout no sistema.

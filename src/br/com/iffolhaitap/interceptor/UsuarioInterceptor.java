@@ -24,21 +24,21 @@ import br.com.iffolhaitap.util.Sessao;
 @Entity
 @RequestScoped @Intercepts
 public class UsuarioInterceptor implements Interceptor {
-	
+
 	@ManyToOne
 	@Inject private Sessao sessao;
 	@Inject private Result result;
 	@Inject private HttpServletRequest request;
-	
+
 	@Override
 	public void intercept(InterceptorStack stack, ControllerMethod method, Object controllerInstance)
 			throws InterceptionException {
 		String urlDeContinuacao = request.getRequestURL().toString();
-		
+
 		if(method.containsAnnotation(Privado.class)) {
 			if(sessao.getUsuario() == null ) {
 				sessao.setUrlContinuacao(urlDeContinuacao);
-				result.include("error", "Voc� precisa efetuar o login");
+				result.include("error", "Voc&ecirc; precisa efetuar o login");
 				result.redirectTo(LoginController.class).login();
 				return;
 			}
@@ -46,31 +46,31 @@ public class UsuarioInterceptor implements Interceptor {
 			if(perfis != null && perfis.length > 0) {
 				boolean podeAcessar = Arrays.asList(perfis).contains(sessao.getUsuario().getPerfil());
 				if(!podeAcessar) {
-					
+
 					sessao.limparUrlDeContinuacao();
-					result.include("error", "Voc� n�o tem permiss�o para acessar essa url");
+					result.include("error", "Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa url");
 					result.redirectTo(IndexController.class).inicio();
-					
+
 				}
-			} 
-		} 
-		
-		
-		
+			}
+		}
+
+
+
 		sessao.limparUrlDeContinuacao();
 		stack.next(method, controllerInstance);
 	}
 
 	@Override
 	public boolean accepts(ControllerMethod method) {
-		
+
 		if(method.getController().getType().equals(LoginController.class))
 			return false;
-		
+
 		return true;
 	}
 
-	
-	
-	
+
+
+
 }

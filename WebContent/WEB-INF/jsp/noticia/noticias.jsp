@@ -8,14 +8,14 @@
 	<div class="content-wrapper">
 		<div class="container">
 			<form class="m-3 validateForm load "
-				action="${sessao.urlPadrao}noticias/pesquisar" method="get"
+				action="${sessao.urlPadrao}noticias" method="get"
 				role="form" enctype="multipart/form-data">
 				<div class="form-group "
 					style="display: flex !important; justify-content: between !important; ">
 					<input
 						style="border-radius: 50px !important; width: 85% !important"
 						class="form-control required" id="noticiaTitulo" type="text"
-						name="noticia.titulo" placeholder="digite algo para pesquisar!">
+						name="busca" placeholder="digite algo para pesquisar!">
 					<input style="width: 12% !important; margin-left: 3% !important" type="submit"
 						class="btn btn-primary" value="Pesquisar" />
 				</div>

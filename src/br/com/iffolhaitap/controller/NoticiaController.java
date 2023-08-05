@@ -64,7 +64,7 @@ public class NoticiaController {
 	@Privado
 	@Get("/adm/noticias")
 	public void lista(String busca, Integer paginaAtual, Boolean ehDestaque) {
-		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, ehDestaque, null);
+		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, ehDestaque, null, false);
 		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 		result.include("ehDestaque", ehDestaque);
@@ -169,7 +169,7 @@ public class NoticiaController {
 	public void noticias(String busca, Integer paginaAtual, Tag tag) {
 
 		List<Tag> tags = tagDao.buscaTodos();
-		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, null, tag);
+		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, null, tag, true);
 		result.include("paginacao", paginacao);
 		result.include("busca", busca);
 		result.include("tags", tags);
@@ -191,16 +191,5 @@ public class NoticiaController {
 		result.forwardTo(this).noticias(null, null, tag);
 	}
 
-	@Get("/noticias/pesquisar")
-	public void pesquisa(String busca, Integer paginaAtual, Tag tag) {
-
-		List<Tag> tags = tagDao.buscaTodos();
-		Paginacao<Noticia> paginacao = noticiaDao.lista(busca, paginaAtual, null, null);
-		result.include("paginacao", paginacao);
-		result.include("busca", busca);
-		result.include("tags", tags);
-		result.include("tag", tag);
-
-	}
 
 }
